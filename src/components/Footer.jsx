@@ -1,3 +1,5 @@
 export default function Footer() {
-  return;
+  return (
+    <h1>Io sono il footer</h1>
+  )
 }
