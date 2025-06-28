@@ -1,12 +1,22 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./assets/css/index.css";
-import * as bootstrap from "bootstrap";
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+/////////////// IMPORT BOOTSTRAP //////////////
 import "bootstrap/dist/css/bootstrap.min.css";
-import App from "./App.jsx";
+import * as bootstrap from "bootstrap";
+///////////////////////////////////////////////
+import './assets/css/index.css'
+import App from './App.jsx'
 
-createRoot(document.getElementById("root")).render(
+/////////////// IMPORT AXIOS ///////////////////
+import axios from 'axios';
+///////////////////////////////////////////////
+
+/////////////// IMPORT REACT-ROUTERS-DOM /////////////////////////////////
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+//////////////////////////////////////////////////////////////////////////
+
+createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
-  </StrictMode>
-);
+  </StrictMode>,
+)
