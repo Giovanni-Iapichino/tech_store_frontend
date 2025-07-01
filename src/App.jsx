@@ -25,7 +25,7 @@ export default function app() {
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/shop" element={<ShopPage />}></Route>
                 <Route
-                  path="/detailsproduct"
+                  path="/detailsproduct/:id"
                   element={<DetailsProductPage />}
                 ></Route>
                 <Route path="/comparison" element={<ComparisonPage />}></Route>
