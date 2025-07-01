@@ -50,8 +50,8 @@ export default function Navbar() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/wichlist">
-                Wichlist
+              <NavLink className="nav-link" to="/wishlist">
+                Wishlist
               </NavLink>
             </li>
             <li className="nav-item">

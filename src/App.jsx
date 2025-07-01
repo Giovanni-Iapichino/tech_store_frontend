@@ -29,7 +29,7 @@ export default function app() {
                   element={<DetailsProductPage />}
                 ></Route>
                 <Route path="/comparison" element={<ComparisonPage />}></Route>
-                <Route path="/wichlist" element={<WishListPage />}></Route>
+                <Route path="/wishlist" element={<WishListPage />}></Route>
                 <Route path="/cart" element={<CartPage />}></Route>
                 <Route path="/checkout" element={<CheckOutPage />}></Route>
                 <Route

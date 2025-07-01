@@ -50,8 +50,8 @@ export default function Footer() {
               </li>
               <li>
                 {" "}
-                <Link className="nav-link" to="/wichlist">
-                  Wichlist
+                <Link className="nav-link" to="/wishlist">
+                  Wishlist
                 </Link>
               </li>
               <li>
