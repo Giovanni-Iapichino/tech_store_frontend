@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useProducts } from "../context/GetProductsContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "../context/CartContext";
 
 export default function ShopPage() {
   const { products, loading, error } = useProducts();
+  const { addToCart } = useCart();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [submittedTerm, setSubmittedTerm] = useState("");
@@ -75,6 +77,12 @@ export default function ShopPage() {
                       €{product.price}
                     </strong>
                   </div>
+                  <button
+                    className="mt-auto btn btn-primary"
+                    onClick={() => addToCart(product)}
+                  >
+                    Aggiungi al carrello
+                  </button>
                 </div>
               </div>
             </div>
