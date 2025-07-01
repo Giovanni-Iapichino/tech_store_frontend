@@ -1,0 +1,24 @@
+.container-details .col-md-6{
+    height: 600px;
+}
+.container-details .row{
+    margin: 30px 50px;
+}
+.container-details .col-md-6 .title{
+    padding: 20px 10px;
+}
+.container-details .col-md-6 .text{
+    padding: 20px 10px;
+}
+.container-details .col-md-6 .button{
+    padding: 20px 10px;
+}
+.container-details .col-md-6 .bottom-text{
+    padding: 20px 10px;
+}
+.container-form{
+    margin: 30px 50px;
+}
+.container-related {
+    margin: 30px 50px;
+}
