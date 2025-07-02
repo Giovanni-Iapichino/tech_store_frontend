@@ -19,19 +19,12 @@ export default function Navbar() {
   return (
     <header className="container">
       <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid d-flex justify-content-between">
-          {/* Bool shop a sinistra */}
-
+        {/* Bool shop a sinistra */}
+        <div className="container-fluid d-flex justify-content-between flex-lg-row align-items-center">
           <NavLink className="nav-link navbar-brand fs-3" aria-current="page" to="/">
             <span style={{ color: "#ff6543" }}>Tech</span>
             <span className="text-dark">Store</span>
           </NavLink>
-
-          {/* Bottone per mobile */}
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
           {/* Menu centrato */}
           <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul className="navbar-nav">
@@ -52,11 +45,10 @@ export default function Navbar() {
               </li>
             </ul>
           </div>
-
+          {/* Bottoni */}
           <div className="buttons d-flex gap-3">
             <Link className="position-relative" to="/wishlist">
               <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4" icon={faHeart} />
-
               {wishlistItems > 0 && (
                 <span
                   className="badge bg-dark position-absolute rounded-circle"
@@ -79,6 +71,10 @@ export default function Navbar() {
             </Link>
             <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4" icon={faUser} />
           </div>
+          {/* Bottone per mobile */}
+          <button className="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
         </div>
       </nav>
     </header>
