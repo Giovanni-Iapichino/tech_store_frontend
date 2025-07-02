@@ -14,8 +14,8 @@
   font-size: 18px;
 }
 .text .price {
-color: #fc3a3a;
-font-size: 21px;
+  color: #fc3a3a;
+  font-size: 21px;
 }
 .container-details .col-md-6 .text {
   padding: 20px 10px;
@@ -121,9 +121,21 @@ font-size: 21px;
   padding: 2px 6px;
   vertical-align: middle;
 }
+
 .promotion-item-content {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
+}
+
+.btn-orange {
+  background-color: #ff6543;
+  color: white;
+  border: none;
+}
+
+table thead.custom-thead th {
+  background-color: #ff6543;
+  color: white;
 }
