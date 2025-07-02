@@ -87,6 +87,9 @@ export default function ShopPage() {
                   <button className="mt-2 btn btn-primary" onClick={() => addToCart(product)}>
                     Aggiungi al carrello
                   </button>
+                  <button className="mt-2 btn btn-success" link={"/shop/2"}>
+                    Dettaglio prodotto
+                  </button>
                 </div>
               </div>
             </div>

@@ -25,11 +25,10 @@ export default function app() {
               <Routes>
                 <Route element={<DefaultLayout />}>
                   <Route path="/" element={<HomePage />}></Route>
-                  <Route path="/shop" element={<ShopPage />}></Route>
-                  <Route
-                    path="/detailsproduct/:id"
-                    element={<DetailsProductPage />}
-                  ></Route>
+                  <Route path="/shop" >
+                    <Route index element= {<ShopPage />}></Route>
+                    <Route path=":id" element= {<DetailsProductPage />}></Route>
+                  </Route>
                   <Route
                     path="/comparison"
                     element={<ComparisonPage />}

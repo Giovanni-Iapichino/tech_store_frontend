@@ -38,12 +38,6 @@ export default function Footer() {
               </li>
               <li>
                 {" "}
-                <Link className="nav-link" to="/detailsproduct">
-                  Details Product
-                </Link>
-              </li>
-              <li>
-                {" "}
                 <Link className="nav-link" to="/comparison">
                   Comparazione
                 </Link>
