@@ -11,35 +11,43 @@ export default function HomePage() {
 
   return (
     <>
-      <div id="carouselExampleIndicators" className="carousel slide h-30" data-bs-ride="carousel">
-        {/* Immagini */}
+      <div id="carouselExampleControlsNoTouching" className="carousel slide" data-bs-touch="false" data-bs-ride="carousel">
         <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src="/hero-placeholder.png" className="d-block w-100" alt="Slide 1" />
+          <div className="carousel-item active" style={{ height: "300px", width: "100%" }}>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center">
+              <div className="title">
+                <h1>Iphone 16 Pro Max</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+              </div>
+              <img className="d-block h-75" src="/smartphone/16pro.png" alt="..." />
+            </div>
           </div>
-          <div className="carousel-item">
-            <img src="/hero-placeholder.png" className="d-block w-100" alt="Slide 2" />
+          <div className="carousel-item" style={{ height: "300px", width: "100%" }}>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center">
+              <div className="title">
+                <h1>Xiaomi 14</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+              </div>
+              <img className="d-block h-100" src="/smartphone/xiaomi.png" alt="..." />
+            </div>
           </div>
-          <div className="carousel-item">
-            <img src="/hero-placeholder.png" className="d-block w-100" alt="Slide 3" />
+          <div className="carousel-item" style={{ height: "300px", width: "100%" }}>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center">
+              <div className="title">
+                <h1>Samsung S24</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+              </div>
+              <img className="d-block h-100" src="/smartphone/samsungs24.webp" alt="..." />
+            </div>
           </div>
         </div>
-
-        {/* Indicatori */}
-        <div className="carousel-indicators">
-          <button className="btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
-          <button className="btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button className="btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-
-        {/* Controlli */}
-        <button className="carousel-control-prev btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Precedente</span>
+          <span className="visually-hidden">Previous</span>
         </button>
-        <button className="carousel-control-next btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Successiva</span>
+          <span className="visually-hidden">Next</span>
         </button>
       </div>
       <main className="container">
@@ -94,22 +102,22 @@ export default function HomePage() {
         <div className="brands my-5">
           <div className="row align-items-center gap-3 justify-content-center">
             <Link to="/shop?brand=apple" className="card-brand border">
-              <img className="w-100" src="/apple.jpg" alt="Brand 1" />
+              <img className="w-100" src="/brand/apple.jpg" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=samsung" className="card-brand border">
-              <img className="w-100" src="/samsung.jpg" alt="Brand 1" />
+              <img className="w-100" src="/brand/samsung.jpg" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=lg" className="card-brand border">
-              <img className="w-100" src="/lg.png" alt="Brand 1" />
+              <img className="w-100" src="/brand/lg.png" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=huawei" className="card-brand border">
-              <img className="w-100" src="/huawei.png" alt="Brand 1" />
+              <img className="w-100" src="/brand/huawei.png" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=xiaomi" className="card-brand border">
-              <img className="w-100" src="/xiaomi.png" alt="Brand 1" />
+              <img className="w-100" src="/brand/xiaomi.png" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=motorola" className="card-brand border">
-              <img className="w-100" src="/motorola.svg" alt="Brand 1" />
+              <img className="w-100" src="/brand/motorola.svg" alt="Brand 1" />
             </Link>
           </div>
         </div>
