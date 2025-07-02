@@ -2,11 +2,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProductCardLigth({ product }) {
-  const { addToCart, removeFromCart } = useCart();
+  const { addToCart, removeFromCart, cart } = useCart();
   const [isInCart, setIsInCart] = useState(false);
+
+  useEffect(() => {
+    setIsInCart(cart.some((item) => item.id === product.id));
+  }, [cart]);
 
   return (
     <>
