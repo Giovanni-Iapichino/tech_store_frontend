@@ -47,7 +47,7 @@ export default function HomePage() {
           <div className="col-md-3">
             <div className="service d-flex gap-3">
               <div className="service-icon">
-                <FontAwesomeIcon className="fs-3 text-warning" icon={faCartShopping} />
+                <FontAwesomeIcon className="fs-3" style={{ color: "#ff6543" }} icon={faCartShopping} />
               </div>
               <div className="service-content">
                 <h5>Spedizione Gratuita</h5>
@@ -58,7 +58,7 @@ export default function HomePage() {
           <div className="col-md-3">
             <div className="service d-flex gap-3">
               <div className="service-icon">
-                <FontAwesomeIcon className="fs-3 text-warning" icon={faTrophy} />
+                <FontAwesomeIcon className="fs-3" style={{ color: "#ff6543" }} icon={faTrophy} />
               </div>
               <div className="service-content">
                 <h5>Qualità</h5>
@@ -69,7 +69,7 @@ export default function HomePage() {
           <div className="col-md-3">
             <div className="service d-flex gap-3">
               <div className="service-icon">
-                <FontAwesomeIcon className="fs-3 text-warning" icon={faClipboardList} />
+                <FontAwesomeIcon className="fs-3" style={{ color: "#ff6543" }} icon={faClipboardList} />
               </div>
               <div className="service-content">
                 <h5>Offerte</h5>
@@ -80,7 +80,7 @@ export default function HomePage() {
           <div className="col-md-3">
             <div className="service d-flex gap-3">
               <div className="service-icon">
-                <FontAwesomeIcon className="fs-3 text-warning" icon={faShieldHalved} />
+                <FontAwesomeIcon className="fs-3" style={{ color: "#ff6543" }} icon={faShieldHalved} />
               </div>
               <div className="service-content">
                 <h5>Sicurezza</h5>
@@ -101,8 +101,8 @@ export default function HomePage() {
           <Link to="/shop?brand=lg" className="card-brand border">
             <img className="w-100" src="/lg.png" alt="Brand 1" />
           </Link>
-          <Link to="/shop?brand=huaway" className="card-brand border">
-            <img className="w-100" src="/huaway.png" alt="Brand 1" />
+          <Link to="/shop?brand=huawei" className="card-brand border">
+            <img className="w-100" src="/huawei.png" alt="Brand 1" />
           </Link>
           <Link to="/shop?brand=xiaomi" className="card-brand border">
             <img className="w-100" src="/xiaomi.png" alt="Brand 1" />
