@@ -50,9 +50,10 @@ const ProductsProvider = ({ children }) => {
   const fetchPromotions = () => {
     setLoading(true);
     axios
-      .get("http://127.0.0.1:3000/api/v1/products/promo")
+      .get("http://127.0.0.1:3000/api/v1/products?promotion=true")
       .then((response) => {
         setPromotions(response.data.products);
+        console.log(response.data.products);
       })
       .catch((err) => {
         console.error("Errore nel recupero dei prodotti:", err);
