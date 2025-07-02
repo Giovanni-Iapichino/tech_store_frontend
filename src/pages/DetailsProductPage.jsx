@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEuroSign } from "@fortawesome/free-solid-svg-icons";
+import { faEuroSign,faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function DetailsProductPage() {
@@ -25,7 +25,10 @@ export default function DetailsProductPage() {
         <main>
           <div className="bottom-prev m-1">
             <Link to={`/shop`} >
-              <button className="btn btn-primary">Torna indietro</button>
+              <button className="btn btn-primary">
+                <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                Torna allo shop
+              </button>
             </Link>
           </div>
           <div className="container-details">
