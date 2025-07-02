@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function ShopPage() {
-  const { products, loading, error } = useProducts();
+  const { products, loading, error, fetchProducts } = useProducts();
   const { addToCart } = useCart();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,11 +18,16 @@ export default function ShopPage() {
   const [priceRange, setPriceRange] = useState(searchParams.get("price") || "All"); //fascia di prezzo selezionata
   const [selectedBrand, setSelectedBrand] = useState(searchParams.get("brand") || "All"); //brand selezionato
   const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(searchParams.get("os") || "All"); //sistema operativo selezionato
-  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1); //pagina attuale per la paginazione
+  const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
 
   const PRODUCTS_PER_PAGE = 4;
 
-  // aggiorna gli stati dei parametri
+  // Richiama i prodotti dal backend con paginazione
+  useEffect(() => {
+    fetchProducts(currentPage, PRODUCTS_PER_PAGE);
+  }, [currentPage]);
+
+  // aggiorna gli stati dei parametri URL
   useEffect(() => {
     setSearchTerm(searchParams.get("q") || "");
     setSubmittedTerm(searchParams.get("q") || "");
@@ -80,10 +85,11 @@ export default function ShopPage() {
     return matchesSearch && matchesPrice && matchesBrand && matchesOS;
   });
 
-  // paginazione
-  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+  // Usiamo i prodotti ricevuti dal backend come paginati
+  const paginatedProducts = filteredProducts; 
+
+  // Determino se siamo all'ultima pagina per disabilitare il next
+  const isLastPage = products.length < PRODUCTS_PER_PAGE;
 
   // gestione di invio ricerca
   const handleSearchSubmit = (e) => {
@@ -101,9 +107,11 @@ export default function ShopPage() {
   };
 
   const handleNextPage = () => {
-    const newPage = Math.min(currentPage + 1, totalPages);
-    setCurrentPage(newPage);
-    updateParams({ page: newPage });
+    if (!isLastPage) {
+      const newPage = currentPage + 1;
+      setCurrentPage(newPage);
+      updateParams({ page: newPage });
+    }
   };
 
   return (
@@ -131,7 +139,7 @@ export default function ShopPage() {
                     Aggiungi al carrello
                   </button>
                   <Link to={`/shop/${product.id}`}>
-                    <button className="mt-2 btn btn-success w-100">Dettaglio prodotto</button>
+                    <button className="mt-2 btn btn-success">Dettaglio prodotto</button>
                   </Link>
                 </div>
               </div>
@@ -148,25 +156,6 @@ export default function ShopPage() {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </form>
-
-          {/* Filtro campo */}
-          {/* <div className="shadow p-3 mb-4">
-            <h3 className="mt-3">Filtra per campo</h3>
-            {["All", "Title", "Model"].map((type) => (
-              <div key={type}>
-                <button
-                  className={`btn my-1 ${filterType === type ? "btn-primary" : "btn-light"}`}
-                  onClick={() => {
-                    setFilterType(type);
-                    setCurrentPage(1);
-                    updateParams({ type, page: 1 });
-                  }}
-                >
-                  {type}
-                </button>
-              </div>
-            ))}
-          </div> */}
 
           {/* Filtro brand */}
           <div className="shadow p-3 mb-4">
@@ -239,9 +228,9 @@ export default function ShopPage() {
           Prev
         </button>
         <span>
-          Pagina {currentPage} di {totalPages}
+          Pagina {currentPage}
         </span>
-        <button className="btn btn-outline-primary mx-3" onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <button className="btn btn-outline-primary mx-3" onClick={handleNextPage} disabled={isLastPage}>
           Next
         </button>
       </div>
