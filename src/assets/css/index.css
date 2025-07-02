@@ -1,68 +1,141 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container-details .col-md-6 {
+  height: 600px;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.container-details .row {
+  margin: 30px 50px;
 }
-a:hover {
-  color: #535bf2;
+.container-details .col-md-6 .title {
+  padding: 20px 10px;
 }
-
-body {
-  margin: 0;
+.title h1 {
+  font-size: 50px;
+}
+.text p {
+  font-size: 18px;
+}
+.text .price {
+  color: #089408;
+  font-size: 23px;
+}
+.container-details .col-md-6 .text {
+  padding: 20px 10px;
+}
+.container-details .col-md-6 .button {
+  padding: 20px 10px;
+}
+.container-details .col-md-6 .bottom-text {
+  padding: 20px 10px;
+}
+.container-form {
+  margin: 30px 50px;
+}
+.container-related {
+  margin: 30px 50px;
+}
+.card-brand {
+  width: 200px;
+  height: 100px;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.card-brand:hover {
+  transform: scale(1.08);
+  transition: transform 0.3s ease-in-out;
+}
+
+.promotion-item {
+  width: 180px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+/* .promotion-item:hover {
+  transform: scale(1.08);
+  transition: transform 0.3s ease-in-out;
+} */
+
+.action-buttons {
+  display: flex;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 0);
+}
+
+.promotion-item:hover .action-buttons {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+  animation: slideUpFadeIn 0.3s ease-in-out;
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 50px);
   }
-  a:hover {
-    color: #747bff;
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+.promo_state {
+  color: #000;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.original-price {
+  color: #888;
+  font-size: 0.95em;
+  margin-bottom: 2px;
+}
+.discounted-price {
+  color: #d90429;
+  font-size: 1em;
+  font-weight: bold;
+  word-break: break-word;
+  text-align: center;
+}
+.discounted-price .badge {
+  font-size: 0.75em;
+  padding: 2px 6px;
+  vertical-align: middle;
+}
+
+.promotion-item-content {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.btn-orange {
+  background-color: #ff6543;
+  color: white;
+  border: none;
+}
+
+table thead.custom-thead th {
+  background-color: #ff6543;
+  color: white;
 }
