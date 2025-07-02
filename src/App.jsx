@@ -14,30 +14,33 @@ import CheckOutPage from "./pages/CheckOutPage";
 import OrderSummaryPage from "./pages/OrderSummaryPage";
 import { ProductsProvider } from "./context/GetProductsContext";
 import { CartProvider } from "./context/CartContext";
+import { WishlistProvider } from "./context/WishlistContext";
 
 export default function app() {
   return (
     <>
       <ProductsProvider>
         <CartProvider>
-          <LoaderProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route element={<DefaultLayout />}>
-                  <Route path="/" element={<HomePage />}></Route>
-                  <Route path="/shop">
-                    <Route index element={<ShopPage />}></Route>
-                    <Route path=":id" element={<DetailsProductPage />}></Route>
+          <WishlistProvider>
+            <LoaderProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route element={<DefaultLayout />}>
+                    <Route path="/" element={<HomePage />}></Route>
+                    <Route path="/shop">
+                      <Route index element={<ShopPage />}></Route>
+                      <Route path=":id" element={<DetailsProductPage />}></Route>
+                    </Route>
+                    <Route path="/comparison" element={<ComparisonPage />}></Route>
+                    <Route path="/wishlist" element={<WishListPage />}></Route>
+                    <Route path="/cart" element={<CartPage />}></Route>
+                    <Route path="/checkout" element={<CheckOutPage />}></Route>
+                    <Route path="/ordersummary" element={<OrderSummaryPage />}></Route>
                   </Route>
-                  <Route path="/comparison" element={<ComparisonPage />}></Route>
-                  <Route path="/wishlist" element={<WishListPage />}></Route>
-                  <Route path="/cart" element={<CartPage />}></Route>
-                  <Route path="/checkout" element={<CheckOutPage />}></Route>
-                  <Route path="/ordersummary" element={<OrderSummaryPage />}></Route>
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </LoaderProvider>
+                </Routes>
+              </BrowserRouter>
+            </LoaderProvider>
+          </WishlistProvider>
         </CartProvider>
       </ProductsProvider>
     </>

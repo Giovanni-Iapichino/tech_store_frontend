@@ -3,15 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 
 export default function Navbar() {
   const { cart } = useCart();
+  const { wishlist } = useWishlist();
   const [cartItems, setCartItems] = useState(cart.length);
-  const [wishlistItems, setWishlistItems] = useState(0);
+  const [wishlistItems, setWishlistItems] = useState(wishlist.length);
 
   useEffect(() => {
     setCartItems(cart.length);
-  }, [cart]);
+    setWishlistItems(wishlist.length);
+  }, [cart, wishlist]);
 
   return (
     <header className="container">

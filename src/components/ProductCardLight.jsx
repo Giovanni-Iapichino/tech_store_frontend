@@ -2,15 +2,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 import { useState, useEffect } from "react";
 
 export default function ProductCardLigth({ product }) {
   const { addToCart, removeFromCart, cart } = useCart();
   const [isInCart, setIsInCart] = useState(false);
+  const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
+  const [isInWishlist, setIsInWishlist] = useState(false);
 
   useEffect(() => {
     setIsInCart(cart.some((item) => item.id === product.id));
   }, [cart]);
+
+  useEffect(() => {
+    setIsInWishlist(wishlist.some((item) => item.id === product.id));
+  }, [wishlist]);
 
   return (
     <>
@@ -86,13 +93,28 @@ export default function ProductCardLigth({ product }) {
             style={{ backgroundColor: "#ff6543" }}
             onClick={(e) => {
               e.preventDefault();
+              if (isInWishlist) {
+                removeFromWishlist(product.id);
+                setIsInWishlist(false);
+              } else {
+                addToWishlist(product);
+                setIsInWishlist(true);
+              }
             }}
           >
-            <FontAwesomeIcon
-              className="fs-3 cursor-pointer"
-              style={{ height: "20px", width: "20px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}
-              icon={faHeart}
-            />
+            {isInWishlist ? (
+              <FontAwesomeIcon
+                className="fs-3 cursor-pointer"
+                style={{ height: "20px", width: "20px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                icon={faTrashCan}
+              />
+            ) : (
+              <FontAwesomeIcon
+                className="fs-3 cursor-pointer"
+                style={{ height: "20px", width: "20px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                icon={faHeart}
+              />
+            )}
           </button>
         </div>
       </Link>
