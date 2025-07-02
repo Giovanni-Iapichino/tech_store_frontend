@@ -32,6 +32,9 @@
 .container-related {
   margin: 30px 50px;
 }
+.bottom-text p{
+  font-size: 18px;
+}
 .card-brand {
   width: 200px;
   height: 100px;

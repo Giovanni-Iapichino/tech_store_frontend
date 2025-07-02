@@ -46,13 +46,13 @@ export default function DetailsProductPage() {
                   {product.description}</p>
                 </div>
                 <div className="button ">
-                  <button className="btn btn-danger">Ordina</button>
-                  <button className="btn btn-success m-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
-                  <button className="btn btn-dark">&hearts;</button>
+                  <button className="btn btn-danger p-2">Ordina</button>
+                  <button className="btn btn-success m-2 p-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
+                  <button className="btn btn-dark py-2">&hearts;</button>
                 </div>
                 <div className="bottom-text">
-                  <p>{product.brand}</p>
-                  <p>{product.title}{product.model}</p>
+                  <p><strong>Category:</strong><br /> 
+                  Smartphone, {product.brand}</p>
                 </div>
               </div>
             </div>
