@@ -7,6 +7,7 @@ import { useCart } from "../context/CartContext";
 export default function Navbar() {
   const { cart } = useCart();
   const [cartItems, setCartItems] = useState(cart.length);
+  const [wishlistItems, setWishlistItems] = useState(0);
 
   useEffect(() => {
     setCartItems(cart.length);
@@ -53,12 +54,14 @@ export default function Navbar() {
             <Link className="position-relative" to="/wishlist">
               <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4" icon={faHeart} />
 
-              <span
-                className="badge bg-dark position-absolute rounded-circle"
-                style={{ top: "-10px", right: "-10px", width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}
-              >
-                {cartItems}
-              </span>
+              {wishlistItems > 0 && (
+                <span
+                  className="badge bg-dark position-absolute rounded-circle"
+                  style={{ top: "-10px", right: "-10px", width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  {wishlistItems}
+                </span>
+              )}
             </Link>
             <Link className="position-relative" to="/cart">
               <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faCartShopping} />
