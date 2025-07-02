@@ -85,3 +85,35 @@
     transform: translate(-50%, 0);
   }
 }
+
+.promo_state {
+  color: #000;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.original-price {
+  color: #888;
+  font-size: 0.95em;
+  margin-bottom: 2px;
+}
+.discounted-price {
+  color: #d90429;
+  font-size: 1em;
+  font-weight: bold;
+  word-break: break-word;
+  text-align: center;
+}
+.discounted-price .badge {
+  font-size: 0.75em;
+  padding: 2px 6px;
+  vertical-align: middle;
+}
+.promotion-item-content {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
