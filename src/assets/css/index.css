@@ -14,8 +14,8 @@
   font-size: 18px;
 }
 .text .price {
-color: #fc3a3a;
-font-size: 21px;
+  color: #fc3a3a;
+  font-size: 21px;
 }
 .container-details .col-md-6 .text {
   padding: 20px 10px;
@@ -94,4 +94,15 @@ font-size: 21px;
     opacity: 1;
     transform: translate(-50%, 0);
   }
+}
+
+.btn-orange {
+  background-color: #ff6543;
+  color: white;
+  border: none;
+}
+
+table thead.custom-thead th {
+  background-color: #ff6543;
+  color: white;
 }
