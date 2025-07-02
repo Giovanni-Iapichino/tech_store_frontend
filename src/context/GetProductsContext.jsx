@@ -10,10 +10,12 @@ const ProductsProvider = ({ children }) => {
   const [bestSeller, setBestSeller] = useState([]);
   const [promotions, setPromotions] = useState([]);
 
-  const fetchProducts = () => {
+  const fetchProducts = (page = 1, limit = 4) => {
     setLoading(true);
     axios
-      .get("http://127.0.0.1:3000/api/v1/products")
+      .get("http://127.0.0.1:3000/api/v1/products", {
+        params: {page, limit},
+      })
       .then((response) => {
         setProducts(response.data.products);
         console.log(response.data.products);
@@ -70,7 +72,7 @@ const ProductsProvider = ({ children }) => {
     fetchPromotions();
   }, []);
 
-  return <ProductsContext.Provider value={{ products, loading, error, bestSeller, fetchBestSeller, promotions }}>{children}</ProductsContext.Provider>;
+  return <ProductsContext.Provider value={{ products, loading, error, bestSeller, fetchBestSeller, promotions, fetchProducts }}>{children}</ProductsContext.Provider>;
 };
 
 const useProducts = () => {
