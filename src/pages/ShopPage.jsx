@@ -131,7 +131,7 @@ export default function ShopPage() {
                     Aggiungi al carrello
                   </button>
                   <Link to={`/shop/${product.id}`}>
-                    <button className="mt-2 btn btn-success">Dettaglio prodotto</button>
+                    <button className="mt-2 btn btn-success w-100">Dettaglio prodotto</button>
                   </Link>
                 </div>
               </div>

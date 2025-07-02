@@ -40,11 +40,6 @@ export default function Navbar() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/detailsproduct">
-                Details Product
-              </NavLink>
-            </li>
-            <li className="nav-item">
               <NavLink className="nav-link" to="/comparison">
                 Comparazione
               </NavLink>

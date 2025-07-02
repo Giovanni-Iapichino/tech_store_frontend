@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,11 @@ export default function DetailsProductPage() {
     <>
       {product ?(
         <main>
+          <div className="bottom-prev m-1">
+            <Link to={`/shop`} >
+              <button className="btn btn-primary">Torna indietro</button>
+            </Link>
+          </div>
           <div className="container-details">
             <div className="row ">
               <div className="col-md-6 mb-6">
