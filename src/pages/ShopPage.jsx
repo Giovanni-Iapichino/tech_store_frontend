@@ -286,7 +286,7 @@ export default function ShopPage() {
 
   // filtro generale
   const filteredProducts = products.filter((product) => {
-    const matchesSearch =submittedTerm.trim() === "" || getFilteredField(product).toLowerCase().includes(submittedTerm.toLowerCase()); //q = ricerca generale
+    const matchesSearch = submittedTerm.trim() === "" || getFilteredField(product).toLowerCase().includes(submittedTerm.toLowerCase()); //q = ricerca generale
     const matchesPrice = isPriceInRange(product.price); // prezzo
     const matchesBrand = selectedBrand === "All" || product.brand === selectedBrand; // brand
     const matchesOS = selectedOperatingSystem === "All" || product.operating_system === selectedOperatingSystem; // sistema operativo
@@ -297,10 +297,7 @@ export default function ShopPage() {
   // paginazione
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const paginatedProducts = filteredProducts.slice(
-    startIndex,
-    startIndex + PRODUCTS_PER_PAGE
-  );
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   // gestione di invio ricerca
   const handleSearchSubmit = (e) => {
@@ -335,23 +332,16 @@ export default function ShopPage() {
             <div key={product.id} className="col-md-6 col-lg-4">
               <div className="card shadow-sm h-100">
                 <div className="card-body d-flex flex-column">
-                  <h5 className="card-title fw-semibold">
-                    {`${product.brand} ${product.title} ${product.model}`}
-                  </h5>
+                  <h5 className="card-title fw-semibold">{`${product.brand} ${product.title} ${product.model}`}</h5>
                   <p className="text-muted mb-2">{product.description}</p>
                   <div className="mt-auto">
                     <div>
                       <span>confronta </span>
                       <input type="checkbox" />
                     </div>
-                    <strong className="fs-5 text-success">
-                      €{product.price}
-                    </strong>
+                    <strong className="fs-5 text-success">€{product.price}</strong>
                   </div>
-                  <button
-                    className="mt-2 btn btn-primary"
-                    onClick={() => addToCart(product)}
-                  >
+                  <button className="mt-2 btn btn-primary" onClick={() => addToCart(product)}>
                     Aggiungi al carrello
                   </button>
                   <button className="mt-2 btn btn-success" link={"/shop/2"}>
@@ -361,27 +351,13 @@ export default function ShopPage() {
               </div>
             </div>
           ))}
-          {paginatedProducts.length === 0 && (
-            <p className="mt-3">Nessun prodotto trovato.</p>
-          )}
+          {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
         </div>
 
-        <div
-          className="d-flex flex-column mx-3 h-100"
-          style={{ minWidth: "250px" }}
-        >
+        <div className="d-flex flex-column mx-3 h-100" style={{ minWidth: "250px" }}>
           {/* Ricerca */}
-          <form
-            onSubmit={handleSearchSubmit}
-            className="input-group shadow mb-4"
-          >
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-control"
-              placeholder="Cerca prodotto..."
-            />
+          <form onSubmit={handleSearchSubmit} className="input-group shadow mb-4">
+            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="form-control" placeholder="Cerca prodotto..." />
             <button className="btn btn-primary" type="submit">
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
@@ -412,9 +388,7 @@ export default function ShopPage() {
             {uniqueBrands.map((brand) => (
               <div key={brand}>
                 <button
-                  className={`btn my-1 ${
-                    selectedBrand === brand ? "btn-primary" : "btn-light"
-                  }`}
+                  className={`btn my-1 ${selectedBrand === brand ? "btn-primary" : "btn-light"}`}
                   onClick={() => {
                     setSelectedBrand(brand);
                     setCurrentPage(1);
@@ -433,9 +407,7 @@ export default function ShopPage() {
             {uniqueOperatingSystems.map((os) => (
               <div key={os}>
                 <button
-                  className={`btn my-1 ${
-                    selectedOperatingSystem === os ? "btn-primary" : "btn-light"
-                  }`}
+                  className={`btn my-1 ${selectedOperatingSystem === os ? "btn-primary" : "btn-light"}`}
                   onClick={() => {
                     setSelectedOperatingSystem(os);
                     setCurrentPage(1);
@@ -460,9 +432,7 @@ export default function ShopPage() {
             ].map(({ label, value }) => (
               <div key={value}>
                 <button
-                  className={`btn my-1 ${
-                    priceRange === value ? "btn-primary" : "btn-light"
-                  }`}
+                  className={`btn my-1 ${priceRange === value ? "btn-primary" : "btn-light"}`}
                   onClick={() => {
                     setPriceRange(value);
                     setCurrentPage(1);
@@ -479,21 +449,13 @@ export default function ShopPage() {
 
       {/* Paginazione */}
       <div className="my-3 w-100 mx-auto d-flex justify-content-center align-items-center border rounded p-2">
-        <button
-          className="btn btn-outline-primary mx-3"
-          onClick={handlePrevPage}
-          disabled={currentPage === 1}
-        >
+        <button className="btn btn-outline-primary mx-3" onClick={handlePrevPage} disabled={currentPage === 1}>
           Prev
         </button>
         <span>
           Pagina {currentPage} di {totalPages}
         </span>
-        <button
-          className="btn btn-outline-primary mx-3"
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-        >
+        <button className="btn btn-outline-primary mx-3" onClick={handleNextPage} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
