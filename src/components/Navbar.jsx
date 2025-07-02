@@ -50,17 +50,26 @@ export default function Navbar() {
           </div>
 
           <div className="buttons d-flex gap-3">
-            <Link to="/wishlist">
+            <Link className="position-relative" to="/wishlist">
               <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4" icon={faHeart} />
-            </Link>
-            <Link className="position-relative" to="/cart">
-              <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faCartShopping} />
+
               <span
                 className="badge bg-dark position-absolute rounded-circle"
                 style={{ top: "-10px", right: "-10px", width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
                 {cartItems}
               </span>
+            </Link>
+            <Link className="position-relative" to="/cart">
+              <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faCartShopping} />
+              {cartItems > 0 && (
+                <span
+                  className="badge bg-dark position-absolute rounded-circle"
+                  style={{ top: "-10px", right: "-10px", width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  {cartItems}
+                </span>
+              )}
             </Link>
             <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4" icon={faUser} />
           </div>
