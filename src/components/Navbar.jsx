@@ -39,7 +39,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/shop">
-                  Promozioni
+                  Offerte
                 </NavLink>
               </li>
               <li className="nav-item">
