@@ -7,6 +7,16 @@
 .container-details .col-md-6 .title {
   padding: 20px 10px;
 }
+.title h1 {
+  font-size: 50px;
+}
+.text p {
+  font-size: 18px;
+}
+.text .price {
+color: #fc3a3a;
+font-size: 21px;
+}
 .container-details .col-md-6 .text {
   padding: 20px 10px;
 }
