@@ -1,8 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faClipboardList, faShieldHalved, faTrophy, faChevronLeft, faChevronRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProductCardLigth from "../components/ProductCardLight";
+import { useProducts } from "../context/GetProductsContext";
+
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
+  const { bestSeller, promotions } = useProducts();
+
   return (
     <main className="container">
       <div id="carouselExampleIndicators" className="carousel slide my-5 h-50" data-bs-ride="carousel">
@@ -86,24 +92,24 @@ export default function HomePage() {
       </div>
       <div className="brands my-5">
         <div className="row align-items-center gap-3 justify-content-center">
-          <div className="card-brand border">
+          <Link to="/shop?brand=apple" className="card-brand border">
             <img className="w-100" src="/apple.jpg" alt="Brand 1" />
-          </div>
-          <div className="card-brand border">
+          </Link>
+          <Link to="/shop?brand=samsung" className="card-brand border">
             <img className="w-100" src="/samsung.jpg" alt="Brand 1" />
-          </div>
-          <div className="card-brand border">
+          </Link>
+          <Link to="/shop?brand=lg" className="card-brand border">
             <img className="w-100" src="/lg.png" alt="Brand 1" />
-          </div>
-          <div className="card-brand border">
+          </Link>
+          <Link to="/shop?brand=huaway" className="card-brand border">
             <img className="w-100" src="/huaway.png" alt="Brand 1" />
-          </div>
-          <div className="card-brand border">
+          </Link>
+          <Link to="/shop?brand=xiaomi" className="card-brand border">
             <img className="w-100" src="/xiaomi.png" alt="Brand 1" />
-          </div>
-          <div className="card-brand border">
+          </Link>
+          <Link to="/shop?brand=motorola" className="card-brand border">
             <img className="w-100" src="/motorola.svg" alt="Brand 1" />
-          </div>
+          </Link>
         </div>
       </div>
       <h5 className="my-5">Promotions</h5>
@@ -111,14 +117,7 @@ export default function HomePage() {
         <div className="banner">
           <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
         </div>
-        <div className="row gap-3">
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-        </div>
+        <div className="row gap-3">{promotions && promotions.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
         <div className="banner-arrow">
           <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
         </div>
@@ -128,14 +127,7 @@ export default function HomePage() {
         <div className="banner">
           <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
         </div>
-        <div className="row gap-4">
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-          <ProductCardLigth />
-        </div>
+        <div className="row gap-4">{bestSeller && bestSeller.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
         <div className="banner-arrow">
           <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
         </div>

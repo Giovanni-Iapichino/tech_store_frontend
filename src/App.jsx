@@ -26,21 +26,12 @@ export default function app() {
                 <Route element={<DefaultLayout />}>
                   <Route path="/" element={<HomePage />}></Route>
                   <Route path="/shop" element={<ShopPage />}></Route>
-                  <Route
-                    path="/detailsproduct/:id"
-                    element={<DetailsProductPage />}
-                  ></Route>
-                  <Route
-                    path="/comparison"
-                    element={<ComparisonPage />}
-                  ></Route>
+                  <Route path="/detailsproduct/:id" element={<DetailsProductPage />}></Route>
+                  <Route path="/comparison" element={<ComparisonPage />}></Route>
                   <Route path="/wishlist" element={<WishListPage />}></Route>
                   <Route path="/cart" element={<CartPage />}></Route>
                   <Route path="/checkout" element={<CheckOutPage />}></Route>
-                  <Route
-                    path="/ordersummary"
-                    element={<OrderSummaryPage />}
-                  ></Route>
+                  <Route path="/ordersummary" element={<OrderSummaryPage />}></Route>
                 </Route>
               </Routes>
             </BrowserRouter>
