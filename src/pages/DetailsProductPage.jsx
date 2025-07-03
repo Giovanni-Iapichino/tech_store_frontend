@@ -26,9 +26,7 @@ export default function DetailsProductPage() {
           <div className="bottom-prev m-1">
             <Link to={`/shop`} >
               <button className="btn btn-primary">
-                <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
-                Torna allo shop
-              </button>
+                <FontAwesomeIcon icon={faArrowLeft} className="m-1" /></button>
             </Link>
           </div>
           <div className="container-details">
@@ -49,8 +47,8 @@ export default function DetailsProductPage() {
                   {product.description}</p>
                 </div>
                 <div className="button ">
-                  <button className="btn btn-danger">Ordina</button>
-                  <button className="btn btn-success m-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
+                  <button className="btn btn-success">Acquista</button>
+                  <button className="btn btn-primary m-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
                   <button className="btn btn-dark">&hearts;</button>
                 </div>
                 <div className="bottom-text">
