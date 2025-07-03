@@ -6,6 +6,7 @@ import { useCart } from "../context/CartContext";
 // Hook che serve per leggere/modificare i parametri URL
 import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import ProductCardLight from "../components/ProductCardLight";
 
 export default function ShopPage() {
   const { products, loading, error, fetchProducts } = useProducts();
@@ -86,7 +87,7 @@ export default function ShopPage() {
   });
 
   // Usiamo i prodotti ricevuti dal backend come paginati
-  const paginatedProducts = filteredProducts; 
+  const paginatedProducts = filteredProducts;
 
   // Determino se siamo all'ultima pagina per disabilitare il next
   const isLastPage = products.length < PRODUCTS_PER_PAGE;
@@ -120,35 +121,14 @@ export default function ShopPage() {
         <strong>Smartphone disponibili</strong>
       </h2>
 
-      <div className="d-flex border p-1 h-100">
-        <div className="row g-4">
+      <div className="d-flex h-100 gap-4">
+        <div className="row gap-4 flex-grow-1">
           {paginatedProducts.map((product) => (
-            <div key={product.id} className="col-md-6 col-lg-4">
-              <div className="card shadow-sm h-100">
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title fw-semibold">{`${product.brand} ${product.title} ${product.model}`}</h5>
-                  <p className="text-muted mb-2">{product.description}</p>
-                  <div className="mt-auto">
-                    <div>
-                      <span>confronta </span>
-                      <input type="checkbox" />
-                    </div>
-                    <strong className="fs-5 text-success">€{product.price}</strong>
-                  </div>
-                  <button className="mt-2 btn btn-primary" onClick={() => addToCart(product)}>
-                    Aggiungi al carrello
-                  </button>
-                  <Link to={`/shop/${product.id}`}>
-                    <button className="mt-2 btn btn-success">Dettaglio prodotto</button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <ProductCardLight key={product.id} product={product} />
           ))}
           {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
         </div>
-
-        <div className="d-flex flex-column mx-3 h-100" style={{ minWidth: "250px" }}>
+        <div className="d-flex flex-column mx-3 h-100" style={{ minWidth: "150px" }}>
           {/* Ricerca */}
           <form onSubmit={handleSearchSubmit} className="input-group shadow mb-4">
             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="form-control" placeholder="Cerca prodotto..." />
@@ -159,7 +139,7 @@ export default function ShopPage() {
 
           {/* Filtro brand */}
           <div className="shadow p-3 mb-4">
-            <h3 className="mt-3">Filtra per brand</h3>
+            <h6 className="mt-3">Filtra per brand</h6>
             {uniqueBrands.map((brand) => (
               <div key={brand}>
                 <button
@@ -178,7 +158,7 @@ export default function ShopPage() {
 
           {/* Filtro sistema operativo */}
           <div className="shadow p-3 mb-4">
-            <h3 className="mt-3">Filtra per sistema operativo</h3>
+            <h6 className="mt-3">Filtra per sistema operativo</h6>
             {uniqueOperatingSystems.map((os) => (
               <div key={os}>
                 <button
@@ -197,7 +177,7 @@ export default function ShopPage() {
 
           {/* Filtro prezzo */}
           <div className="shadow p-3 mb-4">
-            <h3 className="mt-3">Filtra per prezzo</h3>
+            <h6 className="mt-3">Filtra per prezzo</h6>
             {[
               { label: "Tutti i prezzi", value: "All" },
               { label: "100€ – 200€", value: "100-200" },
@@ -227,9 +207,7 @@ export default function ShopPage() {
         <button className="btn btn-outline-primary mx-3" onClick={handlePrevPage} disabled={currentPage === 1}>
           Prev
         </button>
-        <span>
-          Pagina {currentPage}
-        </span>
+        <span>Pagina {currentPage}</span>
         <button className="btn btn-outline-primary mx-3" onClick={handleNextPage} disabled={isLastPage}>
           Next
         </button>
