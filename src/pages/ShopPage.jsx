@@ -147,7 +147,7 @@ export default function ShopPage() {
       <div className="mb-4">
         <HeaderMessage text="Shop" />
       </div>
-      <h2 className="mb-4">
+      <h2 className="mb-4" style={{ color: "#ff6543" }}>
         <strong>Smartphone disponibili</strong>
       </h2>
 
@@ -170,24 +170,29 @@ export default function ShopPage() {
             return (
               <div
                 key={product.id}
-                className="card p-3 shadow d-flex flex-column align-items-center justify-content-between"
+                className="card p-3 shadow d-flex flex-column align-items-center justify-content-between position-relative"
                 style={{ width: "14rem", height: "21rem" }}
               >
+                {/* Checkbox Confronta sopra l'immagine */}
+                <div className="compare-checkbox-container">
+                  <input
+                    type="checkbox"
+                    id={`compare-${product.id}`}
+                    className="compare-checkbox"
+                    checked={isInCompare}
+                    onChange={() =>
+                      isInCompare
+                        ? removeFromCompare(product.id)
+                        : addToCompare(product)
+                    }
+                  />
+                  <label htmlFor={`compare-${product.id}`} className="compare-checkbox-label">
+                    {/* Icona o testo custom */}
+                    <span className="compare-custom-check"></span>
+                    <span className="compare-label-text">Confronta</span>
+                  </label>
+                </div>
                 <ProductCardLight product={product} showCompareButton={false} />
-
-                {/* Bottone Confronta */}
-                <button
-                  className={`btn ${
-                    isInCompare ? "btn-danger" : "btn-outline-primary"
-                  } mt-2`}
-                  onClick={() =>
-                    isInCompare
-                      ? removeFromCompare(product.id)
-                      : addToCompare(product)
-                  }
-                >
-                  {isInCompare ? "Rimuovi dal confronto" : "Confronta"}
-                </button>
               </div>
             );
           })}
@@ -198,33 +203,16 @@ export default function ShopPage() {
         </div>
         <div
           className="d-flex flex-column mx-3 h-100"
-          style={{ minWidth: "150px" }}
+          style={{ minWidth: "180px" }}
         >
-          {/* Ricerca */}
-          <form
-            onSubmit={handleSearchSubmit}
-            className="input-group shadow mb-4"
-          >
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-control"
-              placeholder="Cerca prodotto..."
-            />
-            <button className="btn btn-primary" type="submit">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </form>
-
           {/* Filtro brand */}
-          <div className="shadow p-3 mb-4">
+          <div className="filter-section">
             <h6 className="mt-3">Filtra per brand</h6>
             {uniqueBrands.map((brand) => (
               <div key={brand}>
                 <button
-                  className={`btn my-1 ${
-                    selectedBrand === brand ? "btn-primary" : "btn-light"
+                  className={`filter-btn${
+                    selectedBrand === brand ? " selected" : ""
                   }`}
                   onClick={() => {
                     setSelectedBrand(brand);
@@ -239,13 +227,13 @@ export default function ShopPage() {
           </div>
 
           {/* Filtro sistema operativo */}
-          <div className="shadow p-3 mb-4">
+          <div className="filter-section">
             <h6 className="mt-3">Filtra per sistema operativo</h6>
             {uniqueOperatingSystems.map((os) => (
               <div key={os}>
                 <button
-                  className={`btn my-1 ${
-                    selectedOperatingSystem === os ? "btn-primary" : "btn-light"
+                  className={`filter-btn${
+                    selectedOperatingSystem === os ? " selected" : ""
                   }`}
                   onClick={() => {
                     setSelectedOperatingSystem(os);
@@ -260,7 +248,7 @@ export default function ShopPage() {
           </div>
 
           {/* Filtro prezzo */}
-          <div className="shadow p-3 mb-4">
+          <div className="filter-section">
             <h6 className="mt-3">Filtra per prezzo</h6>
             {[
               { label: "Tutti i prezzi", value: "All" },
@@ -271,8 +259,8 @@ export default function ShopPage() {
             ].map(({ label, value }) => (
               <div key={value}>
                 <button
-                  className={`btn my-1 ${
-                    priceRange === value ? "btn-primary" : "btn-light"
+                  className={`filter-btn${
+                    priceRange === value ? " selected" : ""
                   }`}
                   onClick={() => {
                     setPriceRange(value);
@@ -291,7 +279,7 @@ export default function ShopPage() {
       {/* Paginazione */}
       <div className="my-3 w-100 mx-auto d-flex justify-content-center align-items-center border rounded p-2">
         <button
-          className="btn btn-outline-primary mx-3"
+          className="pagination-btn"
           onClick={handlePrevPage}
           disabled={currentPage === 1}
         >
@@ -299,7 +287,7 @@ export default function ShopPage() {
         </button>
         <span>Pagina {currentPage}</span>
         <button
-          className="btn btn-outline-primary mx-3"
+          className="pagination-btn"
           onClick={handleNextPage}
           disabled={isLastPage}
         >
