@@ -21,7 +21,7 @@ export default function DetailsProductPage() {
   useEffect(fetchProduct, []);
   return (
     <>
-      {product ?(
+      {product ? (
         <main>
           <div className="bottom-prev m-1">
             <Link to={`/shop`} >
