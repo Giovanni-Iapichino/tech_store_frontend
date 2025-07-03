@@ -12,7 +12,7 @@ export default function OrderSummaryPage() {
           Il tuo numero d'ordine è: <strong>{orderNumber}</strong>
         </div>
       )}
-      <h4>A breve riceverai una email di conferma!!</h4>
+      <h4>A breve riceverai una email di conferma!</h4>
     </div>
   );
 }
