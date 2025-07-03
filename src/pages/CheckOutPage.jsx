@@ -1,6 +1,7 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function CheckOutPage() {
   const { cart, clearCart, total } = useCart();
@@ -28,26 +29,46 @@ export default function CheckOutPage() {
     setLoading(true);
     setError("");
     setSuccess(false);
-  }
 
-  try {
-    axios.post("http://127.0.0.1:3000/api/v1/orders", { billing, cart, total });
-    setSuccess(true);
-    clearCart();
-    setLoading(false);
-    navigate("/ordersummary");
-  } catch (err) {
-    setError(
-      "Si è verificato un errore durante il checkout. Riprova più tardi."
-    );
-  } finally {
-    setLoading(false);
+    const payload = {
+      user_name: billing.Nome,
+      user_lastname: billing.Cognome,
+      user_email: billing.Email,
+      user_city: billing.Città,
+      user_country: billing.Nazione,
+      user_address: billing.Indirizzo,
+      user_postalcode: billing.CAP,
+      total,
+      productList: cart,
+    };
+
+    axios
+      .post("http://127.0.0.1:3000/api/v1/orders", payload)
+      .then((response) => {
+        setSuccess(true);
+        clearCart();
+        setLoading(false);
+        navigate("/ordersummary", {
+          state: { order_number: response.data.order_number },
+        });
+      })
+      .catch((err) => {
+        console.error("Errore API:", err.response?.data || err.message);
+        setError(
+          "Si è verificato un errore durante il checkout. Riprova più tardi."
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   if (cart.length === 0) {
-    <div className="container text-center mt-5">
-      <h3>Il carrello è vuoto</h3>
-    </div>;
+    return (
+      <div className="container text-center mt-5">
+        <h3>Il carrello è vuoto</h3>
+      </div>
+    );
   }
 
   return (
@@ -155,6 +176,27 @@ export default function CheckOutPage() {
               )}
               {error && <div className="alert alert-danger mt-3">{error}</div>}
             </form>
+          </div>
+
+          <div className="col-md-6">
+            <h2>Riepilogo ordine</h2>
+            <ul className="list-group mb-3">
+              {cart.map((item) => (
+                <li
+                  className="list-group-item d-flex justify-content-between"
+                  key={item.id}
+                >
+                  <span>
+                    {item.brand} {item.title} {item.model} x{item.quantity}
+                  </span>
+                  <span>€ {(item.price * item.quantity).toFixed(2)}</span>
+                </li>
+              ))}
+              <li className="list-group-item d-flex justify-content-between">
+                <strong>Totale</strong>
+                <strong>€ {total.toFixed(2)}</strong>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
