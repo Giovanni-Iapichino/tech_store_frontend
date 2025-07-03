@@ -30,7 +30,8 @@ export default function DetailsProductPage() {
           <div className="bottom-prev m-1">
             <Link to={`/shop`} >
               <button className="btn btn-primary">
-                 <FontAwesomeIcon icon={faArrowLeft} className="m-1" />
+                 <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                 Torna allo shop
               </button>
             </Link>
           </div>
