@@ -4,12 +4,20 @@ import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function ProductCardLigth({ product }) {
   const { addToCart, removeFromCart, cart } = useCart();
   const [isInCart, setIsInCart] = useState(false);
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
   const [isInWishlist, setIsInWishlist] = useState(false);
+
+  const location = useLocation();
+  const isShopPage = location.pathname === "/shop";
+
+  useEffect(() => {
+    setIsInCart(cart.some((item) => item.id === product.id));
+  }, [cart]);
 
   useEffect(() => {
     setIsInCart(cart.some((item) => item.id === product.id));
@@ -50,13 +58,16 @@ export default function ProductCardLigth({ product }) {
         </div>
         <div className="promotion-item-content d-flex flex-column gap-2">
           <span className="text-center">{product.title[0].toUpperCase() + product.title.slice(1)}</span>
-          {product.promotion ? (
+          {product.promotion && (
             <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
               <span className="original-price text-decoration-line-through">{product.price}€</span>
               <span className="discounted-price text-danger fw-bold">{product.promotion.discount_price}€</span>
             </span>
-          ) : (
-            <></>
+          )}
+          {isShopPage && (
+            <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
+              <span className="original-price">{product.price}€</span>
+            </span>
           )}
         </div>
         <div className="action-buttons gap-2 position-absolute bottom-50% end-50% p-3">
