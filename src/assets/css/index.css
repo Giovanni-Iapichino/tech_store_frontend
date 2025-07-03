@@ -1,40 +1,17 @@
+/* --- Layout e container --- */
 .container-details .col-md-6 {
   height: 600px;
 }
-.container-details .row {
-  margin: 30px 50px;
-}
-.container-details .col-md-6 .title {
-  padding: 20px 10px;
-}
-.title h1 {
-  font-size: 50px;
-}
-.text p {
-  font-size: 18px;
-}
-.text .price {
-  color: #089408;
-  font-size: 23px;
-}
-.container-details .col-md-6 .text {
-  padding: 20px 10px;
-}
-.container-details .col-md-6 .button {
-  padding: 20px 10px;
-}
-.container-details .col-md-6 .bottom-text {
-  padding: 20px 10px;
-}
-.container-form {
-  margin: 30px 50px;
-}
+.container-details .row,
+.container-form,
 .container-related {
   margin: 30px 50px;
 }
-.bottom-text p{
+.bottom-text p {
   font-size: 18px;
 }
+
+/* --- Card Brand --- */
 .card-brand {
   width: 200px;
   height: 100px;
@@ -47,12 +24,11 @@
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }
-
 .card-brand:hover {
   transform: scale(1.08);
-  transition: transform 0.3s ease-in-out;
 }
 
+/* --- Promotion Item --- */
 .promotion-item {
   width: 180px;
   height: 250px;
@@ -64,30 +40,22 @@
   cursor: pointer;
 }
 
-/* .promotion-item:hover {
-  transform: scale(1.08);
-  transition: transform 0.3s ease-in-out;
-} */
-
+/* --- Action Buttons (non usati in ShopPage ma lasciati per coerenza) --- */
 .action-buttons {
   display: flex;
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.3s, transform 0.3s;
   pointer-events: none;
   position: absolute;
   left: 50%;
   top: 30%;
   transform: translate(-50%, 0);
+  transition: opacity 0.3s, transform 0.3s;
 }
-
 .promotion-item:hover .action-buttons {
   opacity: 1;
-  transform: translate(-50%, 0);
   pointer-events: auto;
   animation: slideUpFadeIn 0.3s ease-in-out;
 }
-
 @keyframes slideUpFadeIn {
   from {
     opacity: 0;
@@ -99,6 +67,7 @@
   }
 }
 
+/* --- Prezzi e badge --- */
 .promo_state {
   color: #000;
   font-size: 10px;
@@ -106,7 +75,6 @@
   padding: 2px 4px;
   border-radius: 4px;
 }
-
 .original-price {
   color: #888;
   font-size: 0.95em;
@@ -125,6 +93,7 @@
   vertical-align: middle;
 }
 
+/* --- Promotion Item Content --- */
 .promotion-item-content {
   width: 100%;
   overflow: hidden;
@@ -132,13 +101,155 @@
   white-space: normal;
 }
 
+/* --- Bottoni arancioni --- */
 .btn-orange {
   background-color: #ff6543;
   color: white;
   border: none;
 }
 
+/* --- Tabella --- */
 table thead.custom-thead th {
   background-color: #ff6543;
   color: white;
+}
+
+/* --- Form ricerca navbar --- */
+.np-form {
+  max-width: 250px;
+  background: #fff;
+  border-radius: 25px;
+  border: 1px solid #ff6543;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(255,101,67,0.04);
+}
+.np-input {
+  border-radius: 0;
+  background: transparent;
+  padding-left: 16px;
+  padding-right: 0;
+  color: #222;
+}
+
+/* --- FILTRI laterali --- */
+.filter-section {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(255,101,67,0.08);
+  padding: 22px 18px 18px 18px;
+  margin-bottom: 28px;
+  border: 1px solid #ff6543;
+}
+.filter-section h6 {
+  color: #ff6543;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.filter-btn {
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 1.5px solid #ff6543;
+  background: #fff;
+  color: #ff6543;
+  font-weight: 600;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  box-shadow: none;
+}
+.filter-btn.selected,
+.filter-btn:focus,
+.filter-btn:hover {
+  background: #ff6543;
+  color: #fff;
+  border: 1.5px solid #ff6543;
+  outline: none;
+}
+
+/* --- Checkbox Confronta sopra immagine --- */
+.compare-checkbox-container {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.compare-checkbox {
+  display: none;
+}
+.compare-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: rgba(255,255,255,0.92);
+  border-radius: 8px;
+  padding: 4px 10px 4px 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #ff6543;
+  transition: background 0.18s, color 0.18s;
+}
+.compare-custom-check {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ff6543;
+  border-radius: 4px;
+  margin-right: 7px;
+  background: #fff;
+  display: inline-block;
+  position: relative;
+  transition: background 0.18s, border 0.18s;
+}
+.compare-checkbox:checked + .compare-checkbox-label .compare-custom-check {
+  background: #ff6543;
+  border-color: #ff6543;
+}
+.compare-checkbox:checked + .compare-checkbox-label .compare-custom-check:after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  display: block;
+}
+.compare-label-text {
+  color: #ff6543;
+  margin-left: 0;
+  font-size: 0.98em;
+  font-weight: 600;
+}
+.compare-checkbox:checked + .compare-checkbox-label .compare-label-text {
+  color: #ff6543;
+}
+
+/* --- Bottoni paginazione --- */
+.pagination-btn {
+  background: #fff;
+  color: #ff6543;
+  border: 2px solid #ff6543;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  padding: 6px 22px;
+  margin: 0 8px;
+}
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f7f7f7;
+  color: #aaa;
+  border: 2px solid #eee;
+}
+.pagination-btn:focus,
+.pagination-btn:hover:not(:disabled) {
+  background: #ff6543;
+  color: #fff;
+  border: 2px solid #ff6543;
+  outline: none;
 }
