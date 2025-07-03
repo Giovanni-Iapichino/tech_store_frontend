@@ -19,7 +19,9 @@ export default function CheckOutPage() {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  function handleChange(e) {}
+  function handleChange(e) {
+    setBilling({ ...billing, [e.target.name]: e.target.value });
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -54,6 +56,105 @@ export default function CheckOutPage() {
         <div className="row">
           <div className="col-md-6">
             <h2>Dati di fatturazione</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Nome</label>
+                <input
+                  name="Nome"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Nome}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Cognome</label>
+                <input
+                  name="Cognome"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Cognome}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Email</label>
+                <input
+                  name="Email"
+                  type="email"
+                  onChange={handleChange}
+                  value={billing.Email}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Città</label>
+                <input
+                  name="Città"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Città}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Nazione</label>
+                <input
+                  name="Nazione"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Nazione}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Indirizzo</label>
+                <input
+                  name="Indirizzo"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Indirizzo}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">CAP</label>
+                <input
+                  name="CAP"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.CAP}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-orange"
+                disabled={loading}
+              >
+                {loading ? "Invio in corso..." : "Procedi al pagamento"}
+              </button>
+              {success && (
+                <div className="alert alert-success mt-3">
+                  Ordine effettuato con successo!
+                </div>
+              )}
+              {error && <div className="alert alert-danger mt-3">{error}</div>}
+            </form>
           </div>
         </div>
       </div>
