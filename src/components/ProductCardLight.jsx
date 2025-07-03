@@ -1,10 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faHeart,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useCompare } from "../context/CompareContext"; // Importo il contesto per la comparazione dei prodotti
 
 export default function ProductCardLigth({ product }) {
   const { addToCart, removeFromCart, cart } = useCart();
@@ -30,7 +35,7 @@ export default function ProductCardLigth({ product }) {
   return (
     <>
       <Link
-        className="text-dark col-2 border rounded-3 overflow-hidden d-flex flex-column justify-content-around align-items-center gap-3 promotion-item position-relative text-decoration-none"
+        className="text-dark col-2 border rounded-3 overflow-hidden d-flex flex-column justify-content-around align-items-center gap-3 promotion-item position-relative text-decoration-none mx-auto"
         to={`/shop/${product.id}`}
       >
         <div className="position-absolute top-0 end-0 p-1">
@@ -48,20 +53,33 @@ export default function ProductCardLigth({ product }) {
               </div>
             ) : (
               <div className="promotion-item-content d-flex flex-column gap-2">
-                <span>dal {new Date(product.promotion.start_date).toLocaleDateString()}</span>
+                <span>
+                  dal{" "}
+                  {new Date(product.promotion.start_date).toLocaleDateString()}
+                </span>
               </div>
             )}
           </div>
         )}
         <div className="mt-3">
-          <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
+          <img
+            className="w-100 h-100"
+            src="/smartphone_placeholder.jpeg"
+            alt={product.title[0].toUpperCase() + product.title.slice(1)}
+          />
         </div>
         <div className="promotion-item-content d-flex flex-column gap-2">
-          <span className="text-center">{product.title[0].toUpperCase() + product.title.slice(1)}</span>
+          <span className="text-center">
+            {product.title[0].toUpperCase() + product.title.slice(1)}
+          </span>
           {product.promotion && (
             <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
-              <span className="original-price text-decoration-line-through">{product.price}€</span>
-              <span className="discounted-price text-danger fw-bold">{product.promotion.discount_price}€</span>
+              <span className="original-price text-decoration-line-through">
+                {product.price}€
+              </span>
+              <span className="discounted-price text-danger fw-bold">
+                {product.promotion.discount_price}€
+              </span>
             </span>
           )}
           {isShopPage && (
@@ -88,13 +106,27 @@ export default function ProductCardLigth({ product }) {
             {isInCart ? (
               <FontAwesomeIcon
                 className="fs-3 cursor-pointer "
-                style={{ height: "20px", width: "20px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                style={{
+                  height: "20px",
+                  width: "20px",
+                  padding: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 icon={faTrashCan}
               />
             ) : (
               <FontAwesomeIcon
                 className="fs-3 cursor-pointer"
-                style={{ height: "20px", width: "20px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                style={{
+                  height: "20px",
+                  width: "20px",
+                  padding: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 icon={faCartShopping}
               />
             )}
@@ -116,13 +148,27 @@ export default function ProductCardLigth({ product }) {
             {isInWishlist ? (
               <FontAwesomeIcon
                 className="fs-3 cursor-pointer"
-                style={{ height: "20px", width: "20px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                style={{
+                  height: "20px",
+                  width: "20px",
+                  padding: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 icon={faTrashCan}
               />
             ) : (
               <FontAwesomeIcon
                 className="fs-3 cursor-pointer"
-                style={{ height: "20px", width: "20px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                style={{
+                  height: "20px",
+                  width: "20px",
+                  padding: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 icon={faHeart}
               />
             )}

@@ -15,10 +15,12 @@ import OrderSummaryPage from "./pages/OrderSummaryPage";
 import { ProductsProvider } from "./context/GetProductsContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { CompareProvider } from "./context/CompareContext";
 
 export default function app() {
   return (
     <>
+    <CompareProvider>
       <ProductsProvider>
         <CartProvider>
           <WishlistProvider>
@@ -43,6 +45,7 @@ export default function app() {
           </WishlistProvider>
         </CartProvider>
       </ProductsProvider>
+      </CompareProvider>
     </>
   );
 }

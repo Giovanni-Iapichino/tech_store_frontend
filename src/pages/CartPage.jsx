@@ -8,6 +8,7 @@ import {
   faCircleCheck,
   faBrush,
 } from "@fortawesome/free-solid-svg-icons";
+import HeaderMessage from "../components/HeaderMessage";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, total } = useCart();
@@ -32,6 +33,9 @@ export default function CartPage() {
 
   return (
     <div className="container mt-5">
+       <div className="mb-4">
+              <HeaderMessage text="Cart" />
+            </div>
       <h2 className="mb-4">
         <FontAwesomeIcon
           icon={faCartShopping}
