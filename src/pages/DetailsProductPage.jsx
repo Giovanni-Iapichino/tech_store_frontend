@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEuroSign } from "@fortawesome/free-solid-svg-icons";
+import { faEuroSign, faArrowLeft, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useWishlist } from "../context/WishlistContext";
 import axios from "axios";
+
 
 export default function DetailsProductPage() {
   const { id } = useParams();
-  const { addToCart } = useCart();
+  const { addToCart } = useCart();                                      //aggiungi al carrello
+  const { addToWishlist } = useWishlist();                              //aggiungi alla wishlist
+  const [product, setProduct] = useState();                              //prodotto da visualizzare
 
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + id;
-  const [product, setProduct] = useState();
 
   const fetchProduct = () => {
     axios.get(productApiUrl).then(res => {
@@ -19,13 +22,18 @@ export default function DetailsProductPage() {
     });
   };
   useEffect(fetchProduct, []);
+
+ 
+
   return (
     <>
       {product ? (
         <main>
           <div className="bottom-prev m-1">
             <Link to={`/shop`} >
-              <button className="btn btn-primary">Torna indietro</button>
+              <button className="btn btn-primary">
+                 <FontAwesomeIcon icon={faArrowLeft} className="m-1" />
+              </button>
             </Link>
           </div>
           <div className="container-details">
@@ -46,9 +54,11 @@ export default function DetailsProductPage() {
                   {product.description}</p>
                 </div>
                 <div className="button ">
-                  <button className="btn btn-danger p-2">Ordina</button>
-                  <button className="btn btn-success m-2 p-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
-                  <button className="btn btn-dark py-2">&hearts;</button>
+                  <button className="btn btn-success p-2">Acquista</button>
+                  <button className="btn btn-primary m-2 p-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
+                  <button className="btn btn-light py-2"onClick={()=> addToWishlist(product)} >
+                    <FontAwesomeIcon icon={faHeart} className="text-danger" />
+                  </button>
                 </div>
                 <div className="bottom-text">
                   <p><strong>Category:</strong><br /> 
