@@ -15,15 +15,13 @@ export default function DetailsProductPage() {
 
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + id;
 
-  const fetchProduct = () => {
-    axios.get(productApiUrl).then(res => {
-      const {product } = res.data;
-      setProduct(product);
+  const fetchProduct = () => {                                        
+    axios.get(productApiUrl).then(res => {                             // chiamata API per ottenere il prodotto
+      const {product } = res.data;                                       // destruttura la risposta per ottenere il prodotto
+      setProduct(product);                                             // imposta il prodotto nello stato
     });
   };
-  useEffect(fetchProduct, []);
-
- 
+  useEffect(fetchProduct, []);                                        // chiama la funzione fetchProduct al caricamento del componente
 
   return (
     <>
@@ -39,10 +37,7 @@ export default function DetailsProductPage() {
           <div className="container-details">
             <div className="row ">
               <div className="col-md-6 mb-6">
-                <div className="row">
-                  <div className="col-2">immagini piccole</div>
-                  <div className="col-10">immagine grande</div>
-                </div>
+                <img src="../public/smartphone_placeholder.jpeg" alt="smartphone" />
               </div>
               <div className="col-md-6 mb-6">
                 <div className="title">
