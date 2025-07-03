@@ -3,8 +3,6 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import HeaderMessage from "../components/HeaderMessage";
-
 export default function CheckOutPage() {
   const { cart, clearCart, total } = useCart();
   const [billing, setBilling] = useState({
@@ -75,9 +73,133 @@ export default function CheckOutPage() {
 
   return (
     <>
-      <main>
-        <h1 className="my-5">CheckOutPage</h1>
-      </main>
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-md-6">
+            <h2>Dati di fatturazione</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Nome</label>
+                <input
+                  name="Nome"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Nome}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Cognome</label>
+                <input
+                  name="Cognome"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Cognome}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Email</label>
+                <input
+                  name="Email"
+                  type="email"
+                  onChange={handleChange}
+                  value={billing.Email}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Città</label>
+                <input
+                  name="Città"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Città}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Nazione</label>
+                <input
+                  name="Nazione"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Nazione}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Indirizzo</label>
+                <input
+                  name="Indirizzo"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Indirizzo}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">CAP</label>
+                <input
+                  name="CAP"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.CAP}
+                  className="form-control"
+                  required
+                ></input>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-orange"
+                disabled={loading}
+              >
+                {loading ? "Invio in corso..." : "Procedi al pagamento"}
+              </button>
+              {success && (
+                <div className="alert alert-success mt-3">
+                  Ordine effettuato con successo!
+                </div>
+              )}
+              {error && <div className="alert alert-danger mt-3">{error}</div>}
+            </form>
+          </div>
+
+          <div className="col-md-6">
+            <h2>Riepilogo ordine</h2>
+            <ul className="list-group mb-3">
+              {cart.map((item) => (
+                <li
+                  className="list-group-item d-flex justify-content-between"
+                  key={item.id}
+                >
+                  <span>
+                    {item.brand} {item.title} {item.model} x{item.quantity}
+                  </span>
+                  <span>€ {(item.price * item.quantity).toFixed(2)}</span>
+                </li>
+              ))}
+              <li className="list-group-item d-flex justify-content-between">
+                <strong>Totale</strong>
+                <strong>€ {total.toFixed(2)}</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
