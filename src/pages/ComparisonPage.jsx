@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCartShopping, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
+import { bottom } from "@popperjs/core";
 
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
@@ -42,7 +43,7 @@ export default function ComparisonPage() {
 
   return (
     <div className="container">
-      <h1 className="my-4">Confronto Prodotti</h1>
+      <h1 className="my-4" style={{ color: "#ff6543" }}><strong>Confronto Prodotti</strong></h1>
       <div className="d-flex gap-3 overflow-auto">
         {compareList.map((product) => {
           const cartQty = getCartQuantity(product.id);
@@ -56,7 +57,7 @@ export default function ComparisonPage() {
               {/* Visualizza tutte le info tranne quelle escluse */}
               {allKeys.map((key) => (
                 <div key={key}>
-                  <span style={{ fontWeight: 600 }}>
+                  <span style={{ fontWeight: 600}}>
                     {key.replace(/_/g, " ")}:
                   </span>{" "}
                   {String(product[key])}
@@ -87,8 +88,16 @@ export default function ComparisonPage() {
               {showCartActions[product.id] && (
                 <div className="d-flex align-items-center justify-content-center gap-2 mt-2">
                   <button
-                    className="btn btn-outline-secondary btn-sm"
-                    style={{ borderRadius: "50%", width: 32, height: 32, padding: 0, fontSize: "1.1rem" }}
+                    className="btn btn-outline-primary btn-sm"
+                    style={{
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      padding: 0,
+                      fontSize: "1.1rem",
+                      color: "#ff6543",
+                      borderColor: "#ff6543",
+                    }}
                     onClick={() => {
                       if (cartQty > 1) {
                         updateQuantity(product.id, cartQty - 1);
@@ -105,8 +114,16 @@ export default function ComparisonPage() {
                     {cartQty}
                   </span>
                   <button
-                    className="btn btn-outline-secondary btn-sm"
-                    style={{ borderRadius: "50%", width: 32, height: 32, padding: 0, fontSize: "1.1rem" }}
+                    className="btn btn-outline-primary btn-sm"
+                    style={{
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      padding: 0,
+                      fontSize: "1.1rem",
+                      color: "#ff6543",
+                      borderColor: "#ff6543",
+                    }}
                     onClick={() => addToCart(product)}
                     title="Aggiungi uno"
                   >

@@ -9,7 +9,8 @@ import { useWishlist } from "../context/WishlistContext";
 export default function Navbar() {
   const { cart } = useCart();
   const { wishlist } = useWishlist();
-  const [cartItems, setCartItems] = useState(cart.length);
+  // Cambia: conta la quantità totale dei prodotti nel carrello
+  const [cartItems, setCartItems] = useState(cart.reduce((sum, item) => sum + (item.quantity || 1), 0));
   const [wishlistItems, setWishlistItems] = useState(wishlist.length);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,7 +19,7 @@ export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "");
 
   useEffect(() => {
-    setCartItems(cart.length);
+    setCartItems(cart.reduce((sum, item) => sum + (item.quantity || 1), 0));
     setWishlistItems(wishlist.length);
   }, [cart, wishlist]);
 
