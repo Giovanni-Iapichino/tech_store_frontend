@@ -14,6 +14,22 @@ export default function ComparisonPage() {
       </div>
     );
 
+  // Escludi queste chiavi dalla visualizzazione
+  const EXCLUDED_KEYS = [
+    "id",
+    "title",
+    "thumbnail",
+    "create_at",
+    "update_at",
+    "description",
+    "slug",
+  ];
+
+  // Ottieni tutte le chiavi presenti nei prodotti (unione di tutte le chiavi)
+  const allKeys = Array.from(
+    new Set(compareList.flatMap((product) => Object.keys(product)))
+  ).filter((key) => !EXCLUDED_KEYS.includes(key));
+
   return (
     <div className="container">
       <h1 className="my-4">Confronto Prodotti</h1>
@@ -25,10 +41,15 @@ export default function ComparisonPage() {
             style={{ minWidth: "300px" }}
           >
             <h5>{product.title}</h5>
-            <p>Modello: {product.model}</p>
-            <p>Prezzo: €{product.price}</p>
-            <p>Brand: {product.brand}</p>
-            <p>OS: {product.operating_system}</p>
+            {/* Visualizza tutte le info tranne quelle escluse */}
+            {allKeys.map((key) => (
+              <div key={key}>
+                <span style={{ fontWeight: 600 }}>
+                  {key.replace(/_/g, " ")}:
+                </span>{" "}
+                {String(product[key])}
+              </div>
+            ))}
             <button
               className="btn btn-sm btn-danger"
               onClick={() => removeFromCompare(product.id)}
