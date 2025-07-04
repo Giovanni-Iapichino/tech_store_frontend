@@ -9,7 +9,7 @@ import { useWishlist } from "../context/WishlistContext";
 export default function Navbar() {
   const { cart } = useCart();
   const { wishlist } = useWishlist();
-  const [cartItems, setCartItems] = useState(cart.length);
+  const [cartItems, setCartItems] = useState(cart.reduce((acc, item) => acc + item.quantity, 0));
   const [wishlistItems, setWishlistItems] = useState(wishlist.length);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,7 +18,7 @@ export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "");
 
   useEffect(() => {
-    setCartItems(cart.length);
+    setCartItems(cart.reduce((acc, item) => acc + item.quantity, 0));
     setWishlistItems(wishlist.length);
   }, [cart, wishlist]);
 
@@ -109,29 +109,29 @@ export default function Navbar() {
               )}
             </Link>
             <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4 mt-2" icon={faUser} />
-
-            {/* FORM di ricerca dentro la navbar */}
-            <form onSubmit={handleSubmit} className="d-flex align-items-center ms-2 np-form">
-              <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca il tuo smartphone..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-              <button
-                className="btn"
-                type="submit"
-                style={{
-                  background: "#ff6543",
-                  color: "#fff",
-                  borderRadius: "0 25px 25px 0",
-                  border: "none",
-                  padding: "8px 14px",
-                }}
-              >
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </button>
-            </form>
           </div>
           {/* Bottone per mobile */}
           <button className="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
+
+          {/* FORM di ricerca dentro la navbar */}
+          <form onSubmit={handleSubmit} className="d-flex justify-content-center align-items-center ms-2 np-form w-100 mt-2 mt-md-0 ms-4">
+            <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca il tuo smartphone..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            <button
+              className="btn"
+              type="submit"
+              style={{
+                background: "#ff6543",
+                color: "#fff",
+                borderRadius: "0 25px 25px 0",
+                border: "none",
+                padding: "8px 14px",
+              }}
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </button>
+          </form>
         </div>
       </nav>
     </header>
