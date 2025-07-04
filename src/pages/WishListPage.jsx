@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { faTrash, faArrowLeft, faCartShopping, faCircleCheck, faBrush, faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faArrowLeft, faCartShopping, faCircleCheck, faBrush, faHeart, faPlus, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
@@ -67,17 +67,17 @@ export default function WishListPage() {
                 </td>
                 <td>
                   <div className="d-flex gap-2 justify-content-center">
-                    <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromWishlist(item.id)}>
-                      <FontAwesomeIcon icon={faTrash} style={{ color: "#ff6543" }} />
+                    <button style={{ border: "none", backgroundColor: "transparent" }} onClick={() => removeFromWishlist(item.id)}>
+                      <FontAwesomeIcon icon={faHeartCrack} style={{ color: "#ff6543" }} />
                     </button>
                     <button
-                      className="btn btn-outline-danger btn-sm"
+                      style={{ border: "none", backgroundColor: "transparent" }}
                       onClick={() => {
                         addToCart(item);
                         removeFromWishlist(item.id);
                       }}
                     >
-                      <FontAwesomeIcon icon={faPlus} style={{ color: "#ff6543" }} />
+                      <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} />
                     </button>
                   </div>
                 </td>
