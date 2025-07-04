@@ -108,10 +108,13 @@ export default function CartPage() {
                 </td>
                 <td>
                   <button
-                    className="btn btn-outline-danger btn-sm"
+                    className="btn btn-sm"
                     onClick={() => removeFromCart(item.id)}
                   >
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      style={{ color: "#be0909" }}
+                    />
                   </button>
                 </td>
               </tr>
