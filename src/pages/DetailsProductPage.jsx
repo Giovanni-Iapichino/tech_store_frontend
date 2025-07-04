@@ -50,7 +50,9 @@ export default function DetailsProductPage() {
                   {product.description}</p>
                 </div>
                 <div className="button ">
-                  <button className="btn btn-success p-2">Acquista</button>
+                  <Link to={`/checkout`}>      
+                    <button className="btn btn-success p-2">Acquista</button>
+                  </Link>
                   <button className="btn btn-primary m-2 p-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
                   <button className="btn btn-light py-2"onClick={()=> addToWishlist(product)} >
                     <FontAwesomeIcon icon={faHeart} className="text-danger" />
