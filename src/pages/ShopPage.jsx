@@ -16,26 +16,15 @@ export default function ShopPage() {
 
   const navigate = useNavigate();
 
-
   const { addToCart } = useCart();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || ""); //cosa scrivi nella barra di ricerca
-  const [submittedTerm, setSubmittedTerm] = useState(
-    searchParams.get("q") || ""
-  ); //cosa hai effettivamente cercato
-  const [filterType, setFilterType] = useState(
-    searchParams.get("type") || "All"
-  ); //il tipo di campo cercato
-  const [priceRange, setPriceRange] = useState(
-    searchParams.get("price") || "All"
-  ); //fascia di prezzo selezionata
-  const [selectedBrand, setSelectedBrand] = useState(
-    searchParams.get("brand") || "All"
-  ); //brand selezionato
-  const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(
-    searchParams.get("os") || "All"
-  ); //sistema operativo selezionato
+  const [submittedTerm, setSubmittedTerm] = useState(searchParams.get("q") || ""); //cosa hai effettivamente cercato
+  const [filterType, setFilterType] = useState(searchParams.get("type") || "All"); //il tipo di campo cercato
+  const [priceRange, setPriceRange] = useState(searchParams.get("price") || "All"); //fascia di prezzo selezionata
+  const [selectedBrand, setSelectedBrand] = useState(searchParams.get("brand") || "All"); //brand selezionato
+  const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(searchParams.get("os") || "All"); //sistema operativo selezionato
   const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
 
   const PRODUCTS_PER_PAGE = 4;
@@ -74,10 +63,7 @@ export default function ShopPage() {
   if (error) return <p>{error}</p>;
 
   const uniqueBrands = ["All", ...new Set(products.map((p) => p.brand))]; //estrae l'elenco dei brand
-  const uniqueOperatingSystems = [
-    "All",
-    ...new Set(products.map((p) => p.operating_system)),
-  ]; //estrae l'elenco dei sistemi operativi
+  const uniqueOperatingSystems = ["All", ...new Set(products.map((p) => p.operating_system))]; //estrae l'elenco dei sistemi operativi
 
   //determino su cosa cercare
   const getFilteredField = (product) => {
@@ -98,17 +84,10 @@ export default function ShopPage() {
 
   // filtro generale
   const filteredProducts = products.filter((product) => {
-    const matchesSearch =
-      submittedTerm.trim() === "" ||
-      getFilteredField(product)
-        .toLowerCase()
-        .includes(submittedTerm.toLowerCase()); //q = ricerca generale
+    const matchesSearch = submittedTerm.trim() === "" || getFilteredField(product).toLowerCase().includes(submittedTerm.toLowerCase()); //q = ricerca generale
     const matchesPrice = isPriceInRange(product.price); // prezzo
-    const matchesBrand =
-      selectedBrand === "All" || product.brand === selectedBrand; // brand
-    const matchesOS =
-      selectedOperatingSystem === "All" ||
-      product.operating_system === selectedOperatingSystem; // sistema operativo
+    const matchesBrand = selectedBrand === "All" || product.brand === selectedBrand; // brand
+    const matchesOS = selectedOperatingSystem === "All" || product.operating_system === selectedOperatingSystem; // sistema operativo
 
     return matchesSearch && matchesPrice && matchesBrand && matchesOS;
   });
@@ -152,68 +131,30 @@ export default function ShopPage() {
       </h2>
 
       {compareList.length >= 2 && (
-  <div className="my-3">
-    <button
-      className="btn btn-success"
-      onClick={() => navigate("/comparison")}
-    >
-      Vai al confronto ({compareList.length} prodotti)
-    </button>
-  </div>
-)}
-
+        <div className="my-3">
+          <button className="btn btn-success" onClick={() => navigate("/comparison")}>
+            Vai al confronto ({compareList.length} prodotti)
+          </button>
+        </div>
+      )}
 
       <div className="d-flex gap-4">
         <div className="row gap-4 flex-grow-1">
           {paginatedProducts.map((product) => {
             const isInCompare = compareList.some((p) => p.id === product.id);
-            return (
-              <div
-                key={product.id}
-                className="card p-3 shadow d-flex flex-column align-items-center justify-content-between position-relative"
-                style={{ width: "14rem", height: "21rem" }}
-              >
-                {/* Checkbox Confronta sopra l'immagine */}
-                <div className="compare-checkbox-container">
-                  <input
-                    type="checkbox"
-                    id={`compare-${product.id}`}
-                    className="compare-checkbox"
-                    checked={isInCompare}
-                    onChange={() =>
-                      isInCompare
-                        ? removeFromCompare(product.id)
-                        : addToCompare(product)
-                    }
-                  />
-                  <label htmlFor={`compare-${product.id}`} className="compare-checkbox-label">
-                    {/* Icona o testo custom */}
-                    <span className="compare-custom-check"></span>
-                    <span className="compare-label-text">Confronta</span>
-                  </label>
-                </div>
-                <ProductCardLight product={product} showCompareButton={false} />
-              </div>
-            );
+            return <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />;
           })}
 
-          {paginatedProducts.length === 0 && (
-            <p className="mt-3">Nessun prodotto trovato.</p>
-          )}
+          {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
         </div>
-        <div
-          className="d-flex flex-column mx-3 h-100"
-          style={{ minWidth: "180px" }}
-        >
+        <div className="d-flex flex-column mx-3 h-100" style={{ minWidth: "180px" }}>
           {/* Filtro brand */}
           <div className="filter-section">
             <h6 className="mt-3">Filtra per brand</h6>
             {uniqueBrands.map((brand) => (
               <div key={brand}>
                 <button
-                  className={`filter-btn${
-                    selectedBrand === brand ? " selected" : ""
-                  }`}
+                  className={`filter-btn${selectedBrand === brand ? " selected" : ""}`}
                   onClick={() => {
                     setSelectedBrand(brand);
                     setCurrentPage(1);
@@ -232,9 +173,7 @@ export default function ShopPage() {
             {uniqueOperatingSystems.map((os) => (
               <div key={os}>
                 <button
-                  className={`filter-btn${
-                    selectedOperatingSystem === os ? " selected" : ""
-                  }`}
+                  className={`filter-btn${selectedOperatingSystem === os ? " selected" : ""}`}
                   onClick={() => {
                     setSelectedOperatingSystem(os);
                     setCurrentPage(1);
@@ -259,9 +198,7 @@ export default function ShopPage() {
             ].map(({ label, value }) => (
               <div key={value}>
                 <button
-                  className={`filter-btn${
-                    priceRange === value ? " selected" : ""
-                  }`}
+                  className={`filter-btn${priceRange === value ? " selected" : ""}`}
                   onClick={() => {
                     setPriceRange(value);
                     setCurrentPage(1);
@@ -278,19 +215,11 @@ export default function ShopPage() {
 
       {/* Paginazione */}
       <div className="my-3 w-100 mx-auto d-flex justify-content-center align-items-center border rounded p-2">
-        <button
-          className="pagination-btn"
-          onClick={handlePrevPage}
-          disabled={currentPage === 1}
-        >
+        <button className="pagination-btn" onClick={handlePrevPage} disabled={currentPage === 1}>
           Prev
         </button>
         <span>Pagina {currentPage}</span>
-        <button
-          className="pagination-btn"
-          onClick={handleNextPage}
-          disabled={isLastPage}
-        >
+        <button className="pagination-btn" onClick={handleNextPage} disabled={isLastPage}>
           Next
         </button>
       </div>
