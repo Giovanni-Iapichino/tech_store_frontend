@@ -39,7 +39,11 @@ export default function CheckOutPage() {
       user_address: billing.Indirizzo,
       user_postalcode: billing.CAP,
       total,
-      productList: cart,
+      productList: cart.map((item) => ({
+        item_name: `${item.brand} ${item.title} ${item.model}`,
+        item_price: item.price,
+        item_quantity: item.quantity,
+      })),
     };
 
     axios
@@ -52,6 +56,9 @@ export default function CheckOutPage() {
             email: billing.Email,
             nome: billing.Nome,
             cognome: billing.Cognome,
+            orderNumber: orderNumber,
+            productList: cart,
+            total: total.toFixed(2),
           })
           .then(() => {
             setSuccess(true);
