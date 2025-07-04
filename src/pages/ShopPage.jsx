@@ -37,6 +37,7 @@ export default function ShopPage() {
     searchParams.get("os") || "All"
   ); //sistema operativo selezionato
   const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
+  const [showPromoOnly, setShowPromoOnly] = useState(false); // nuovo stato filtro promo
 
   const PRODUCTS_PER_PAGE = 4;
 
@@ -109,8 +110,10 @@ export default function ShopPage() {
     const matchesOS =
       selectedOperatingSystem === "All" ||
       product.operating_system === selectedOperatingSystem; // sistema operativo
+    const matchesPromo =
+      !showPromoOnly || !!product.promotion; // promo attiva solo se richiesto
 
-    return matchesSearch && matchesPrice && matchesBrand && matchesOS;
+    return matchesSearch && matchesPrice && matchesBrand && matchesOS && matchesPromo;
   });
 
   // Usiamo i prodotti ricevuti dal backend come paginati
@@ -151,18 +154,6 @@ export default function ShopPage() {
         <strong>Smartphone disponibili</strong>
       </h2>
 
-      {compareList.length >= 2 && (
-  <div className="my-3">
-    <button
-      className="btn btn-success"
-      onClick={() => navigate("/comparison")}
-    >
-      Vai al confronto ({compareList.length} prodotti)
-    </button>
-  </div>
-)}
-
-
       <div className="d-flex gap-4">
         <div className="row gap-4 flex-grow-1">
           {paginatedProducts.map((product) => {
@@ -170,7 +161,7 @@ export default function ShopPage() {
             return (
               <div
                 key={product.id}
-                className="card p-3 shadow d-flex flex-column align-items-center justify-content-between position-relative"
+                className="card p-3 shadow d-flex flex-column align-items-center justify-content-between position-relativen"
                 style={{ width: "14rem", height: "21rem" }}
               >
                 {/* Checkbox Confronta sopra l'immagine */}
@@ -205,6 +196,16 @@ export default function ShopPage() {
           className="d-flex flex-column mx-3 h-100"
           style={{ minWidth: "180px" }}
         >
+          {/* Filtro promo */}
+          <div className="filter-section">
+            <h6 className="mt-3">Solo prodotti in promozione</h6>
+            <button
+              className={`filter-btn${showPromoOnly ? " selected" : ""}`}
+              onClick={() => setShowPromoOnly((v) => !v)}
+            >
+              {showPromoOnly ? "Mostra tutti" : "Mostra solo promo"}
+            </button>
+          </div>
           {/* Filtro brand */}
           <div className="filter-section">
             <h6 className="mt-3">Filtra per brand</h6>
@@ -294,6 +295,16 @@ export default function ShopPage() {
           Next
         </button>
       </div>
+
+      {/* Bottone fisso per confronto */}
+      {compareList.length >= 2 && (
+        <button
+          className="btn-compare fixed-compare-btn"
+          onClick={() => navigate("/comparison")}
+        >
+          Vai al confronto ({compareList.length} prodotti)
+        </button>
+      )}
     </div>
   );
 }
