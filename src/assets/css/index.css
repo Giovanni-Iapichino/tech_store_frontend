@@ -38,9 +38,18 @@
 .container-form,
 .container-related {
   margin: 30px 50px;
+  border: 1px solid #ededed;
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
 .bottom-text p {
   font-size: 18px;
+}
+.related-products .card{
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
 
 /* --- Carusel --- */

@@ -8,6 +8,7 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
+import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
 
 export default function DetailsProductPage() {
@@ -32,10 +33,10 @@ export default function DetailsProductPage() {
       {product ? (
         <main>
           <div className="bottom-prev m-1">
-            <Link to={`/shop`}>
-              <button className="btn btn-primary">
-                <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
-                Torna allo shop
+            <Link to={`/shop`} >
+              <button className="btn btn-primary mx-5">
+                 <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                 Torna allo shop
               </button>
             </Link>
           </div>
@@ -49,9 +50,7 @@ export default function DetailsProductPage() {
               </div>
               <div className="col-md-6 mb-6">
                 <div className="title">
-                  <h1>
-                    {product.title} {product.model}
-                  </h1>
+                  <h1>{product.brand} {product.title} {product.model}</h1>
                 </div>
                 <div className="text">
                   <p className="price">
@@ -66,17 +65,20 @@ export default function DetailsProductPage() {
                   </p>
                 </div>
                 <div className="button ">
-                  <button className="btn btn-success p-2">Acquista</button>
-                  <button
-                    className="btn btn-primary m-2 p-2"
-                    onClick={() => addToCart(product)}
-                  >
-                    Aggiungi a carrello
-                  </button>
-                  <button
-                    className="btn btn-light py-2"
-                    onClick={() => addToWishlist(product)}
-                  >
+                  <Link to={`/checkout`}>      
+                    <button className="btn btn-success p-2">Acquista</button>
+                  </Link>
+                  <button className="btn  m-2 p-2" style={{
+                    background:"#ff6543",
+                    color:"white"
+                  }} onClick={() => addToCart(product)}>Aggiungi a carrello</button>
+                  <button className="btn btn-white py-2" 
+                    style={{
+                      color: " #ff6543",
+                      background: "white",
+                      border: "1px solid #ff6543"
+                    }}
+                    onClick={()=> addToWishlist(product)} >
                     <FontAwesomeIcon icon={faHeart} className="text-danger" />
                   </button>
                 </div>
@@ -120,22 +122,8 @@ export default function DetailsProductPage() {
               </div>
             </nav>
             <div className="tab-content" id="nav-tabContent">
-              <div
-                className="tab-pane fade show active"
-                id="nav-home"
-                role="tabpanel"
-                aria-labelledby="nav-home-tab"
-                tabindex="0"
-              >
-                {product.description}
-              </div>
-              <div
-                className="tab-pane fade"
-                id="nav-profile"
-                role="tabpanel"
-                aria-labelledby="nav-profile-tab"
-                tabindex="0"
-              >
+              <div className="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
+              <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <ul>
                   <li>
                     <strong>Sistema operativo:</strong>{" "}
@@ -163,40 +151,16 @@ export default function DetailsProductPage() {
           <div className="container-related">
             <div className="title">
               <h3>Prodotti correlati</h3>
-              <div className="row">
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-              </div>
+              <RelatedProducts/>
             </div>
           </div>
         </main>
-      ) : (
-        <div className="loading">
-          <h2>Loading...</h2>
-        </div>
-      )}
+    ):(
+      <div className="loading">
+        <h2>Nessun prodotto trovato...</h2>
+      </div>
+    )}
+      
     </>
   );
 }
