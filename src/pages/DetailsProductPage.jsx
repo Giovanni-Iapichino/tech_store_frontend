@@ -45,7 +45,7 @@ export default function DetailsProductPage() {
               <div className="row ">
                 <div className="col-md-6 mb-6">
                   <img
-                    src="../public/smartphone_placeholder.jpeg"
+                    src="../smartphone_placeholder.jpeg"
                     alt="smartphone"
                   />
                 </div>
