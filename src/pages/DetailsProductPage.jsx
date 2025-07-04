@@ -29,7 +29,7 @@ export default function DetailsProductPage() {
         <main>
           <div className="bottom-prev m-1">
             <Link to={`/shop`} >
-              <button className="btn btn-primary">
+              <button className="btn btn-primary mx-5">
                  <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
                  Torna allo shop
               </button>
