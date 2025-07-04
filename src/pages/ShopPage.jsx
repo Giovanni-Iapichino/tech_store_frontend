@@ -26,7 +26,9 @@ export default function ShopPage() {
   const [selectedBrand, setSelectedBrand] = useState(searchParams.get("brand") || "All"); //brand selezionato
   const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(searchParams.get("os") || "All"); //sistema operativo selezionato
   const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
-  const [showPromoOnly, setShowPromoOnly] = useState(false); // nuovo stato filtro promo
+  const [showPromoOnly, setShowPromoOnly] = useState(
+    searchParams.get("promo") === "true"
+  ); // nuovo stato filtro promo
   const [urlError, setUrlError] = useState(null);
 
   const PRODUCTS_PER_PAGE = 4;
@@ -45,12 +47,13 @@ export default function ShopPage() {
     setSelectedBrand(searchParams.get("brand") || "All");
     setSelectedOperatingSystem(searchParams.get("os") || "All");
     setCurrentPage(Number(searchParams.get("page")) || 1);
+    setShowPromoOnly(searchParams.get("promo") === "true");
   }, [searchParams]);
 
   // Controllo errori URL
   useEffect(() => {
     // Parametri e valori validi
-    const allowedParams = ["q", "type", "price", "brand", "os", "page"];
+    const allowedParams = ["q", "type", "price", "brand", "os", "page", "promo"];
     const validTypes = ["All", "Title", "Model"];
     const validPrices = ["All", "100-200", "200-300", "300-400", "400+"];
     const validBrands = ["All", ...new Set(products.map((p) => p.brand))];
@@ -79,6 +82,14 @@ export default function ShopPage() {
     if (!error && searchParams.get("os") && !validOS.includes(searchParams.get("os"))) {
       error = "Parametro 'os' non valido nell'URL.";
     }
+    // Correggi: accetta solo "true" o assenza per promo
+    if (
+      !error &&
+      searchParams.has("promo") &&
+      searchParams.get("promo") !== "true"
+    ) {
+      error = "Parametro 'promo' non valido nell'URL.";
+    }
     setUrlError(error);
   }, [searchParams, products]);
 
@@ -91,8 +102,11 @@ export default function ShopPage() {
       brand: selectedBrand,
       os: selectedOperatingSystem,
       page: currentPage,
+      promo: showPromoOnly ? "true" : undefined,
       ...newParams,
     };
+    // Rimuovi promo se non serve
+    if (!updated.promo) delete updated.promo;
     setSearchParams(updated);
   };
 
@@ -206,7 +220,11 @@ export default function ShopPage() {
             <h6 className="mt-3">Solo prodotti in promozione</h6>
             <button
               className={`filter-btn${showPromoOnly ? " selected" : ""}`}
-              onClick={() => setShowPromoOnly((v) => !v)}
+              onClick={() => {
+                const newPromo = !showPromoOnly;
+                setShowPromoOnly(newPromo);
+                updateParams({ promo: newPromo ? "true" : undefined, page: 1 });
+              }}
             >
               {showPromoOnly ? "Mostra tutti" : "Mostra solo promo"}
             </button>
