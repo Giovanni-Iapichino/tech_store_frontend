@@ -45,12 +45,19 @@ export default function CheckOutPage() {
     axios
       .post("http://127.0.0.1:3000/api/v1/orders", payload)
       .then((response) => {
-        setSuccess(true);
-        clearCart();
-        setLoading(false);
-        navigate("/ordersummary", {
-          state: { order_number: response.data.order_number },
-        });
+        const orderNumber = response.data.order_number;
+
+        return axios
+          .post("http://127.0.0.1:3000/api/v1/send-email", {
+            email: billing.Email,
+            nome: billing.Nome,
+            cognome: billing.Cognome,
+          })
+          .then(() => {
+            setSuccess(true);
+            clearCart();
+            navigate("/ordersummary", { state: { order_number: orderNumber } });
+          });
       })
       .catch((err) => {
         console.error("Errore API:", err.response?.data || err.message);

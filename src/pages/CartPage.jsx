@@ -33,9 +33,9 @@ export default function CartPage() {
 
   return (
     <div className="container mt-5">
-       <div className="mb-4">
-              <HeaderMessage text="Cart" />
-            </div>
+      <div className="mb-4">
+        <HeaderMessage text="Cart" />
+      </div>
       <h2 className="mb-4">
         <FontAwesomeIcon
           icon={faCartShopping}
@@ -60,21 +60,33 @@ export default function CartPage() {
             {cart.map((item) => (
               <tr key={item.id}>
                 <td>
-                  <img
-                    src={item.thumbnail}
-                    alt={`${item.title} ${item.model}`}
-                    className="img-thumbnail"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      objectFit: "cover",
-                    }}
-                  />
+                  <Link
+                    className="w-100"
+                    to={`/shop/${item.slug}`}
+                    key={item.id}
+                  >
+                    <img
+                      src={item.thumbnail}
+                      alt={`${item.title} ${item.model}`}
+                      className="img-thumbnail"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Link>
                 </td>
                 <td>
-                  <strong>
-                    {item.brand.toUpperCase()} {item.title} {item.model}
-                  </strong>
+                  <Link
+                    className="w-100"
+                    to={`/shop/${item.slug}`}
+                    key={item.id}
+                  >
+                    <strong>
+                      {item.brand.toUpperCase()} {item.title} {item.model}
+                    </strong>
+                  </Link>
                   <br />
                   {item.ram} / {item.memory}
                   <br />

@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function OrderSummaryPage() {
   const location = useLocation();
@@ -13,6 +14,9 @@ export default function OrderSummaryPage() {
         </div>
       )}
       <h4>A breve riceverai una email di conferma!</h4>
+      <Link to="/shop" className="btn btn-orange mt-3">
+        Torna allo shop
+      </Link>
     </div>
   );
 }
