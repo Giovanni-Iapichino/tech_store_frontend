@@ -1,11 +1,7 @@
 import { NavLink, Link, useSearchParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faCartShopping,
-  faHeart,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { faUser, faCartShopping, faHeart, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
@@ -42,19 +38,12 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg">
         {/* Bool shop a sinistra */}
         <div className="container-fluid d-flex justify-content-between flex-lg-row align-items-center">
-          <NavLink
-            className="nav-link navbar-brand fs-3"
-            aria-current="page"
-            to="/"
-          >
+          <NavLink className="nav-link navbar-brand fs-3" aria-current="page" to="/">
             <span style={{ color: "#ff6543" }}>Tech</span>
             <span className="text-dark">Store</span>
           </NavLink>
           {/* Menu centrato */}
-          <div
-            className="collapse navbar-collapse justify-content-center"
-            id="navbarNav"
-          >
+          <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/">
@@ -77,12 +66,13 @@ export default function Navbar() {
           {/* Bottoni */}
           <div className="buttons d-flex gap-3">
             <Link className="position-relative mt-2" to="/wishlist">
-              <FontAwesomeIcon
-                style={{ color: "#ff6543" }}
-                className="fs-4"
-                icon={faHeart}
-              />
-              {wishlistItems > 0 && (
+              {wishlistItems > 0 ? (
+                <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faHeart} />
+              ) : (
+                <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faHeartRegular} />
+              )}
+
+              {/* {wishlistItems > 0 && (
                 <span
                   className="badge bg-dark position-absolute rounded-circle"
                   style={{
@@ -97,14 +87,10 @@ export default function Navbar() {
                 >
                   {wishlistItems}
                 </span>
-              )}
+              )} */}
             </Link>
             <Link className="position-relative mt-2" to="/cart">
-              <FontAwesomeIcon
-                className="fs-4"
-                style={{ color: "#ff6543" }}
-                icon={faCartShopping}
-              />
+              <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faCartShopping} />
               {cartItems > 0 && (
                 <span
                   className="badge bg-dark position-absolute rounded-circle"
@@ -122,23 +108,11 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
-            <FontAwesomeIcon
-              style={{ color: "#ff6543" }}
-              className="fs-4 mt-2"
-              icon={faUser}
-            />
+            <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4 mt-2" icon={faUser} />
 
             {/* FORM di ricerca dentro la navbar */}
-            <form
-              onSubmit={handleSubmit}
-              className="d-flex align-items-center ms-2 np-form">
-              <input
-                type="text"
-                className="form-control border-0 shadow-none np-input"
-                placeholder="Cerca il tuo smartphone..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+            <form onSubmit={handleSubmit} className="d-flex align-items-center ms-2 np-form">
+              <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca il tuo smartphone..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
               <button
                 className="btn"
                 type="submit"
@@ -155,15 +129,7 @@ export default function Navbar() {
             </form>
           </div>
           {/* Bottone per mobile */}
-          <button
-            className="navbar-toggler ms-2"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <button className="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
         </div>
