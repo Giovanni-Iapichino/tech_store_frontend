@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faClipboardList, faShieldHalved, faTrophy, faChevronLeft, faChevronRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProductCardLigth from "../components/ProductCardLight";
+import BestSellerCard from "../components/BestSellerCard";
 import { useProducts } from "../context/GetProductsContext";
 
 import { useEffect } from "react";
@@ -136,7 +137,7 @@ export default function HomePage() {
           <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div>
-          <div className="row gap-4">{bestSeller && bestSeller.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
+          <div className="row gap-4">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
           <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div>
