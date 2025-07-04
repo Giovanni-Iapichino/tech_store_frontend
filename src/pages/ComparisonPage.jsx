@@ -1,5 +1,7 @@
 import { useCompare } from "../context/CompareContext";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
@@ -51,10 +53,11 @@ export default function ComparisonPage() {
               </div>
             ))}
             <button
-              className="btn btn-sm btn-danger"
+              className="btn btn-outline-danger btn-sm mt-2"
               onClick={() => removeFromCompare(product.id)}
+              title="Rimuovi dal confronto"
             >
-              Rimuovi
+              <FontAwesomeIcon icon={faTrash} />
             </button>
           </div>
         ))}
