@@ -135,7 +135,7 @@ export default function ComparisonPage() {
           );
         })}
       </div>
-      <button className="btn btn-warning mt-4" onClick={clearCompare}>
+      <button className="btn btn-warning mt-4" style={{ background: "#ff6543", color: "white" }} onClick={clearCompare}>
         Svuota confronto
       </button>
     </div>

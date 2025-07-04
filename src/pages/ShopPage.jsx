@@ -27,6 +27,7 @@ export default function ShopPage() {
   const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(searchParams.get("os") || "All"); //sistema operativo selezionato
   const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
   const [showPromoOnly, setShowPromoOnly] = useState(false); // nuovo stato filtro promo
+  const [urlError, setUrlError] = useState(null);
 
   const PRODUCTS_PER_PAGE = 4;
 
@@ -46,6 +47,41 @@ export default function ShopPage() {
     setCurrentPage(Number(searchParams.get("page")) || 1);
   }, [searchParams]);
 
+  // Controllo errori URL
+  useEffect(() => {
+    // Parametri e valori validi
+    const allowedParams = ["q", "type", "price", "brand", "os", "page"];
+    const validTypes = ["All", "Title", "Model"];
+    const validPrices = ["All", "100-200", "200-300", "300-400", "400+"];
+    const validBrands = ["All", ...new Set(products.map((p) => p.brand))];
+    const validOS = ["All", ...new Set(products.map((p) => p.operating_system))];
+
+    let error = null;
+
+    // Controlla se ci sono parametri non previsti nell'URL
+    for (const [key] of searchParams.entries()) {
+      if (!allowedParams.includes(key)) {
+        error = `Parametro non previsto nell'URL: '${key}'.`;
+        break;
+      }
+    }
+
+    // Controlla i valori dei parametri previsti
+    if (!error && searchParams.get("type") && !validTypes.includes(searchParams.get("type"))) {
+      error = "Parametro 'type' non valido nell'URL.";
+    }
+    if (!error && searchParams.get("price") && !validPrices.includes(searchParams.get("price"))) {
+      error = "Parametro 'price' non valido nell'URL.";
+    }
+    if (!error && searchParams.get("brand") && !validBrands.includes(searchParams.get("brand"))) {
+      error = "Parametro 'brand' non valido nell'URL.";
+    }
+    if (!error && searchParams.get("os") && !validOS.includes(searchParams.get("os"))) {
+      error = "Parametro 'os' non valido nell'URL.";
+    }
+    setUrlError(error);
+  }, [searchParams, products]);
+
   // Funzione per aggiornare i parametri URL e mantiene i vecchi parametri
   const updateParams = (newParams) => {
     const updated = {
@@ -62,6 +98,22 @@ export default function ShopPage() {
 
   if (loading) return <p>Caricamento in corso...</p>;
   if (error) return <p>{error}</p>;
+  if (urlError) return (
+    <div
+      className="d-flex flex-column justify-content-center align-items-center"
+      style={{ minHeight: "60vh" }}
+    >
+      <div className="alert alert-danger text-center" style={{ maxWidth: 420 }}>
+        {urlError} <br />
+        <button
+          className="btn btn-orange mt-3"
+          onClick={() => window.location.href = "/shop"}
+        >
+          Torna allo Shop
+        </button>
+      </div>
+    </div>
+  );
 
   const uniqueBrands = ["All", ...new Set(products.map((p) => p.brand))]; //estrae l'elenco dei brand
   const uniqueOperatingSystems = ["All", ...new Set(products.map((p) => p.operating_system))]; //estrae l'elenco dei sistemi operativi
