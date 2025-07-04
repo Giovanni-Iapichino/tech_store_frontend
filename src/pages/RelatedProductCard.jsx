@@ -1,11 +1,16 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { faHeart, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { useWishlist } from "../context/WishlistContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 const RelatedProducts = () => {
+    const { addToWishlist } = useWishlist();  
+    const { addToCart } = useCart(); 
     const [related, setRelated] = useState([]);
     const { id } = useParams(); 
     useEffect(() => {                                                                                    // effettua la chiamata API per ottenere i prodotti correlati
@@ -29,12 +34,26 @@ const RelatedProducts = () => {
         <div className="related-products">
             <div className="row">
                 {related.map(product => (
-                    <div key={product.id} className="col-md-1 mb-1">
+                    <div key={product.id} className="col-md-2 mb-2">
                         <div className="card">
                             <img src="../smartphone_placeholder.jpeg" alt="smartphone" className="card-img-top" />
                             <div className="card-body">
                                 <h6 className="card-title">{product.title} {product.model}</h6>
-                                <p className="card-text"><FontAwesomeIcon icon={faEuroSign} /> {product.price}</p>
+                                <p className="card-text color-success"><FontAwesomeIcon icon={faEuroSign} />{product.price}</p>
+                                <button className="btn px-0"onClick={()=> addToCart(product)} >
+                                    <FontAwesomeIcon icon={faCartShopping} className="text-black fs-5" style={{
+                                        background: "#ff6543",
+                                        padding: "8px",
+                                        borderRadius: "50%",
+                                    }} />
+                                </button>
+                                <button className="btn px-1"onClick={()=> addToWishlist(product)} >
+                                    <FontAwesomeIcon icon={faHeart} className="text-black fs-5" style={{
+                                        background: "#ff6543",
+                                        padding: "8px",
+                                        borderRadius: "50%",
+                                    }} />
+                                </button>
                             </div>
                         </div>
                     </div>

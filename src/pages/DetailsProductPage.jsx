@@ -53,8 +53,17 @@ export default function DetailsProductPage() {
                   <Link to={`/checkout`}>      
                     <button className="btn btn-success p-2">Acquista</button>
                   </Link>
-                  <button className="btn btn-primary m-2 p-2" onClick={() => addToCart(product)}>Aggiungi a carrello</button>
-                  <button className="btn btn-light py-2"onClick={()=> addToWishlist(product)} >
+                  <button className="btn  m-2 p-2" style={{
+                    background:"#ff6543",
+                    color:"white"
+                  }} onClick={() => addToCart(product)}>Aggiungi a carrello</button>
+                  <button className="btn btn-white py-2" 
+                    style={{
+                      color: " #ff6543",
+                      background: "white",
+                      border: "1px solid #ff6543"
+                    }}
+                    onClick={()=> addToWishlist(product)} >
                     <FontAwesomeIcon icon={faHeart} className="text-danger" />
                   </button>
                 </div>
@@ -73,7 +82,7 @@ export default function DetailsProductPage() {
               </div>
             </nav>
             <div className="tab-content" id="nav-tabContent">
-              <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
+              <div className="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
               <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <ul>
                   <li><strong>Sistema operativo:</strong> {product.operating_system}</li>
