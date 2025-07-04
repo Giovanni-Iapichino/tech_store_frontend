@@ -136,14 +136,6 @@ export default function ShopPage() {
         <strong>Smartphone disponibili</strong>
       </h2>
 
-      {compareList.length >= 2 && (
-        <div className="my-3">
-          <button className="btn btn-success" onClick={() => navigate("/comparison")}>
-            Vai al confronto ({compareList.length} prodotti)
-          </button>
-        </div>
-      )}
-
       <div className="d-flex gap-4">
         <div className="row gap-4 flex-grow-1">
           {paginatedProducts.map((product) => {
