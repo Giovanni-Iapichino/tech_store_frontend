@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function CheckOutPage() {
   const { cart, clearCart, total } = useCart();
+  console.log("Carrello:", cart);
   const [billing, setBilling] = useState({
     Nome: "",
     Cognome: "",
@@ -39,11 +40,7 @@ export default function CheckOutPage() {
       user_address: billing.Indirizzo,
       user_postalcode: billing.CAP,
       total,
-      productList: cart.map((item) => ({
-        item_name: `${item.brand} ${item.title} ${item.model}`,
-        item_price: item.price,
-        item_quantity: item.quantity,
-      })),
+      productList: cart,
     };
 
     axios
@@ -53,11 +50,16 @@ export default function CheckOutPage() {
 
         return axios
           .post("http://127.0.0.1:3000/api/v1/send-email", {
+            type: "order",
             email: billing.Email,
             nome: billing.Nome,
             cognome: billing.Cognome,
-            orderNumber: orderNumber,
-            productList: cart,
+            order_number: orderNumber,
+            products: cart.map((item) => ({
+              title: item.title,
+              quantity: item.quantity,
+              price: item.price,
+            })),
             total: total.toFixed(2),
           })
           .then(() => {
