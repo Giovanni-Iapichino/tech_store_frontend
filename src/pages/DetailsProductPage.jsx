@@ -33,9 +33,9 @@ export default function DetailsProductPage() {
       {product ? (
         <main>
           <div className="container">
-            <div className="bottom-prev m-1">
+            <div className="bottom-prev">
               <Link to={`/shop`} >
-                <button className="btn btn-primary mx-5">
+                <button className="btn btn-primary ">
                   <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
                   Torna allo shop
                 </button>
@@ -45,7 +45,7 @@ export default function DetailsProductPage() {
               <div className="row ">
                 <div className="col-md-6 mb-6">
                   <img
-                    src="../public/smartphone_placeholder.jpeg"
+                    src="../smartphone_placeholder.jpeg"
                     alt="smartphone"
                   />
                 </div>
@@ -123,8 +123,8 @@ export default function DetailsProductPage() {
                 </div>
               </nav>
               <div className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
-                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
+                <div className="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                   <ul>
                     <li>
                       <strong>Sistema operativo:</strong>{" "}

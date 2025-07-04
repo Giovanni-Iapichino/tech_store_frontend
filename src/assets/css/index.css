@@ -2,8 +2,12 @@
 .container-details .col-md-6 {
   height: 600px;
 }
-.container-details .row {
-  margin: 30px 50px;
+.container .bottom-prev .btn{
+  padding: 5px 10px;
+  margin-bottom: 35px;
+  margin-top: 20px;
+  margin-left: -12px;
+
 }
 .container-details .col-md-6 .title {
   padding: 20px 10px;
@@ -31,13 +35,21 @@
 .container-details .col-md-6 .bottom-text {
   padding: 20px 10px;
 }
-.container-form {
-  margin: 30px 50px;
+.container-form{
+  margin: 30px -12px;
+}
+.container-related{
+  margin: 30px -12px;
+}
+.container-related .card{
+  margin-left: 10px;
+}
+.container-related  h3{
+  margin-left: 10px;
 }
 .container-details .row,
 .container-form,
 .container-related {
-  margin: 30px 50px;
   border: 1px solid #ededed;
   overflow: hidden;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
