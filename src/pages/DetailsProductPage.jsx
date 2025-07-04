@@ -32,126 +32,128 @@ export default function DetailsProductPage() {
     <>
       {product ? (
         <main>
-          <div className="bottom-prev m-1">
-            <Link to={`/shop`} >
-              <button className="btn btn-primary mx-5">
-                 <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
-                 Torna allo shop
-              </button>
-            </Link>
-          </div>
-          <div className="container-details">
-            <div className="row ">
-              <div className="col-md-6 mb-6">
-                <img
-                  src="../public/smartphone_placeholder.jpeg"
-                  alt="smartphone"
-                />
-              </div>
-              <div className="col-md-6 mb-6">
-                <div className="title">
-                  <h1>{product.brand} {product.title} {product.model}</h1>
+          <div className="container">
+            <div className="bottom-prev m-1">
+              <Link to={`/shop`} >
+                <button className="btn btn-primary mx-5">
+                  <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                  Torna allo shop
+                </button>
+              </Link>
+            </div>
+            <div className="container-details">
+              <div className="row ">
+                <div className="col-md-6 mb-6">
+                  <img
+                    src="../public/smartphone_placeholder.jpeg"
+                    alt="smartphone"
+                  />
                 </div>
-                <div className="text">
-                  <p className="price">
-                    <FontAwesomeIcon icon={faEuroSign} /> {product.price}
-                  </p>
-                  <p>
-                    <strong>
-                      Descrizione:
+                <div className="col-md-6 mb-6">
+                  <div className="title">
+                    <h1>{product.brand} {product.title} {product.model}</h1>
+                  </div>
+                  <div className="text">
+                    <p className="price">
+                      <FontAwesomeIcon icon={faEuroSign} /> {product.price}
+                    </p>
+                    <p>
+                      <strong>
+                        Descrizione:
+                        <br />
+                      </strong>
+                      {product.description}
+                    </p>
+                  </div>
+                  <div className="button ">
+                    <Link to={`/checkout`}>      
+                      <button className="btn btn-success p-2">Acquista</button>
+                    </Link>
+                    <button className="btn  m-2 p-2" style={{
+                      background:"#ff6543",
+                      color:"white"
+                     }} onClick={() => addToCart(product)}>Aggiungi a carrello</button>
+                    <button className="btn btn-white py-2" 
+                      style={{
+                        color: " #ff6543",
+                        background: "white",
+                        border: "1px solid #ff6543"
+                      }}
+                      onClick={()=> addToWishlist(product)} >
+                      <FontAwesomeIcon icon={faHeart} className="text-danger" />
+                    </button>
+                  </div>
+                  <div className="bottom-text">
+                    <p>
+                      <strong>Category:</strong>
                       <br />
-                    </strong>
-                    {product.description}
-                  </p>
+                      Smartphone, {product.brand}
+                    </p>
+                  </div>
                 </div>
-                <div className="button ">
-                  <Link to={`/checkout`}>      
-                    <button className="btn btn-success p-2">Acquista</button>
-                  </Link>
-                  <button className="btn  m-2 p-2" style={{
-                    background:"#ff6543",
-                    color:"white"
-                  }} onClick={() => addToCart(product)}>Aggiungi a carrello</button>
-                  <button className="btn btn-white py-2" 
-                    style={{
-                      color: " #ff6543",
-                      background: "white",
-                      border: "1px solid #ff6543"
-                    }}
-                    onClick={()=> addToWishlist(product)} >
-                    <FontAwesomeIcon icon={faHeart} className="text-danger" />
+              </div>
+            </div>
+            <div className="container-form">
+              <nav>
+                <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button
+                    className="nav-link active"
+                    id="nav-home-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-home"
+                    type="button "
+                    role="tab"
+                    aria-controls="nav-home"
+                    aria-selected="true"
+                  >
+                    Descrizione
+                  </button>
+                  <button
+                    className="nav-link"
+                    id="nav-profile-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-profile"
+                    aria-selected="false"
+                  >
+                    Scheda tecnica
                   </button>
                 </div>
-                <div className="bottom-text">
-                  <p>
-                    <strong>Category:</strong>
-                    <br />
-                    Smartphone, {product.brand}
-                  </p>
+              </nav>
+              <div className="tab-content" id="nav-tabContent">
+                <div className="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
+                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                  <ul>
+                    <li>
+                      <strong>Sistema operativo:</strong>{" "}
+                      {product.operating_system}
+                    </li>
+                    <li>
+                      <strong>Ram:</strong> {product.ram}
+                    </li>
+                    <li>
+                      <strong>Memoria:</strong> {product.memory}
+                    </li>
+                    <li>
+                      <strong>Display:</strong> {product.inches}
+                    </li>
+                    <li>
+                      <strong>Risoluzione:</strong> {product.risolution}
+                    </li>
+                    <li>
+                      <strong>Megapixel:</strong> {product.megapixel}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="container-form">
-            <nav>
-              <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                <button
-                  className="nav-link active"
-                  id="nav-home-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#nav-home"
-                  type="button "
-                  role="tab"
-                  aria-controls="nav-home"
-                  aria-selected="true"
-                >
-                  Descrizione
-                </button>
-                <button
-                  className="nav-link"
-                  id="nav-profile-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#nav-profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="nav-profile"
-                  aria-selected="false"
-                >
-                  Scheda tecnica
-                </button>
+            <div className="container-related">
+              <div className="title">
+                <h3>Prodotti correlati</h3>
+                <RelatedProducts/>
               </div>
-            </nav>
-            <div className="tab-content" id="nav-tabContent">
-              <div className="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
-              <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                <ul>
-                  <li>
-                    <strong>Sistema operativo:</strong>{" "}
-                    {product.operating_system}
-                  </li>
-                  <li>
-                    <strong>Ram:</strong> {product.ram}
-                  </li>
-                  <li>
-                    <strong>Memoria:</strong> {product.memory}
-                  </li>
-                  <li>
-                    <strong>Display:</strong> {product.inches}
-                  </li>
-                  <li>
-                    <strong>Risoluzione:</strong> {product.risolution}
-                  </li>
-                  <li>
-                    <strong>Megapixel:</strong> {product.megapixel}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="container-related">
-            <div className="title">
-              <h3>Prodotti correlati</h3>
-              <RelatedProducts/>
             </div>
           </div>
         </main>
