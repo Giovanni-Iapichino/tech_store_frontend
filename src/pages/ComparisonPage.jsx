@@ -1,7 +1,7 @@
 import { useCompare } from "../context/CompareContext";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
@@ -52,13 +52,23 @@ export default function ComparisonPage() {
                 {String(product[key])}
               </div>
             ))}
-            <button
-              className="btn btn-outline-danger btn-sm mt-2"
-              onClick={() => removeFromCompare(product.id)}
-              title="Rimuovi dal confronto"
-            >
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
+            <div className="d-flex justify-content-center gap-2 mt-2">
+              <button
+                className="btn btn-outline-danger btn-sm"
+                onClick={() => removeFromCompare(product.id)}
+                title="Rimuovi dal confronto"
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+              <button
+                className="btn btn-outline-primary btn-sm"
+                title="Aggiungi al carrello"
+                style={{ color: "#ff6543", borderColor: "#ff6543" }}
+                // onClick={...} // aggiungi qui la logica per aggiungere al carrello se desiderato
+              >
+                <FontAwesomeIcon icon={faCartShopping} />
+              </button>
+            </div>
           </div>
         ))}
       </div>
