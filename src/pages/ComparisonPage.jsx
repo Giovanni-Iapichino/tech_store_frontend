@@ -1,7 +1,12 @@
 import { useCompare } from "../context/CompareContext";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faCartShopping, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faCartShopping,
+  faPlus,
+  faMinus,
+} from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import { bottom } from "@popperjs/core";
@@ -43,7 +48,9 @@ export default function ComparisonPage() {
 
   return (
     <div className="container">
-      <h1 className="my-4" style={{ color: "#ff6543" }}><strong>Confronto Prodotti</strong></h1>
+      <h1 className="my-4" style={{ color: "#ff6543" }}>
+        <strong>Confronto Prodotti</strong>
+      </h1>
       <div className="d-flex gap-3 overflow-auto">
         {compareList.map((product) => {
           const cartQty = getCartQuantity(product.id);
@@ -57,7 +64,7 @@ export default function ComparisonPage() {
               {/* Visualizza tutte le info tranne quelle escluse */}
               {allKeys.map((key) => (
                 <div key={key}>
-                  <span style={{ fontWeight: 600}}>
+                  <span style={{ fontWeight: 600 }}>
                     {key.replace(/_/g, " ")}:
                   </span>{" "}
                   {String(product[key])}
@@ -110,7 +117,13 @@ export default function ComparisonPage() {
                   >
                     <FontAwesomeIcon icon={faMinus} />
                   </button>
-                  <span style={{ minWidth: 28, textAlign: "center", fontWeight: 600 }}>
+                  <span
+                    style={{
+                      minWidth: 28,
+                      textAlign: "center",
+                      fontWeight: 600,
+                    }}
+                  >
                     {cartQty}
                   </span>
                   <button
@@ -135,9 +148,27 @@ export default function ComparisonPage() {
           );
         })}
       </div>
-      <button className="btn btn-warning mt-4" style={{ background: "#ff6543", color: "white" }} onClick={clearCompare}>
-        Svuota confronto
-      </button>
+      <div className="d-flex justify-content-center mt-4">
+        <button
+          className="btn btn-warning mt-4 mx-3"
+          style={{ background: "#ff6543", color: "white", border: "white" }}
+          onClick={clearCompare}
+        >
+          Svuota confronto
+        </button>
+        <Link
+          to="/shop"
+          className="btn btn-warning mt-4 mx-3"
+          style={{
+            background: "#ff6543",
+            color: "white",
+            border: "white",
+            width: 146,
+          }}
+        >
+          Torna allo shop
+        </Link>
+      </div>
     </div>
   );
 }
