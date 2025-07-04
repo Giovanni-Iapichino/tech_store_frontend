@@ -26,7 +26,10 @@ export default function ShopPage() {
   const [selectedBrand, setSelectedBrand] = useState(searchParams.get("brand") || "All"); //brand selezionato
   const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(searchParams.get("os") || "All"); //sistema operativo selezionato
   const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
-  const [showPromoOnly, setShowPromoOnly] = useState(false); // nuovo stato filtro promo
+  const [showPromoOnly, setShowPromoOnly] = useState(
+    searchParams.get("promo") === "true"
+  ); // nuovo stato filtro promo
+  const [urlError, setUrlError] = useState(null);
 
   const PRODUCTS_PER_PAGE = 4;
 
@@ -44,7 +47,51 @@ export default function ShopPage() {
     setSelectedBrand(searchParams.get("brand") || "All");
     setSelectedOperatingSystem(searchParams.get("os") || "All");
     setCurrentPage(Number(searchParams.get("page")) || 1);
+    setShowPromoOnly(searchParams.get("promo") === "true");
   }, [searchParams]);
+
+  // Controllo errori URL
+  useEffect(() => {
+    // Parametri e valori validi
+    const allowedParams = ["q", "type", "price", "brand", "os", "page", "promo"];
+    const validTypes = ["All", "Title", "Model"];
+    const validPrices = ["All", "100-200", "200-300", "300-400", "400+"];
+    const validBrands = ["All", ...new Set(products.map((p) => p.brand))];
+    const validOS = ["All", ...new Set(products.map((p) => p.operating_system))];
+
+    let error = null;
+
+    // Controlla se ci sono parametri non previsti nell'URL
+    for (const [key] of searchParams.entries()) {
+      if (!allowedParams.includes(key)) {
+        error = `Parametro non previsto nell'URL: '${key}'.`;
+        break;
+      }
+    }
+
+    // Controlla i valori dei parametri previsti
+    if (!error && searchParams.get("type") && !validTypes.includes(searchParams.get("type"))) {
+      error = "Parametro 'type' non valido nell'URL.";
+    }
+    if (!error && searchParams.get("price") && !validPrices.includes(searchParams.get("price"))) {
+      error = "Parametro 'price' non valido nell'URL.";
+    }
+    if (!error && searchParams.get("brand") && !validBrands.includes(searchParams.get("brand"))) {
+      error = "Parametro 'brand' non valido nell'URL.";
+    }
+    if (!error && searchParams.get("os") && !validOS.includes(searchParams.get("os"))) {
+      error = "Parametro 'os' non valido nell'URL.";
+    }
+    // Correggi: accetta solo "true" o assenza per promo
+    if (
+      !error &&
+      searchParams.has("promo") &&
+      searchParams.get("promo") !== "true"
+    ) {
+      error = "Parametro 'promo' non valido nell'URL.";
+    }
+    setUrlError(error);
+  }, [searchParams, products]);
 
   // Funzione per aggiornare i parametri URL e mantiene i vecchi parametri
   const updateParams = (newParams) => {
@@ -55,13 +102,32 @@ export default function ShopPage() {
       brand: selectedBrand,
       os: selectedOperatingSystem,
       page: currentPage,
+      promo: showPromoOnly ? "true" : undefined,
       ...newParams,
     };
+    // Rimuovi promo se non serve
+    if (!updated.promo) delete updated.promo;
     setSearchParams(updated);
   };
 
   if (loading) return <p>Caricamento in corso...</p>;
   if (error) return <p>{error}</p>;
+  if (urlError) return (
+    <div
+      className="d-flex flex-column justify-content-center align-items-center"
+      style={{ minHeight: "60vh" }}
+    >
+      <div className="alert alert-danger text-center" style={{ maxWidth: 420 }}>
+        {urlError} <br />
+        <button
+          className="btn btn-orange mt-3"
+          onClick={() => window.location.href = "/shop"}
+        >
+          Torna allo Shop
+        </button>
+      </div>
+    </div>
+  );
 
   const uniqueBrands = ["All", ...new Set(products.map((p) => p.brand))]; //estrae l'elenco dei brand
   const uniqueOperatingSystems = ["All", ...new Set(products.map((p) => p.operating_system))]; //estrae l'elenco dei sistemi operativi
@@ -136,14 +202,6 @@ export default function ShopPage() {
         <strong>Smartphone disponibili</strong>
       </h2>
 
-      {compareList.length >= 2 && (
-        <div className="my-3">
-          <button className="btn btn-success" onClick={() => navigate("/comparison")}>
-            Vai al confronto ({compareList.length} prodotti)
-          </button>
-        </div>
-      )}
-
       <div className="d-flex gap-4">
         <div className="row gap-4 flex-grow-1">
           {paginatedProducts.map((product) => {
@@ -162,7 +220,11 @@ export default function ShopPage() {
             <h6 className="mt-3">Solo prodotti in promozione</h6>
             <button
               className={`filter-btn${showPromoOnly ? " selected" : ""}`}
-              onClick={() => setShowPromoOnly((v) => !v)}
+              onClick={() => {
+                const newPromo = !showPromoOnly;
+                setShowPromoOnly(newPromo);
+                updateParams({ promo: newPromo ? "true" : undefined, page: 1 });
+              }}
             >
               {showPromoOnly ? "Mostra tutti" : "Mostra solo promo"}
             </button>

@@ -1,9 +1,18 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CompareContext = createContext();
 
 export const CompareProvider = ({ children }) => {
-  const [compareList, setCompareList] = useState([]);
+  // Carica dal localStorage all'avvio
+  const [compareList, setCompareList] = useState(() => {
+    const saved = localStorage.getItem("compareList");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Salva ogni volta che compareList cambia
+  useEffect(() => {
+    localStorage.setItem("compareList", JSON.stringify(compareList));
+  }, [compareList]);
 
   const addToCompare = (product) => {
     setCompareList((prev) => {
