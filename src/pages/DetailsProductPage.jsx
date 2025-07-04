@@ -4,6 +4,7 @@ import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faArrowLeft, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
+import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
 
 
@@ -12,7 +13,6 @@ export default function DetailsProductPage() {
   const { addToCart } = useCart();                                      //aggiungi al carrello
   const { addToWishlist } = useWishlist();                              //aggiungi alla wishlist
   const [product, setProduct] = useState();                              //prodotto da visualizzare
-
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + id;
 
   const fetchProduct = () => {                                        
@@ -89,38 +89,13 @@ export default function DetailsProductPage() {
           <div className="container-related">
             <div className="title">
               <h3>Prodotti correlati</h3>
-              <div className="row">
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-3">
-                  <div className="card">
-                    <div className="card-image">immagine</div>
-                    <div className="card-text">testo</div>
-                  </div>
-                </div>
-              </div>
+              <RelatedProducts/>
             </div>
           </div>
         </main>
     ):(
       <div className="loading">
-        <h2>Loading...</h2>
+        <h2>Nessun prodotto trovato...</h2>
       </div>
     )}
       
