@@ -46,7 +46,7 @@
 .bottom-text p {
   font-size: 18px;
 }
-.related-products .card{
+.related-products .card {
   overflow: hidden;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
@@ -280,7 +280,9 @@ table thead.custom-thead th {
   background: #ff6543;
   border-color: #ff6543;
 }
-.compare-checkbox:checked + .compare-checkbox-label .compare-custom-check:after {
+.compare-checkbox:checked
+  + .compare-checkbox-label
+  .compare-custom-check:after {
   content: "";
   position: absolute;
   left: 4px;
@@ -335,7 +337,8 @@ table thead.custom-thead th {
   bottom: 32px;
   z-index: 1050;
   min-width: 220px;
-  box-shadow: 0 4px 18px 0 rgba(255,101,67,0.18), 0 1.5px 4px 0 rgba(0,0,0,0.10);
+  box-shadow: 0 4px 18px 0 rgba(255, 101, 67, 0.18),
+    0 1.5px 4px 0 rgba(0, 0, 0, 0.1);
   border-radius: 32px;
   padding: 14px 28px;
   font-size: 1.1rem;
@@ -351,10 +354,12 @@ table thead.custom-thead th {
   color: #ff6543;
   border: 2px solid #ff6543;
   outline: none;
-  box-shadow: 0 8px 32px 0 rgba(255,101,67,0.23), 0 2px 8px 0 rgba(0,0,0,0.13);
-@media (max-width: 576px) {
-  .carousel-item {
-    height: 200px;
+  box-shadow: 0 8px 32px 0 rgba(255, 101, 67, 0.23),
+    0 2px 8px 0 rgba(0, 0, 0, 0.13);
+  @media (max-width: 576px) {
+    .carousel-item {
+      height: 200px;
+    }
   }
 
   .card-brand {
@@ -377,4 +382,31 @@ table thead.custom-thead th {
   .img-carusel {
     width: 100%;
   }
+}
+
+.cart-dropdown {
+  position: absolute;
+  right: -380px;
+  top: 43px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 2%;
+  width: 300px;
+  padding: 15px;
+  z-index: 1000;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart-dropdown-animate {
+  animation: slideDownFade 0.3s ease-out;
 }

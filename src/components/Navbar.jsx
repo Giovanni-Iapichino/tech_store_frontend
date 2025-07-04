@@ -1,16 +1,25 @@
 import { NavLink, Link, useSearchParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
-import { faUser, faCartShopping, faHeart, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faCartShopping,
+  faHeart,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import CartDropdown from "./CartDropdown";
 
 export default function Navbar() {
+  const [showCart, setShowCart] = useState(false);
   const { cart } = useCart();
   const { wishlist } = useWishlist();
   // Cambia: conta la quantità totale dei prodotti nel carrello
-  const [cartItems, setCartItems] = useState(cart.reduce((sum, item) => sum + (item.quantity || 1), 0));
+  const [cartItems, setCartItems] = useState(
+    cart.reduce((sum, item) => sum + (item.quantity || 1), 0)
+  );
   const [wishlistItems, setWishlistItems] = useState(wishlist.length);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,7 +50,11 @@ export default function Navbar() {
         <div className="container-fluid d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2 col-12">
           <div className="d-flex justify-content-between align-items-center gap-2 col-12 col-sm-2">
             {/* Logo */}
-            <NavLink className="nav-link fs-3 col-8 col-sm-2 d-flex justify-content-center align-items-center" aria-current="page" to="/">
+            <NavLink
+              className="nav-link fs-3 col-8 col-sm-2 d-flex justify-content-center align-items-center"
+              aria-current="page"
+              to="/"
+            >
               <span style={{ color: "#ff6543" }}>Tech</span>
               <span className="text-dark">Store</span>
             </NavLink>
@@ -82,9 +95,17 @@ export default function Navbar() {
             <div className="buttons d-flex gap-3">
               <Link className="position-relative mt-2" to="/wishlist">
                 {wishlistItems > 0 ? (
-                  <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faHeart} />
+                  <FontAwesomeIcon
+                    className="fs-4"
+                    style={{ color: "#ff6543" }}
+                    icon={faHeart}
+                  />
                 ) : (
-                  <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faHeartRegular} />
+                  <FontAwesomeIcon
+                    className="fs-4"
+                    style={{ color: "#ff6543" }}
+                    icon={faHeartRegular}
+                  />
                 )}
 
                 {/* {wishlistItems > 0 && (
@@ -104,30 +125,51 @@ export default function Navbar() {
                 </span>
               )} */}
               </Link>
-              <Link className="position-relative mt-2" to="/cart">
-                <FontAwesomeIcon className="fs-4" style={{ color: "#ff6543" }} icon={faCartShopping} />
-                {cartItems > 0 && (
-                  <span
-                    className="badge bg-dark position-absolute rounded-circle"
-                    style={{
-                      top: "-10px",
-                      right: "-10px",
-                      width: "20px",
-                      height: "20px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {cartItems}
-                  </span>
+              <div className="position-relative mt-2">
+                <span
+                  onClick={() => setShowCart(!showCart)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <FontAwesomeIcon
+                    className="fs-4"
+                    style={{ color: "#ff6543" }}
+                    icon={faCartShopping}
+                  />
+                  {cartItems > 0 && (
+                    <span
+                      className="badge bg-dark position-absolute rounded-circle"
+                      style={{
+                        top: "-10px",
+                        right: "-10px",
+                        width: "20px",
+                        height: "20px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {cartItems}
+                    </span>
+                  )}
+                </span>
+
+                {/* Dropdown carrello */}
+                {showCart && (
+                  <CartDropdown onClose={() => setShowCart(false)} />
                 )}
-              </Link>
-              <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4 mt-2" icon={faUser} />
+              </div>
+              <FontAwesomeIcon
+                style={{ color: "#ff6543" }}
+                className="fs-4 mt-2"
+                icon={faUser}
+              />
             </div>
           </div>
           {/* Menu centrato */}
-          <div className="collapse justify-content-center d-sm-none" id="navbarNav">
+          <div
+            className="collapse justify-content-center d-sm-none"
+            id="navbarNav"
+          >
             <ul className="navbar-nav">
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/">
@@ -148,8 +190,17 @@ export default function Navbar() {
           </div>
           <div className="d-flex flex-column flex-md-row col-12 col-md-3 justify-content-center align-items-center">
             {/* FORM di ricerca dentro la navbar */}
-            <form onSubmit={handleSubmit} className="d-flex justify-content-center align-items-center np-form w-100 mt-2 mt-md-0">
-              <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca il tuo smartphone..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            <form
+              onSubmit={handleSubmit}
+              className="d-flex justify-content-center align-items-center np-form w-100 mt-2 mt-md-0"
+            >
+              <input
+                type="text"
+                className="form-control border-0 shadow-none np-input"
+                placeholder="Cerca il tuo smartphone..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
               <button
                 className="btn"
                 type="submit"
