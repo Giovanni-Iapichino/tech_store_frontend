@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faClipboardList, faShieldHalved, faTrophy, faChevronLeft, faChevronRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProductCardLigth from "../components/ProductCardLight";
+import BestSellerCard from "../components/BestSellerCard";
 import { useProducts } from "../context/GetProductsContext";
 
 import { useEffect } from "react";
@@ -14,30 +15,42 @@ export default function HomePage() {
       <div id="carouselExampleControlsNoTouching" className="carousel slide" data-bs-touch="false" data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active" style={{ height: "300px", width: "100%" }}>
-            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center">
-              <div className="title">
-                <h1>Iphone 16 Pro Max</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center py-2">
+              <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row my-auto">
+                <div className="title-carusel">
+                  <h4>Iphone 16 Pro Max</h4>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                </div>
+                <div className="img-carusel">
+                  <img className="d-block w-100" src="/smartphone/16pro.png" alt="..." />
+                </div>
               </div>
-              <img className="d-block h-75" src="/smartphone/16pro.png" alt="..." />
             </div>
           </div>
           <div className="carousel-item" style={{ height: "300px", width: "100%" }}>
-            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center">
-              <div className="title">
-                <h1>Xiaomi 14</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center py-2">
+              <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
+                <div className="title-carusel">
+                  <h4>Xiaomi 14</h4>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                </div>
+                <div className="img-carusel">
+                  <img className="d-block w-100" src="/smartphone/xiaomi.png" alt="..." />
+                </div>
               </div>
-              <img className="d-block h-100" src="/smartphone/xiaomi.png" alt="..." />
             </div>
           </div>
           <div className="carousel-item" style={{ height: "300px", width: "100%" }}>
-            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center">
-              <div className="title">
-                <h1>Samsung S24</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center py-2">
+              <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
+                <div className="title-carusel">
+                  <h4>Samsung S24</h4>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                </div>
+                <div className="img-carusel">
+                  <img className="d-block w-100" src="/smartphone/samsungs24.webp" alt="..." />
+                </div>
               </div>
-              <img className="d-block h-100" src="/smartphone/samsungs24.webp" alt="..." />
             </div>
           </div>
         </div>
@@ -136,7 +149,7 @@ export default function HomePage() {
           <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div>
-          <div className="row gap-4">{bestSeller && bestSeller.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
+          <div className="row gap-4">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
           <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div>

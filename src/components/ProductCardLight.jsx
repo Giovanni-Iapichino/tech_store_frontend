@@ -1,12 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartShopping,
-  faHeart,
-  faTrashCan,
-  faMinus,
-  faPlus,
-  faCircleCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faHeart, faTrashCan, faMinus, faPlus, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck as faCircleCheckRegular } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
@@ -15,19 +8,12 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useCompare } from "../context/CompareContext"; // Importo il contesto per la comparazione dei prodotti
 
-export default function ProductCardLigth({
-  product,
-  isInCompare,
-  addToCompare,
-  removeFromCompare,
-}) {
+export default function ProductCardLigth({ product, isInCompare, addToCompare, removeFromCompare }) {
   const { addToCart, removeFromCart, cart, updateQuantity } = useCart();
   const [isInCart, setIsInCart] = useState(false);
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [quantity, setQuantity] = useState(
-    cart.find((item) => item.id === product.id)?.quantity || 1
-  );
+  const [quantity, setQuantity] = useState(cart.find((item) => item.id === product.id)?.quantity || 1);
 
   const location = useLocation();
   const isShopPage = location.pathname === "/shop";
@@ -74,33 +60,21 @@ export default function ProductCardLigth({
 
         {/* Image */}
         <div className="mt-3">
-          <img
-            className="w-100 h-100"
-            src="/smartphone_placeholder.jpeg"
-            alt={product.title[0].toUpperCase() + product.title.slice(1)}
-          />
+          <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
         </div>
 
         {/* Title and price */}
         <div className="promotion-item-content d-flex flex-column gap-2">
-          <span className="text-center">
-            {product.title[0].toUpperCase() + product.title.slice(1)}
-          </span>
+          <span className="text-center">{product.title[0].toUpperCase() + product.title.slice(1)}</span>
           {product.promotion && (
             <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
-              <span className="original-price text-decoration-line-through">
-                {product.price}€
-              </span>
-              <span className="discounted-price text-danger fw-bold">
-                {product.promotion.discount_price}€
-              </span>
+              <span className="original-price text-decoration-line-through">{product.price}€</span>
+              <span className="discounted-price text-danger fw-bold">{product.promotion.discount_price}€</span>
             </span>
           )}
-          {isShopPage && (
-            <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
-              <span className="original-price">{product.price}€</span>
-            </span>
-          )}
+          <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
+            <span className="original-price">{product.price}€</span>
+          </span>
         </div>
 
         {/* Action buttons */}
@@ -245,29 +219,11 @@ export default function ProductCardLigth({
 
         {/* Compare button */}
         {isShopPage && (
-          <div
-            className="compare-button position-absolute d-flex align-items-center justify-content-center gap-2"
-            style={{ top: "10px", left: "10px" }}
-          >
+          <div className="compare-button position-absolute d-flex align-items-center justify-content-center gap-2" style={{ top: "10px", left: "10px" }}>
             {isInCompare ? (
-              <FontAwesomeIcon
-                style={{ height: "20px", width: "20px" }}
-                className="text-success"
-                icon={faCircleCheck}
-                onClick={(e) => {
-                  e.preventDefault();
-                  removeFromCompare(product.id);
-                }}
-              />
+              <FontAwesomeIcon style={{ height: "20px", width: "20px" }} className="text-success" icon={faCircleCheck} />
             ) : (
-              <FontAwesomeIcon
-                style={{ height: "20px", width: "20px" }}
-                icon={faCircleCheckRegular}
-                onClick={(e) => {
-                  e.preventDefault();
-                  addToCompare(product);
-                }}
-              />
+              <FontAwesomeIcon style={{ height: "20px", width: "20px" }} icon={faCircleCheckRegular} />
             )}
             <span style={{ fontSize: "10px" }}>Compare</span>
           </div>
