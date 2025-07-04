@@ -38,8 +38,11 @@ const RelatedProducts = () => {
                         <div className="card">
                             <img src="../smartphone_placeholder.jpeg" alt="smartphone" className="card-img-top" />
                             <div className="card-body">
-                                <h6 className="card-title">{product.title} {product.model}</h6>
-                                <p className="card-text color-success"><FontAwesomeIcon icon={faEuroSign} />{product.price}</p>
+                                <h6 className="card-title">{product.brand} {product.title} {product.model}</h6>
+                                <p className="card-text" style={{
+                                    color: " #089408",
+                                    fontWeight: "bold",
+                                }}><FontAwesomeIcon icon={faEuroSign} />{product.price}</p>
                                 <button className="btn px-0"onClick={()=> addToCart(product)} >
                                     <FontAwesomeIcon icon={faCartShopping} className="text-black fs-5" style={{
                                         background: "#ff6543",

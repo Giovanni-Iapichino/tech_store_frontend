@@ -42,7 +42,7 @@ export default function DetailsProductPage() {
               </div>
               <div className="col-md-6 mb-6">
                 <div className="title">
-                  <h1>{product.title} {product.model}</h1>
+                  <h1>{product.brand} {product.title} {product.model}</h1>
                 </div>
                 <div className="text">
                   <p className="price"><FontAwesomeIcon icon={faEuroSign} /> {product.price}</p>
