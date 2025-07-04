@@ -219,7 +219,18 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
 
         {/* Compare button */}
         {isShopPage && (
-          <div className="compare-button position-absolute d-flex align-items-center justify-content-center gap-2" style={{ top: "10px", left: "10px" }}>
+          <div
+            className="compare-button position-absolute d-flex align-items-center justify-content-center gap-2"
+            style={{ top: "10px", left: "10px" }}
+            onClick={(e) => {
+              e.preventDefault();
+              if (isInCompare) {
+                removeFromCompare(product.id);
+              } else {
+                addToCompare(product);
+              }
+            }}
+          >
             {isInCompare ? (
               <FontAwesomeIcon style={{ height: "20px", width: "20px" }} className="text-success" icon={faCircleCheck} />
             ) : (
