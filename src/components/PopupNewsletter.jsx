@@ -64,7 +64,7 @@ export default function PopUpNewsletter() {
   return (
     <>
       <div className="popup-newsletter d-flex justify-content-center align-items-center bg-dark fixed-top h-100 w-100 z-3 bg-opacity-75">
-        <div className="popup-newsletter-content bg-white rounded-3 p-3">
+        <div className="popup-newsletter-content bg-white rounded-3 p-3 m-3">
           {alert && <Alert message={alert.message} type={alert.type} />}
           <div className="popup-newsletter-content-header d-flex gap-2 justify-content-between align-items-start">
             <div className="title">
