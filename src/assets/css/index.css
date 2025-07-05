@@ -367,8 +367,6 @@ table thead.custom-thead th {
 
 .cart-dropdown {
   position: absolute;
-  right: -277px;
-  top: 43px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 2%;
@@ -550,5 +548,10 @@ table thead.custom-thead th {
   }
   .promotion-item-content {
     font-size: 14px;
+  }
+  .cart-dropdown {
+    right: -277px;
+    top: 43px;
+    left: 0;
   }
 }
