@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import MenuLink from "../components/MenuLink";
 
 export default function Footer() {
   return (
@@ -6,87 +7,26 @@ export default function Footer() {
       <div className="container">
         <div className="row">
           {/* Colonna 1 */}
-          <div className="col-md-3 mb-3">
+          <div className="col-md-6">
             <ul className="list-unstyled">
-              <li className="fw-bold mb-2">Bool Flix</li>
+              <li className="fw-bold mb-2">TechStore</li>
               <li>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                  dolores corporis accusamus. Omnis magnam ipsa dolor fuga autem
-                  laudantium ipsam eligendi quisquam repellendus! Id
-                  perspiciatis tenetur architecto quibusdam quae hic.
+                  TechStore è il tuo negozio di fiducia per smartphone di qualità. Offriamo una vasta selezione di dispositivi delle migliori marche come Apple, Samsung, Xiaomi e Huawei. Con prezzi
+                  competitivi, spedizione rapida e assistenza clienti dedicata, rendiamo l'acquisto del tuo prossimo smartphone semplice e sicuro.
                 </p>
               </li>
             </ul>
           </div>
 
           {/* Colonna 2 */}
-          <div className="col-md-3 mb-3">
-            <ul className="list-unstyled">
-              <li className="fw-bold mb-2">Links</li>
-              <li>
-                {" "}
-                <Link className="nav-link" aria-current="page" to="/">
-                  Home
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link className="nav-link" to="/shop">
-                  Shop
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link className="nav-link" to="/comparison">
-                  Comparazione
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link className="nav-link" to="/wishlist">
-                  Wishlist
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link className="nav-link" to="/cart">
-                  Cart
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link className="nav-link" to="/checkout">
-                  Checkout
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link className="nav-link" to="/ordersummary">
-                  Order summary
-                </Link>
-              </li>
-            </ul>
+          <div className="col-md-6">
+            <MenuLink />
           </div>
-
-          {/* Colonna 3 */}
-          <div className="col-md-3 mb-3">
-            <ul className="list-unstyled">
-              <li className="fw-bold mb-2">Azienda</li>
-              <li>Chi siamo</li>
-              <li>Lavora con noi</li>
-              <li>Blog</li>
-            </ul>
-          </div>
-
-          {/* Colonna 4 */}
-          <div className="col-md-3 mb-3">
-            <ul className="list-unstyled">
-              <li className="fw-bold mb-2">Azienda</li>
-              <li>Chi siamo</li>
-              <li>Lavora con noi</li>
-              <li>Blog</li>
-            </ul>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <p className="text-center">&copy; {new Date().getFullYear()} TechStore. Tutti i diritti riservati.</p>
           </div>
         </div>
       </div>
