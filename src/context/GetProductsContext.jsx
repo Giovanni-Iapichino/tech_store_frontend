@@ -9,12 +9,13 @@ const ProductsProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [bestSeller, setBestSeller] = useState([]);
   const [promotions, setPromotions] = useState([]);
-
+  const [promotionsOnGoing, setPromotionsOnGoing] = useState([]);
+  const [promotionsInComing, setPromotionsInComing] = useState([]);
   const fetchProducts = (page = 1, limit = 4) => {
     setLoading(true);
     axios
       .get("http://127.0.0.1:3000/api/v1/products", {
-        params: {page, limit},
+        params: { page, limit },
       })
       .then((response) => {
         setProducts(response.data.products);
@@ -66,13 +67,55 @@ const ProductsProvider = ({ children }) => {
       });
   };
 
+  const fetchPromotionsOnGoing = () => {
+    setLoading(true);
+    axios
+      .get("http://127.0.0.1:3000/api/v1/products?promo_state=in_corso&promotion=true")
+      .then((response) => {
+        setPromotionsOnGoing(response.data.products);
+        console.log(response.data.products);
+      })
+      .catch((err) => {
+        console.error("Errore nel recupero dei prodotti:", err);
+        setError("Impossibile caricare i prodotti");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const fetchPromotionsInComing = () => {
+    setLoading(true);
+    axios
+      .get("http://127.0.0.1:3000/api/v1/products?promo_state=futura&promotion=true")
+      .then((response) => {
+        setPromotionsInComing(response.data.products);
+        console.log(response.data.products);
+      })
+      .catch((err) => {
+        console.error("Errore nel recupero dei prodotti:", err);
+        setError("Impossibile caricare i prodotti");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     fetchProducts();
     fetchBestSeller();
     fetchPromotions();
+    fetchPromotionsOnGoing();
+    fetchPromotionsInComing();
   }, []);
 
-  return <ProductsContext.Provider value={{ products, loading, error, bestSeller, fetchBestSeller, promotions, fetchProducts }}>{children}</ProductsContext.Provider>;
+  return (
+    <ProductsContext.Provider
+      value={{ products, loading, error, bestSeller, fetchBestSeller, promotions, fetchProducts, promotionsInComing, fetchPromotionsInComing, promotionsOnGoing, fetchPromotionsOnGoing }}
+    >
+      {children}
+    </ProductsContext.Provider>
+  );
 };
 
 const useProducts = () => {

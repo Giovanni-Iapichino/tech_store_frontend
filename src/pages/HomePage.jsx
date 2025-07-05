@@ -10,7 +10,7 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 import { useNewsletter } from "../context/newsletterContext";
 
 export default function HomePage() {
-  const { bestSeller, promotions } = useProducts();
+  const { bestSeller, promotions, promotionsInComing, promotionsOnGoing } = useProducts();
   const { newsletter, randomClick, setOpen, open, updateRandomClick } = useNewsletter();
 
   console.log(randomClick);
@@ -155,15 +155,31 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <h5 className="my-5">Promotions</h5>
-        <div className="promotions my-5 d-flex gap-4 justify-content-between align-items-center">
-          {/* <div className="banner">
+        <div className="d-flex flex-column flex-sm-row gap-4">
+          <div className="d-flex flex-column gap-4 col-12 col-sm-6">
+            <h5 className="">Promotions on going</h5>
+            <div className="promotions d-flex gap-4 justify-content-between align-items-center">
+              {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div> */}
-          <div className="row gap-3 flex-nowrap overflow-y-auto p-2">{promotions && promotions.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
-          {/* <div className="banner-arrow">
+              <div className="row gap-3 flex-nowrap overflow-y-auto p-3">{promotionsOnGoing && promotionsOnGoing.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
+              {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div> */}
+            </div>
+          </div>
+          <div className="d-flex flex-column gap-4 col-12 col-sm-6">
+            <h5 className="">Promotions in coming</h5>
+            <div className="promotions d-flex gap-4 justify-content-between align-items-center overflow-y-auto">
+              {/* <div className="banner">
+            <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
+          </div> */}
+              <div className="row gap-3 flex-nowrap overflow-y-auto p-3">{promotionsInComing && promotionsInComing.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
+              {/* <div className="banner-arrow">
+            <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
+          </div> */}
+            </div>
+          </div>
         </div>
         <h5 className="my-5">Best Selling Items</h5>
         <div className="promotions my-5 d-flex gap-3 justify-content-between align-items-center">
