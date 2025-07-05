@@ -1,12 +1,7 @@
 import { useCompare } from "../context/CompareContext";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faCartShopping,
-  faPlus,
-  faMinus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCartShopping, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import { bottom } from "@popperjs/core";
@@ -26,19 +21,9 @@ export default function ComparisonPage() {
       </div>
     );
 
-  const EXCLUDED_KEYS = [
-    "id",
-    "title",
-    "thumbnail",
-    "create_at",
-    "update_at",
-    "description",
-    "slug",
-  ];
+  const EXCLUDED_KEYS = ["id", "title", "thumbnail", "create_at", "update_at", "description", "slug"];
 
-  const allKeys = Array.from(
-    new Set(compareList.flatMap((product) => Object.keys(product)))
-  ).filter((key) => !EXCLUDED_KEYS.includes(key));
+  const allKeys = Array.from(new Set(compareList.flatMap((product) => Object.keys(product)))).filter((key) => !EXCLUDED_KEYS.includes(key));
 
   // Trova la quantità di un prodotto nel carrello
   const getCartQuantity = (productId) => {
@@ -51,31 +36,20 @@ export default function ComparisonPage() {
       <h1 className="my-4" style={{ color: "#ff6543" }}>
         <strong>Confronto Prodotti</strong>
       </h1>
-      <div className="d-flex gap-3 overflow-auto">
+      <div className="d-flex flex-column flex-sm-row gap-3 overflow-auto">
         {compareList.map((product) => {
           const cartQty = getCartQuantity(product.id);
           return (
-            <div
-              className="card p-3 shadow"
-              key={product.id}
-              style={{ minWidth: "300px" }}
-            >
+            <div className="card p-3 shadow" key={product.id} style={{ minWidth: "300px" }}>
               <h5>{product.title}</h5>
               {/* Visualizza tutte le info tranne quelle escluse */}
               {allKeys.map((key) => (
                 <div key={key}>
-                  <span style={{ fontWeight: 600 }}>
-                    {key.replace(/_/g, " ")}:
-                  </span>{" "}
-                  {String(product[key])}
+                  <span style={{ fontWeight: 600 }}>{key.replace(/_/g, " ")}:</span> {String(product[key])}
                 </div>
               ))}
               <div className="d-flex justify-content-center gap-2 mt-2">
-                <button
-                  className="btn btn-outline-danger btn-sm"
-                  onClick={() => removeFromCompare(product.id)}
-                  title="Rimuovi dal confronto"
-                >
+                <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCompare(product.id)} title="Rimuovi dal confronto">
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
                 <button
@@ -149,11 +123,7 @@ export default function ComparisonPage() {
         })}
       </div>
       <div className="d-flex justify-content-center mt-4">
-        <button
-          className="btn btn-warning mt-4 mx-3"
-          style={{ background: "#ff6543", color: "white", border: "white" }}
-          onClick={clearCompare}
-        >
+        <button className="btn btn-warning mt-4 mx-3" style={{ background: "#ff6543", color: "white", border: "white" }} onClick={clearCompare}>
           Svuota confronto
         </button>
         <Link

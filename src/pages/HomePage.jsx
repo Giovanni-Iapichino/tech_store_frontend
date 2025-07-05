@@ -139,7 +139,7 @@ export default function HomePage() {
           <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div>
-          <div className="row gap-3">{promotions && promotions.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
+          <div className="row gap-3 flex-nowrap overflow-y-auto">{promotions && promotions.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
           <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div>
@@ -149,7 +149,7 @@ export default function HomePage() {
           <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div>
-          <div className="row gap-4">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
+          <div className="row gap-4 overflow-y-auto flex-nowrap">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
           <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div>
