@@ -157,23 +157,23 @@ export default function HomePage() {
         </div>
         <h5 className="my-5">Promotions</h5>
         <div className="promotions my-5 d-flex gap-4 justify-content-between align-items-center">
-          <div className="banner">
+          {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
-          </div>
-          <div className="row gap-3 flex-nowrap overflow-y-auto">{promotions && promotions.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
-          <div className="banner-arrow">
+          </div> */}
+          <div className="row gap-3 flex-nowrap overflow-y-auto p-2">{promotions && promotions.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
+          {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
-          </div>
+          </div> */}
         </div>
         <h5 className="my-5">Best Selling Items</h5>
         <div className="promotions my-5 d-flex gap-3 justify-content-between align-items-center">
-          <div className="banner">
+          {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
-          </div>
-          <div className="row gap-4 overflow-y-auto flex-nowrap">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
-          <div className="banner-arrow">
+          </div> */}
+          <div className="row gap-4 overflow-y-auto flex-nowrap p-2">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
+          {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
-          </div>
+          </div> */}
         </div>
       </main>
     </>
