@@ -20,13 +20,12 @@ export default function DetailsProductPage() {
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
 
   const fetchProduct = () => {
-    axios.get(productApiUrl).then((res) => {
-      // chiamata API per ottenere il prodotto
-      const { product } = res.data; // destruttura la risposta per ottenere il prodotto
-      setProduct(product); // imposta il prodotto nello stato
+    axios.get(productApiUrl).then((res) => {             // chiamata API per ottenere il prodotto
+      const { product } = res.data;                    // destruttura la risposta per ottenere il prodotto
+      setProduct(product);                           // imposta il prodotto nello stato
     });
   };
-  useEffect(fetchProduct, []); // chiama la funzione fetchProduct al caricamento del componente
+  useEffect(fetchProduct, []);                        // chiama la funzione fetchProduct al caricamento del componente
 
   return (
     <>
