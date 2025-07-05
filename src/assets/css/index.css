@@ -375,6 +375,34 @@ table thead.custom-thead th {
   z-index: 1000;
 }
 
+/* Triangolino che punta all'icona del carrello */
+.cart-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 150px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid white;
+  z-index: 1001;
+}
+
+/* Ombra per il triangolino */
+.cart-dropdown::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
 @keyframes slideDownFade {
   from {
     opacity: 0;
@@ -510,9 +538,18 @@ table thead.custom-thead th {
     width: 100%;
   }
   .cart-dropdown {
-    left: -130px;
-    top: 43px;
+    left: -136px;
+    top: 30px;
     right: 0;
+  }
+
+  /* Triangolino per mobile - posizionato a destra */
+  .cart-dropdown::before {
+    right: 140px;
+  }
+
+  .cart-dropdown::after {
+    right: 140px;
   }
   .promotion-item-content {
     font-size: 12px;
@@ -545,11 +582,6 @@ table thead.custom-thead th {
   }
 }
 @media screen and (min-width: 768px) {
-  .cart-dropdown {
-    left: -150px;
-    top: 43px;
-    right: 0;
-  }
   .promotion-item {
     width: 160px;
     height: 250px;
@@ -559,8 +591,18 @@ table thead.custom-thead th {
   }
   .cart-dropdown {
     right: -277px;
-    top: 43px;
-    left: 0;
+    top: 35px;
+  }
+
+  /* Triangolino per desktop - posizionato a sinistra */
+  .cart-dropdown::before {
+    right: auto;
+    left: 145px;
+  }
+
+  .cart-dropdown::after {
+    right: auto;
+    left: 145px;
   }
   .card-brand {
     width: 200px;
