@@ -8,7 +8,7 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
-import RelatedProducts from "./RElatedProductCard";
+import RelatedProducts from "./RelatedProductCard";
 import axios from "axios";
 
 export default function DetailsProductPage() {
