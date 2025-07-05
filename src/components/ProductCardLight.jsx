@@ -33,7 +33,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
   return (
     <>
       <Link
-        className="text-dark col-2 border rounded-3 d-flex flex-column justify-content-around align-items-center gap-3 promotion-item position-relative text-decoration-none mx-auto"
+        className="text-dark col-2 border rounded-3 d-flex flex-column justify-content-around align-items-center promotion-item position-relative text-decoration-none mx-auto"
         to={`/shop/${product.slug}`}
       >
         {/* Promotion */}
@@ -64,7 +64,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
         </div>
 
         {/* Title and price */}
-        <div className="promotion-item-content d-flex flex-column gap-2">
+        <div className="promotion-item-content d-flex flex-column">
           <span className="text-center">{product.title[0].toUpperCase() + product.title.slice(1)}</span>
           {product.promotion && (
             <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
@@ -72,9 +72,11 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
               <span className="discounted-price text-danger fw-bold">{product.promotion.discount_price}€</span>
             </span>
           )}
-          <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
-            <span className="original-price">{product.price}€</span>
-          </span>
+          {isShopPage && (
+            <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
+              <span className="original-price">{product.price}€</span>
+            </span>
+          )}
         </div>
 
         {/* Action buttons */}
@@ -236,7 +238,9 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             ) : (
               <FontAwesomeIcon style={{ height: "20px", width: "20px" }} icon={faCircleCheckRegular} />
             )}
-            <span style={{ fontSize: "10px" }}>Compare</span>
+            <span className="d-none d-sm-block" style={{ fontSize: "10px" }}>
+              Compare
+            </span>
           </div>
         )}
 
