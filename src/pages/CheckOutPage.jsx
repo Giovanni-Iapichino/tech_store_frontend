@@ -92,6 +92,23 @@ export default function CheckOutPage() {
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6">
+            <h2>Riepilogo ordine</h2>
+            <ul className="list-group mb-3">
+              {cart.map((item) => (
+                <li className="list-group-item d-flex justify-content-between" key={item.id}>
+                  <span>
+                    {item.brand} {item.title} {item.model} x{item.quantity}
+                  </span>
+                  <span>€ {(item.price * item.quantity).toFixed(2)}</span>
+                </li>
+              ))}
+              <li className="list-group-item d-flex justify-content-between">
+                <strong>Totale</strong>
+                <strong>€ {total.toFixed(2)}</strong>
+              </li>
+            </ul>
+          </div>
+          <div className="col-md-6">
             <h2>Dati di fatturazione</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -135,24 +152,6 @@ export default function CheckOutPage() {
               {success && <div className="alert alert-success mt-3">Ordine effettuato con successo!</div>}
               {error && <div className="alert alert-danger mt-3">{error}</div>}
             </form>
-          </div>
-
-          <div className="col-md-6">
-            <h2>Riepilogo ordine</h2>
-            <ul className="list-group mb-3">
-              {cart.map((item) => (
-                <li className="list-group-item d-flex justify-content-between" key={item.id}>
-                  <span>
-                    {item.brand} {item.title} {item.model} x{item.quantity}
-                  </span>
-                  <span>€ {(item.price * item.quantity).toFixed(2)}</span>
-                </li>
-              ))}
-              <li className="list-group-item d-flex justify-content-between">
-                <strong>Totale</strong>
-                <strong>€ {total.toFixed(2)}</strong>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
