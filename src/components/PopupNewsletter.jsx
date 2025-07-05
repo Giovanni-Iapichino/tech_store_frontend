@@ -53,7 +53,11 @@ export default function PopUpNewsletter() {
       })
       .catch((err) => {
         console.error("Errore API:", err.response?.data || err.message);
-        setAlert({ type: "danger", message: "Si è verificato un errore durante l'iscrizione. Riprova più tardi." });
+        setAlert(
+          err.response.data.responseData?.malformatElements
+            ? { type: "danger", message: err.response.data.message, malformatElements: err.response.data.responseData.malformatElements }
+            : { type: "danger", message: err.response.data.error }
+        );
       });
   }
 
@@ -72,18 +76,18 @@ export default function PopUpNewsletter() {
             </button>
           </div>
           <form className="d-flex flex-column gap-2" onSubmit={handleSubmit}>
-            <div className="form-group d-flex flex-column gap-2 p-3">
+            <div className="form-group d-flex flex-column gap-2">
               <label htmlFor="name">Nome</label>
-              <input type="text" placeholder="Nome" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <input type="text" placeholder="Nome" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
               {alert && alert.malformatElements && alert.malformatElements.name && <p className="text-danger">{alert.malformatElements.name.message}</p>}
               <label htmlFor="surname">Cognome</label>
-              <input type="text" placeholder="Cognome" value={form.surname} onChange={(e) => setForm({ ...form, lastname: e.target.value })} />
+              <input type="text" placeholder="Cognome" value={form.surname} onChange={(e) => setForm({ ...form, lastname: e.target.value })} required />
               {alert && alert.malformatElements && alert.malformatElements.lastname && <p className="text-danger">{alert.malformatElements.lastname.message}</p>}
               <label htmlFor="email">Email</label>
-              <input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
               {alert && alert.malformatElements && alert.malformatElements.email && <p className="text-danger">{alert.malformatElements.email.message}</p>}
 
-              <button className="btn rounded-pill" style={{ backgroundColor: "#ff6543", color: "#fff" }} type="submit">
+              <button className="btn rounded-pill mt-2" style={{ backgroundColor: "#ff6543", color: "#fff" }} type="submit">
                 Iscriviti
               </button>
             </div>
