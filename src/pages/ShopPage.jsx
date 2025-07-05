@@ -18,8 +18,10 @@ export default function ShopPage() {
   const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
 
   useEffect(() => {
-    const currentValue = randomClick;
-    updateRandomClick(currentValue - 1);
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
   }, []);
 
   useEffect(() => {

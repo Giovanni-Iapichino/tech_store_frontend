@@ -24,8 +24,10 @@ export default function HomePage() {
   }, [randomClick]);
 
   useEffect(() => {
-    const currentValue = randomClick;
-    updateRandomClick(currentValue - 1);
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
   }, []);
 
   return (

@@ -14,8 +14,10 @@ export default function ComparisonPage() {
   const { randomClick, updateRandomClick } = useNewsletter();
 
   useEffect(() => {
-    const currentValue = randomClick;
-    updateRandomClick(currentValue - 1);
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
   }, []);
 
   useEffect(() => {
