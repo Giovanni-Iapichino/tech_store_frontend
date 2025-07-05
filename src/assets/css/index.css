@@ -558,4 +558,11 @@ table thead.custom-thead th {
     width: 200px;
     height: 100px;
   }
+  .service {
+    font-size: 15px;
+  }
+
+  .service h5 {
+    font-size: 18px;
+  }
 }
