@@ -291,9 +291,7 @@ table thead.custom-thead th {
   background: #ff6543;
   border-color: #ff6543;
 }
-.compare-checkbox:checked
-  + .compare-checkbox-label
-  .compare-custom-check:after {
+.compare-checkbox:checked + .compare-checkbox-label .compare-custom-check:after {
   content: "";
   position: absolute;
   left: 4px;
@@ -348,8 +346,7 @@ table thead.custom-thead th {
   bottom: 32px;
   z-index: 1050;
   min-width: 220px;
-  box-shadow: 0 4px 18px 0 rgba(255, 101, 67, 0.18),
-    0 1.5px 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 18px 0 rgba(255, 101, 67, 0.18), 0 1.5px 4px 0 rgba(0, 0, 0, 0.1);
   border-radius: 32px;
   padding: 14px 28px;
   font-size: 1.1rem;
@@ -365,34 +362,7 @@ table thead.custom-thead th {
   color: #ff6543;
   border: 2px solid #ff6543;
   outline: none;
-  box-shadow: 0 8px 32px 0 rgba(255, 101, 67, 0.23),
-    0 2px 8px 0 rgba(0, 0, 0, 0.13);
-}
-@media screen and (max-width: 576px) {
-  .carousel-item {
-    height: 200px;
-  }
-
-  .card-brand {
-    width: 100px;
-    height: 50px;
-  }
-
-  .service {
-    font-size: 10px;
-  }
-
-  .service h5 {
-    font-size: 12px;
-  }
-
-  .title-carusel {
-    display: none;
-  }
-
-  .img-carusel {
-    width: 100%;
-  }
+  box-shadow: 0 8px 32px 0 rgba(255, 101, 67, 0.23), 0 2px 8px 0 rgba(0, 0, 0, 0.13);
 }
 
 .cart-dropdown {
@@ -420,4 +390,107 @@ table thead.custom-thead th {
 
 .cart-dropdown-animate {
   animation: slideDownFade 0.3s ease-out;
+}
+
+.header-message {
+  font-size: 20px;
+  font-weight: 600;
+  height: 150px;
+}
+
+/* --- FILTRI MOBILE COMPATTI --- */
+.mobile-filter-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ff6543;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mobile-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.mobile-filter-chip {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #ff6543;
+  background: #fff;
+  color: #ff6543;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  min-width: fit-content;
+  box-shadow: 0 1px 3px rgba(255, 101, 67, 0.1);
+}
+
+.mobile-filter-chip.selected,
+.mobile-filter-chip:focus,
+.mobile-filter-chip:hover {
+  background: #ff6543;
+  color: #fff;
+  border: 1.5px solid #ff6543;
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(255, 101, 67, 0.2);
+}
+
+/* Responsive per schermi molto piccoli */
+@media screen and (max-width: 375px) {
+  .mobile-filter-chips {
+    gap: 4px;
+  }
+
+  .mobile-filter-chip {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .mobile-filter-label {
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .carousel-item {
+    height: 200px;
+  }
+
+  .card-brand {
+    width: 100px;
+    height: 50px;
+  }
+
+  .service {
+    font-size: 10px;
+  }
+
+  .service h5 {
+    font-size: 12px;
+  }
+
+  .title-carusel {
+    display: none;
+  }
+
+  .img-carusel {
+    width: 100%;
+  }
+  .cart-dropdown {
+    left: -130px;
+    top: 43px;
+    right: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .cart-dropdown {
+    left: -150px;
+    top: 43px;
+    right: 0;
+  }
 }

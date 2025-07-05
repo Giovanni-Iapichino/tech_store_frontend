@@ -26,9 +26,7 @@ export default function ShopPage() {
   const [selectedBrand, setSelectedBrand] = useState(searchParams.get("brand") || "All"); //brand selezionato
   const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(searchParams.get("os") || "All"); //sistema operativo selezionato
   const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
-  const [showPromoOnly, setShowPromoOnly] = useState(
-    searchParams.get("promo") === "true"
-  ); // nuovo stato filtro promo
+  const [showPromoOnly, setShowPromoOnly] = useState(searchParams.get("promo") === "true"); // nuovo stato filtro promo
   const [urlError, setUrlError] = useState(null);
 
   const PRODUCTS_PER_PAGE = 4;
@@ -83,11 +81,7 @@ export default function ShopPage() {
       error = "Parametro 'os' non valido nell'URL.";
     }
     // Correggi: accetta solo "true" o assenza per promo
-    if (
-      !error &&
-      searchParams.has("promo") &&
-      searchParams.get("promo") !== "true"
-    ) {
+    if (!error && searchParams.has("promo") && searchParams.get("promo") !== "true") {
       error = "Parametro 'promo' non valido nell'URL.";
     }
     setUrlError(error);
@@ -112,22 +106,17 @@ export default function ShopPage() {
 
   if (loading) return <p>Caricamento in corso...</p>;
   if (error) return <p>{error}</p>;
-  if (urlError) return (
-    <div
-      className="d-flex flex-column justify-content-center align-items-center"
-      style={{ minHeight: "60vh" }}
-    >
-      <div className="alert alert-danger text-center" style={{ maxWidth: 420 }}>
-        {urlError} <br />
-        <button
-          className="btn btn-orange mt-3"
-          onClick={() => window.location.href = "/shop"}
-        >
-          Torna allo Shop
-        </button>
+  if (urlError)
+    return (
+      <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
+        <div className="alert alert-danger text-center" style={{ maxWidth: 420 }}>
+          {urlError} <br />
+          <button className="btn btn-orange mt-3" onClick={() => (window.location.href = "/shop")}>
+            Torna allo Shop
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
 
   const uniqueBrands = ["All", ...new Set(products.map((p) => p.brand))]; //estrae l'elenco dei brand
   const uniqueOperatingSystems = ["All", ...new Set(products.map((p) => p.operating_system))]; //estrae l'elenco dei sistemi operativi
@@ -153,13 +142,9 @@ export default function ShopPage() {
   const filteredProducts = products.filter((product) => {
     const matchesSearch = submittedTerm.trim() === "" || getFilteredField(product).toLowerCase().includes(submittedTerm.toLowerCase()); //q = ricerca generale
     const matchesPrice = isPriceInRange(product.price); // prezzo
-    const matchesBrand =
-      selectedBrand === "All" || product.brand === selectedBrand; // brand
-    const matchesOS =
-      selectedOperatingSystem === "All" ||
-      product.operating_system === selectedOperatingSystem; // sistema operativo
-    const matchesPromo =
-      !showPromoOnly || !!product.promotion; // promo attiva solo se richiesto
+    const matchesBrand = selectedBrand === "All" || product.brand === selectedBrand; // brand
+    const matchesOS = selectedOperatingSystem === "All" || product.operating_system === selectedOperatingSystem; // sistema operativo
+    const matchesPromo = !showPromoOnly || !!product.promotion; // promo attiva solo se richiesto
 
     return matchesSearch && matchesPrice && matchesBrand && matchesOS && matchesPromo;
   });
@@ -194,92 +179,85 @@ export default function ShopPage() {
   };
 
   return (
-    <div className="container">
+    <>
       <div className="mb-4">
         <HeaderMessage text="Shop" />
       </div>
-      <h2 className="mb-4" style={{ color: "#ff6543" }}>
-        <strong>Smartphone disponibili</strong>
-      </h2>
+      <div className="container">
+        <h2 className="mb-4" style={{ color: "#ff6543" }}>
+          <strong>Smartphone disponibili</strong>
+        </h2>
 
-      <div className="d-flex gap-4">
-        <div className="row gap-4 flex-grow-1">
-          {paginatedProducts.map((product) => {
-            const isInCompare = compareList.some((p) => p.id === product.id);
-            return <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />;
-          })}
-
-          {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
-        </div>
-        <div
-          className="d-flex flex-column mx-3 h-100"
-          style={{ minWidth: "180px" }}
-        >
-          {/* Filtro promo */}
-          <div className="filter-section">
-            <h6 className="mt-3">Solo prodotti in promozione</h6>
+        {/* Filtri mobile - versione compatta per schermi sotto 576px */}
+        <div className="d-sm-none mb-4">
+          {/* Filtro promo - chip singolo */}
+          <div className="mb-3">
             <button
-              className={`filter-btn${showPromoOnly ? " selected" : ""}`}
+              className={`mobile-filter-chip${showPromoOnly ? " selected" : ""}`}
               onClick={() => {
                 const newPromo = !showPromoOnly;
                 setShowPromoOnly(newPromo);
                 updateParams({ promo: newPromo ? "true" : undefined, page: 1 });
               }}
             >
-              {showPromoOnly ? "Mostra tutti" : "Mostra solo promo"}
+              {showPromoOnly ? "🔴 Solo promo" : "⚪ Tutti"}
             </button>
           </div>
-          {/* Filtro brand */}
-          <div className="filter-section">
-            <h6 className="mt-3">Filtra per brand</h6>
-            {uniqueBrands.map((brand) => (
-              <div key={brand}>
+
+          {/* Filtro brand - chips orizzontali */}
+          <div className="mb-3">
+            <div className="mobile-filter-label">Brand:</div>
+            <div className="mobile-filter-chips">
+              {uniqueBrands.map((brand) => (
                 <button
-                  className={`filter-btn${selectedBrand === brand ? " selected" : ""}`}
+                  key={brand}
+                  className={`mobile-filter-chip${selectedBrand === brand ? " selected" : ""}`}
                   onClick={() => {
                     setSelectedBrand(brand);
                     setCurrentPage(1);
                     updateParams({ brand, page: 1 });
                   }}
                 >
-                  {brand}
+                  {brand === "All" ? "Tutti" : brand}
                 </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Filtro sistema operativo */}
-          <div className="filter-section">
-            <h6 className="mt-3">Filtra per sistema operativo</h6>
-            {uniqueOperatingSystems.map((os) => (
-              <div key={os}>
+          {/* Filtro sistema operativo - chips orizzontali */}
+          <div className="mb-3">
+            <div className="mobile-filter-label">OS:</div>
+            <div className="mobile-filter-chips">
+              {uniqueOperatingSystems.map((os) => (
                 <button
-                  className={`filter-btn${selectedOperatingSystem === os ? " selected" : ""}`}
+                  key={os}
+                  className={`mobile-filter-chip${selectedOperatingSystem === os ? " selected" : ""}`}
                   onClick={() => {
                     setSelectedOperatingSystem(os);
                     setCurrentPage(1);
                     updateParams({ os, page: 1 });
                   }}
                 >
-                  {os}
+                  {os === "All" ? "Tutti" : os}
                 </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Filtro prezzo */}
-          <div className="filter-section">
-            <h6 className="mt-3">Filtra per prezzo</h6>
-            {[
-              { label: "Tutti i prezzi", value: "All" },
-              { label: "100€ – 200€", value: "100-200" },
-              { label: "200€ – 300€", value: "200-300" },
-              { label: "300€ – 400€", value: "300-400" },
-              { label: "Oltre 400€", value: "400+" },
-            ].map(({ label, value }) => (
-              <div key={value}>
+          {/* Filtro prezzo - chips orizzontali */}
+          <div className="mb-3">
+            <div className="mobile-filter-label">Prezzo:</div>
+            <div className="mobile-filter-chips">
+              {[
+                { label: "Tutti", value: "All" },
+                { label: "100-200€", value: "100-200" },
+                { label: "200-300€", value: "200-300" },
+                { label: "300-400€", value: "300-400" },
+                { label: "400+€", value: "400+" },
+              ].map(({ label, value }) => (
                 <button
-                  className={`filter-btn${priceRange === value ? " selected" : ""}`}
+                  key={value}
+                  className={`mobile-filter-chip${priceRange === value ? " selected" : ""}`}
                   onClick={() => {
                     setPriceRange(value);
                     setCurrentPage(1);
@@ -288,32 +266,118 @@ export default function ShopPage() {
                 >
                   {label}
                 </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Paginazione */}
-      <div className="my-3 w-100 mx-auto d-flex justify-content-center align-items-center border rounded p-2">
-        <button className="pagination-btn" onClick={handlePrevPage} disabled={currentPage === 1}>
-          Prev
-        </button>
-        <span>Pagina {currentPage}</span>
-        <button className="pagination-btn" onClick={handleNextPage} disabled={isLastPage}>
-          Next
-        </button>
-      </div>
+        <div className="d-flex gap-4">
+          <div className="row gap-4 flex-grow-1">
+            {paginatedProducts.map((product) => {
+              const isInCompare = compareList.some((p) => p.id === product.id);
+              return <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />;
+            })}
 
-      {/* Bottone fisso per confronto */}
-      {compareList.length >= 2 && (
-        <button
-          className="btn-compare fixed-compare-btn"
-          onClick={() => navigate("/comparison")}
-        >
-          Vai al confronto ({compareList.length} prodotti)
-        </button>
-      )}
-    </div>
+            {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
+          </div>
+          <div className="flex-column mx-3 h-100 d-none d-sm-flex" style={{ minWidth: "180px" }}>
+            {/* Filtro promo */}
+            <div className="filter-section">
+              <h6 className="mt-3">Solo prodotti in promozione</h6>
+              <button
+                className={`filter-btn${showPromoOnly ? " selected" : ""}`}
+                onClick={() => {
+                  const newPromo = !showPromoOnly;
+                  setShowPromoOnly(newPromo);
+                  updateParams({ promo: newPromo ? "true" : undefined, page: 1 });
+                }}
+              >
+                {showPromoOnly ? "Mostra tutti" : "Mostra solo promo"}
+              </button>
+            </div>
+            {/* Filtro brand */}
+            <div className="filter-section">
+              <h6 className="mt-3">Filtra per brand</h6>
+              {uniqueBrands.map((brand) => (
+                <div key={brand}>
+                  <button
+                    className={`filter-btn${selectedBrand === brand ? " selected" : ""}`}
+                    onClick={() => {
+                      setSelectedBrand(brand);
+                      setCurrentPage(1);
+                      updateParams({ brand, page: 1 });
+                    }}
+                  >
+                    {brand}
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {/* Filtro sistema operativo */}
+            <div className="filter-section">
+              <h6 className="mt-3">Filtra per sistema operativo</h6>
+              {uniqueOperatingSystems.map((os) => (
+                <div key={os}>
+                  <button
+                    className={`filter-btn${selectedOperatingSystem === os ? " selected" : ""}`}
+                    onClick={() => {
+                      setSelectedOperatingSystem(os);
+                      setCurrentPage(1);
+                      updateParams({ os, page: 1 });
+                    }}
+                  >
+                    {os}
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {/* Filtro prezzo */}
+            <div className="filter-section">
+              <h6 className="mt-3">Filtra per prezzo</h6>
+              {[
+                { label: "Tutti i prezzi", value: "All" },
+                { label: "100€ – 200€", value: "100-200" },
+                { label: "200€ – 300€", value: "200-300" },
+                { label: "300€ – 400€", value: "300-400" },
+                { label: "Oltre 400€", value: "400+" },
+              ].map(({ label, value }) => (
+                <div key={value}>
+                  <button
+                    className={`filter-btn${priceRange === value ? " selected" : ""}`}
+                    onClick={() => {
+                      setPriceRange(value);
+                      setCurrentPage(1);
+                      updateParams({ price: value, page: 1 });
+                    }}
+                  >
+                    {label}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Paginazione */}
+        <div className="my-3 w-100 mx-auto d-flex justify-content-center align-items-center border rounded p-2">
+          <button className="pagination-btn" onClick={handlePrevPage} disabled={currentPage === 1}>
+            Prev
+          </button>
+          <span className="d-none d-sm-block">Pagina </span> <span className="text-orange fw-bold">{currentPage}</span>
+          <button className="pagination-btn" onClick={handleNextPage} disabled={isLastPage}>
+            Next
+          </button>
+        </div>
+
+        {/* Bottone fisso per confronto */}
+        {compareList.length >= 2 && (
+          <button className="btn-compare fixed-compare-btn" onClick={() => navigate("/comparison")}>
+            Vai al confronto ({compareList.length} prodotti)
+          </button>
+        )}
+      </div>
+    </>
   );
 }
