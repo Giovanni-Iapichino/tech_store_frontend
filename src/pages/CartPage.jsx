@@ -115,18 +115,18 @@ export default function CartPage() {
             <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} className="me-2" />
             Totale: €{total.toFixed(2)}
           </h4>
-          <div>
-            <Link to="/shop" className="btn btn-orange me-2 mb-2 mb-md-0">
+          <div className="d-flex flex-md-row gap-2 justify-content-center align-items-center">
+            <Link to="/shop" className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center">
               <FontAwesomeIcon icon={faArrowLeft} className="me-1" />
-              Continua gli acquisti
+              <span className="d-none d-md-block">Continua gli acquisti</span>
             </Link>
-            <button className="btn btn-orange me-2 mb-2 mb-md-0" onClick={clearCart}>
+            <button className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center" onClick={clearCart}>
               <FontAwesomeIcon icon={faBrush} className="me-1" />
-              Svuota carrello
+              <span className="d-none d-md-block">Svuota carrello</span>
             </button>
-            <Link to="/checkout" className="btn btn-orange">
+            <Link to="/checkout" className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center">
               <FontAwesomeIcon icon={faCircleCheck} className="me-1" />
-              Procedi al checkout
+              <span className="d-none d-md-block">Procedi al checkout</span>
             </Link>
           </div>
         </div>
