@@ -40,7 +40,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
         <div className="position-absolute top-0 end-0 p-1">
           {product.promotion && (
             <div className="fs-6 bg-danger text-white rounded-3 p-1">
-              <span>{product.promotion.discount}%</span>
+              <span>{parseInt(product.promotion.discount)}%</span>
             </div>
           )}
         </div>
