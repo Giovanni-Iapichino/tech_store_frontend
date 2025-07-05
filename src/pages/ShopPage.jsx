@@ -189,24 +189,40 @@ export default function ShopPage() {
         </h2>
 
         {/* Filtri mobile - versione compatta per schermi sotto 576px */}
-        <div className="d-sm-none mb-4">
+        <div className="mb-3">
+          <button
+            className={`mobile-filter-chip${showPromoOnly ? " selected" : ""}`}
+            onClick={() => {
+              const newPromo = !showPromoOnly;
+              setShowPromoOnly(newPromo);
+              updateParams({ promo: newPromo ? "true" : undefined, page: 1 });
+            }}
+          >
+            {showPromoOnly ? "🔴 Solo promo" : "⚪ Tutti"}
+          </button>
+        </div>
+        <div className="d-sm-none mb-4 d-flex gap-2">
           {/* Filtro promo - chip singolo */}
-          <div className="mb-3">
-            <button
-              className={`mobile-filter-chip${showPromoOnly ? " selected" : ""}`}
-              onClick={() => {
-                const newPromo = !showPromoOnly;
-                setShowPromoOnly(newPromo);
-                updateParams({ promo: newPromo ? "true" : undefined, page: 1 });
-              }}
-            >
-              {showPromoOnly ? "🔴 Solo promo" : "⚪ Tutti"}
-            </button>
-          </div>
 
           {/* Filtro brand - chips orizzontali */}
-          <div className="mb-3">
+          <div className="mb-3 d-flex flex-column gap-2">
             <div className="mobile-filter-label">Brand:</div>
+            <select
+              className="mobile-filter-select"
+              onChange={(e) => {
+                setSelectedBrand(e.target.value);
+                setCurrentPage(1);
+                updateParams({ brand: e.target.value, page: 1 });
+              }}
+            >
+              <option value="All">Tutti</option>
+              {uniqueBrands.map((brand) => (
+                <option key={brand} value={brand}>
+                  {brand}
+                </option>
+              ))}
+            </select>
+            {/* <div className="mobile-filter-label">Brand:</div>
             <div className="mobile-filter-chips">
               {uniqueBrands.map((brand) => (
                 <button
@@ -221,13 +237,28 @@ export default function ShopPage() {
                   {brand === "All" ? "Tutti" : brand}
                 </button>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Filtro sistema operativo - chips orizzontali */}
-          <div className="mb-3">
+          <div className="mb-3 d-flex flex-column gap-2">
             <div className="mobile-filter-label">OS:</div>
-            <div className="mobile-filter-chips">
+            <select
+              className="mobile-filter-select"
+              onChange={(e) => {
+                setSelectedOperatingSystem(e.target.value);
+                setCurrentPage(1);
+                updateParams({ os: e.target.value, page: 1 });
+              }}
+            >
+              <option value="All">Tutti</option>
+              {uniqueOperatingSystems.map((os) => (
+                <option key={os} value={os}>
+                  {os}
+                </option>
+              ))}
+            </select>
+            {/* <div className="mobile-filter-chips">
               {uniqueOperatingSystems.map((os) => (
                 <button
                   key={os}
@@ -241,13 +272,34 @@ export default function ShopPage() {
                   {os === "All" ? "Tutti" : os}
                 </button>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Filtro prezzo - chips orizzontali */}
-          <div className="mb-3">
+          <div className="mb-3 d-flex flex-column gap-2">
             <div className="mobile-filter-label">Prezzo:</div>
-            <div className="mobile-filter-chips">
+            <select
+              className="mobile-filter-select"
+              onChange={(e) => {
+                setPriceRange(e.target.value);
+                setCurrentPage(1);
+                updateParams({ price: e.target.value, page: 1 });
+              }}
+            >
+              <option value="All">Tutti</option>
+              {[
+                { label: "Tutti", value: "All" },
+                { label: "100-200€", value: "100-200" },
+                { label: "200-300€", value: "200-300" },
+                { label: "300-400€", value: "300-400" },
+                { label: "400+€", value: "400+" },
+              ].map(({ label, value }) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+            {/* <div className="mobile-filter-chips">
               {[
                 { label: "Tutti", value: "All" },
                 { label: "100-200€", value: "100-200" },
@@ -267,15 +319,20 @@ export default function ShopPage() {
                   {label}
                 </button>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
 
+        {/* filtri sopra i 576px */}
         <div className="d-flex gap-4">
-          <div className="row gap-4 flex-grow-1">
+          <div className="row gap-4 flex-grow-1 justify-content-center">
             {paginatedProducts.map((product) => {
               const isInCompare = compareList.some((p) => p.id === product.id);
-              return <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />;
+              return (
+                <div className="col-5 col-sm-4 col-md-4 col-lg-3">
+                  <ProductCardLight key={product.id} product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />
+                </div>
+              );
             })}
 
             {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
