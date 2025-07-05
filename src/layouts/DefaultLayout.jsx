@@ -9,12 +9,14 @@ export default function DefaultLayout() {
 
   return (
     <>
-      <Navbar></Navbar>
-      <Loader isLoading={isLoading} />
-      <main>
-        <Outlet />
-      </main>
-      <Footer></Footer>
+      <div className="d-flex flex-column min-vh-100">
+        <Navbar></Navbar>
+        <Loader isLoading={isLoading} />
+        <main className="flex-grow-1">
+          <Outlet />
+        </main>
+        <Footer></Footer>
+      </div>
     </>
   );
 }
