@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import CartDropdown from "./CartDropdown";
+import MenuLink from "./MenuLink";
 
 export default function Navbar() {
   const [showCart, setShowCart] = useState(false);
@@ -61,23 +62,7 @@ export default function Navbar() {
             </button>
           </div>
           <div className="justify-content-center align-items-center d-none d-sm-flex col-6 col-md-4">
-            <ul className="d-flex gap-1 justify-content-center list-unstyled align-items-center mb-0">
-              <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Offerte
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Shop
-                </NavLink>
-              </li>
-            </ul>
+            <MenuLink />
           </div>
           <div className="d-flex flex-md-row-reverse flex-grow-1 gap-3 col-12 col-sm-2 justify-content-center align-items-center">
             {/* Bottoni */}
@@ -135,23 +120,7 @@ export default function Navbar() {
           </div>
           {/* Menu centrato */}
           <div className="collapse justify-content-center d-sm-none" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Offerte
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Shop
-                </NavLink>
-              </li>
-            </ul>
+            <MenuLink />
           </div>
           <div className="d-flex flex-column flex-md-row col-12 col-md-3 justify-content-center align-items-center">
             {/* FORM di ricerca dentro la navbar */}
