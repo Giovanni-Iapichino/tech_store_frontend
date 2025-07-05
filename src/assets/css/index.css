@@ -554,4 +554,8 @@ table thead.custom-thead th {
     top: 43px;
     left: 0;
   }
+  .card-brand {
+    width: 200px;
+    height: 100px;
+  }
 }
