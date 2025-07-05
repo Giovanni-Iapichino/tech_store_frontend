@@ -9,10 +9,26 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProductCardLight from "../components/ProductCardLight";
 import HeaderMessage from "../components/HeaderMessage";
+import { useNewsletter } from "../context/newsletterContext";
+import PopUpNewsletter from "../components/PopUpNewsletter";
 
 export default function ShopPage() {
   const { products, loading, error, fetchProducts } = useProducts();
   const { compareList, addToCompare, removeFromCompare } = useCompare();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+
+  useEffect(() => {
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (randomClick === 0) {
+      setOpen(true);
+    }
+  }, [randomClick]);
 
   const navigate = useNavigate();
 
@@ -180,6 +196,7 @@ export default function ShopPage() {
 
   return (
     <>
+      {open && newsletter === "false" && <PopUpNewsletter />}
       <div className="mb-4">
         <HeaderMessage text="Shop" />
       </div>

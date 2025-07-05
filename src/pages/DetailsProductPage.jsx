@@ -2,20 +2,32 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEuroSign,
-  faArrowLeft,
-  faHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEuroSign, faArrowLeft, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
 import RelatedProducts from "./RelatedProductCard";
 import axios from "axios";
+import { useNewsletter } from "../context/newsletterContext";
+import PopUpNewsletter from "../components/PopUpNewsletter";
 
 export default function DetailsProductPage() {
   const { slug } = useParams();
   const { addToCart } = useCart(); //aggiungi al carrello
   const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
   const [product, setProduct] = useState(); //prodotto da visualizzare
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+
+  useEffect(() => {
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (randomClick === 0) {
+      setOpen(true);
+    }
+  }, [randomClick]);
 
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
 
@@ -29,11 +41,12 @@ export default function DetailsProductPage() {
 
   return (
     <>
+      {open && newsletter === "false" && <PopUpNewsletter />}
       {product ? (
         <main>
           <div className="container">
             <div className="bottom-prev">
-              <Link to={`/shop`} >
+              <Link to={`/shop`}>
                 <button className="btn btn-primary ">
                   <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
                   Torna allo shop
@@ -43,14 +56,13 @@ export default function DetailsProductPage() {
             <div className="container-details">
               <div className="row ">
                 <div className="col-md-6 mb-6">
-                  <img
-                    src="../smartphone_placeholder.jpeg"
-                    alt="smartphone"
-                  />
+                  <img src="../smartphone_placeholder.jpeg" alt="smartphone" />
                 </div>
                 <div className="col-md-6 mb-6">
                   <div className="title">
-                    <h1>{product.brand} {product.title} {product.model}</h1>
+                    <h1>
+                      {product.brand} {product.title} {product.model}
+                    </h1>
                   </div>
                   <div className="text">
                     <p className="price">
@@ -65,20 +77,28 @@ export default function DetailsProductPage() {
                     </p>
                   </div>
                   <div className="button ">
-                    <Link to={`/checkout`}>      
+                    <Link to={`/checkout`}>
                       <button className="btn btn-success p-2">Acquista</button>
                     </Link>
-                    <button className="btn  m-2 p-2" style={{
-                      background:"#ff6543",
-                      color:"white"
-                     }} onClick={() => addToCart(product)}>Aggiungi a carrello</button>
-                    <button className="btn btn-white py-2" 
+                    <button
+                      className="btn  m-2 p-2"
+                      style={{
+                        background: "#ff6543",
+                        color: "white",
+                      }}
+                      onClick={() => addToCart(product)}
+                    >
+                      Aggiungi a carrello
+                    </button>
+                    <button
+                      className="btn btn-white py-2"
                       style={{
                         color: " #ff6543",
                         background: "white",
-                        border: "1px solid #ff6543"
+                        border: "1px solid #ff6543",
                       }}
-                      onClick={()=> addToWishlist(product)} >
+                      onClick={() => addToWishlist(product)}
+                    >
                       <FontAwesomeIcon icon={faHeart} className="text-danger" />
                     </button>
                   </div>
@@ -95,39 +115,22 @@ export default function DetailsProductPage() {
             <div className="container-form">
               <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button
-                    className="nav-link active"
-                    id="nav-home-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-home"
-                    type="button "
-                    role="tab"
-                    aria-controls="nav-home"
-                    aria-selected="true"
-                  >
+                  <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button " role="tab" aria-controls="nav-home" aria-selected="true">
                     Descrizione
                   </button>
-                  <button
-                    className="nav-link"
-                    id="nav-profile-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-profile"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-profile"
-                    aria-selected="false"
-                  >
+                  <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
                     Scheda tecnica
                   </button>
                 </div>
               </nav>
               <div className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{product.description}</div>
+                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                  {product.description}
+                </div>
                 <div className="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                   <ul>
                     <li>
-                      <strong>Sistema operativo:</strong>{" "}
-                      {product.operating_system}
+                      <strong>Sistema operativo:</strong> {product.operating_system}
                     </li>
                     <li>
                       <strong>Ram:</strong> {product.ram}
@@ -151,17 +154,16 @@ export default function DetailsProductPage() {
             <div className="container-related">
               <div className="title">
                 <h3>Prodotti correlati</h3>
-                <RelatedProducts/>
+                <RelatedProducts />
               </div>
             </div>
           </div>
         </main>
-    ):(
-      <div className="loading">
-        <h2>Nessun prodotto trovato...</h2>
-      </div>
-    )}
-      
+      ) : (
+        <div className="loading">
+          <h2>Nessun prodotto trovato...</h2>
+        </div>
+      )}
     </>
   );
 }
