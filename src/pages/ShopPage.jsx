@@ -201,12 +201,12 @@ export default function ShopPage() {
         <HeaderMessage text="Shop" />
       </div>
       <div className="container">
-        <h2 className="mb-4" style={{ color: "#ff6543" }}>
+        {/* <h2 className="mb-4" style={{ color: "#ff6543" }}>
           <strong>Smartphone disponibili</strong>
-        </h2>
+        </h2> */}
 
         {/* Filtri mobile - versione compatta per schermi sotto 576px */}
-        <div className="mb-3 d-sm-none">
+        {/* <div className="mb-3 d-sm-none">
           <button
             className={`mobile-filter-chip${showPromoOnly ? " selected" : ""}`}
             onClick={() => {
@@ -217,8 +217,8 @@ export default function ShopPage() {
           >
             {showPromoOnly ? "🔴 Solo promo" : "⚪ Tutti"}
           </button>
-        </div>
-        <div className="d-sm-none mb-4 d-flex gap-2">
+        </div> */}
+        <div className="d-sm-none mb-4 d-flex gap-2 justify-content-center">
           {/* Filtro promo - chip singolo */}
 
           {/* Filtro brand - chips orizzontali */}
