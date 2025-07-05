@@ -156,7 +156,7 @@ export default function Navbar() {
           <div className="d-flex flex-column flex-md-row col-12 col-md-3 justify-content-center align-items-center">
             {/* FORM di ricerca dentro la navbar */}
             <form onSubmit={handleSubmit} className="d-flex justify-content-center align-items-center np-form w-100 mt-2 mt-md-0">
-              <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca il tuo smartphone..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+              <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
               <button
                 className="btn"
                 type="submit"
