@@ -44,10 +44,9 @@ export default function CartPage() {
   return (
     <>
       {open && newsletter === "false" && <PopUpNewsletter />}
+      <HeaderMessage text="Cart" />
       <div className="container mt-5">
-        <div className="mb-4">
-          <HeaderMessage text="Cart" />
-        </div>
+        <div className="mb-4"></div>
         <h2 className="mb-4">
           <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} className="me-2" />
           Il tuo Carrello
