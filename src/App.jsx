@@ -16,6 +16,7 @@ import { ProductsProvider } from "./context/GetProductsContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { CompareProvider } from "./context/CompareContext";
+import { NewsletterProvider } from "./context/newsletterContext";
 
 export default function app() {
   return (
@@ -25,37 +26,24 @@ export default function app() {
           <CartProvider>
             <WishlistProvider>
               <LoaderProvider>
-                <BrowserRouter>
-                  <Routes>
-                    <Route element={<DefaultLayout />}>
-                      <Route path="/" element={<HomePage />}></Route>
-                      <Route path="/shop">
-                        <Route index element={<ShopPage />}></Route>
-                        <Route
-                          path=":slug"
-                          element={<DetailsProductPage />}
-                        ></Route>
+                <NewsletterProvider>
+                  <BrowserRouter>
+                    <Routes>
+                      <Route element={<DefaultLayout />}>
+                        <Route path="/" element={<HomePage />}></Route>
+                        <Route path="/shop">
+                          <Route index element={<ShopPage />}></Route>
+                          <Route path=":slug" element={<DetailsProductPage />}></Route>
+                        </Route>
+                        <Route path="/comparison" element={<ComparisonPage />}></Route>
+                        <Route path="/wishlist" element={<WishListPage />}></Route>
+                        <Route path="/cart" element={<CartPage />}></Route>
+                        <Route path="/checkout" element={<CheckOutPage />}></Route>
+                        <Route path="/ordersummary" element={<OrderSummaryPage />}></Route>
                       </Route>
-                      <Route
-                        path="/comparison"
-                        element={<ComparisonPage />}
-                      ></Route>
-                      <Route
-                        path="/wishlist"
-                        element={<WishListPage />}
-                      ></Route>
-                      <Route path="/cart" element={<CartPage />}></Route>
-                      <Route
-                        path="/checkout"
-                        element={<CheckOutPage />}
-                      ></Route>
-                      <Route
-                        path="/ordersummary"
-                        element={<OrderSummaryPage />}
-                      ></Route>
-                    </Route>
-                  </Routes>
-                </BrowserRouter>
+                    </Routes>
+                  </BrowserRouter>
+                </NewsletterProvider>
               </LoaderProvider>
             </WishlistProvider>
           </CartProvider>

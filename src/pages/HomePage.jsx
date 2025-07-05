@@ -6,12 +6,31 @@ import { useProducts } from "../context/GetProductsContext";
 
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import PopUpNewsletter from "../components/PopUpNewsletter";
+import { useNewsletter } from "../context/newsletterContext";
 
 export default function HomePage() {
   const { bestSeller, promotions } = useProducts();
+  const { newsletter, randomClick, setOpen, open, updateRandomClick } = useNewsletter();
+
+  console.log(randomClick);
+  console.log(open);
+  console.log(newsletter);
+
+  useEffect(() => {
+    if (randomClick === 0) {
+      setOpen(true);
+    }
+  }, [randomClick]);
+
+  useEffect(() => {
+    const currentValue = randomClick;
+    updateRandomClick(currentValue - 1);
+  }, []);
 
   return (
     <>
+      {open && newsletter === "false" && <PopUpNewsletter />}
       <div id="carouselExampleControlsNoTouching" className="carousel slide" data-bs-touch="false" data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active" style={{ height: "300px", width: "100%" }}>
