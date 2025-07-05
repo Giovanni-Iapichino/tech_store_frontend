@@ -3,9 +3,10 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useNewsletter } from "../context/newsletterContext";
 import { useEffect, useState } from "react";
 import Alert from "./Alert";
+import axios from "axios";
 
 export default function PopUpNewsletter() {
-  const { open, setOpen, randomClick, setRandomClick, timestamp, setTimestamp, newsletter, setNewsletter, updateRandomClick, storeNewsletter, alert, setAlert } = useNewsletter();
+  const { open, setOpen, randomClick, setRandomClick, timestamp, setTimestamp, newsletter, setNewsletter, updateRandomClick, storeNewsletter, alert, setAlert, sendEmail } = useNewsletter();
   const [form, setForm] = useState({
     name: "",
     lastname: "",
@@ -22,17 +23,39 @@ export default function PopUpNewsletter() {
     updateRandomClick(parseInt(Math.random() * 5) + 1);
   };
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    storeNewsletter(form);
-    if (alert.type === "success") {
-      setNewsletter("true");
-      localStorage.setItem("newsletter", "true");
-      localStorage.removeItem("timestamp");
-      localStorage.removeItem("randomClick");
-      setOpen(false);
-    }
-  };
+    setAlert(null);
+
+    axios
+      .post("http://127.0.0.1:3000/api/v1/newsletter", form)
+      .then((response) => {
+        const message = response.data.message;
+
+        return axios
+          .post("http://127.0.0.1:3000/api/v1/send-email", {
+            type: "newsletter",
+            email: form.email,
+            nome: form.name,
+            cognome: form.lastname,
+          })
+          .then(() => {
+            localStorage.setItem("newsletter", "true");
+            localStorage.removeItem("timestamp");
+            localStorage.removeItem("randomClick");
+            setForm({
+              name: "",
+              lastname: "",
+              email: "",
+            });
+            setOpen(false);
+          });
+      })
+      .catch((err) => {
+        console.error("Errore API:", err.response?.data || err.message);
+        setAlert({ type: "danger", message: "Si è verificato un errore durante l'iscrizione. Riprova più tardi." });
+      });
+  }
 
   return (
     <>
