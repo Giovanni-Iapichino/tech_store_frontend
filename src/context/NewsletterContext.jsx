@@ -49,8 +49,26 @@ export const NewsletterProvider = ({ children }) => {
       });
   };
 
+  const sendEmail = (value) => {
+    axios
+      .post("http://localhost:3000/api/v1/send-email", {
+        nome: value.name,
+        cognome: value.lastname,
+        email: value.email,
+        type: "newsletter",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <NewsletterContext.Provider value={{ open, setOpen, randomClick, setRandomClick, timestamp, setTimestamp, newsletter, setNewsletter, updateRandomClick, storeNewsletter, alert, setAlert }}>
+    <NewsletterContext.Provider
+      value={{ open, setOpen, randomClick, setRandomClick, timestamp, setTimestamp, newsletter, setNewsletter, updateRandomClick, storeNewsletter, alert, setAlert, sendEmail }}
+    >
       {children}
     </NewsletterContext.Provider>
   );
