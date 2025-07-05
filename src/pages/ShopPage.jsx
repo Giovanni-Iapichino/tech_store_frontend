@@ -189,7 +189,7 @@ export default function ShopPage() {
         </h2>
 
         {/* Filtri mobile - versione compatta per schermi sotto 576px */}
-        <div className="mb-3">
+        <div className="mb-3 d-sm-none">
           <button
             className={`mobile-filter-chip${showPromoOnly ? " selected" : ""}`}
             onClick={() => {
