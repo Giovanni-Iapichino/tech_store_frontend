@@ -20,7 +20,7 @@ const ProductsProvider = ({ children }) => {
       })
       .then((response) => {
         setProducts(response.data.products);
-        console.log(response.data.products);
+        // console.log(response.data.products);
         setError(null);
       })
 
@@ -57,7 +57,7 @@ const ProductsProvider = ({ children }) => {
       .get("http://127.0.0.1:3000/api/v1/products?promotion=true")
       .then((response) => {
         setPromotions(response.data.products);
-        console.log(response.data.products);
+        // console.log(response.data.products);
       })
       .catch((err) => {
         console.error("Errore nel recupero dei prodotti:", err);
@@ -74,7 +74,7 @@ const ProductsProvider = ({ children }) => {
       .get("http://127.0.0.1:3000/api/v1/products?promo_state=in_corso&promotion=true")
       .then((response) => {
         setPromotionsOnGoing(response.data.products);
-        console.log(response.data.products);
+        // console.log(response.data.products);
       })
       .catch((err) => {
         console.error("Errore nel recupero dei prodotti:", err);
@@ -91,7 +91,7 @@ const ProductsProvider = ({ children }) => {
       .get("http://127.0.0.1:3000/api/v1/products?promo_state=futura&promotion=true")
       .then((response) => {
         setPromotionsInComing(response.data.products);
-        console.log(response.data.products);
+        // console.log(response.data.products);
       })
       .catch((err) => {
         console.error("Errore nel recupero dei prodotti:", err);
