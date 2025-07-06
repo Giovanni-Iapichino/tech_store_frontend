@@ -493,7 +493,7 @@ table thead.custom-thead th {
   font-weight: 600;
   transition: all 0.18s ease;
   box-shadow: 0 1px 3px rgba(255, 101, 67, 0.1);
-  padding: 6px 12px;
+  padding: 4px 4px;
 }
 
 .mobile-filter-select:focus {
@@ -509,6 +509,7 @@ table thead.custom-thead th {
   background: #fff;
   color: #ff6543;
   font-weight: 600;
+  font-size: 4rem;
 }
 
 /* Responsive per schermi molto piccoli */
@@ -622,7 +623,7 @@ table thead.custom-thead th {
     left: 145px;
   }
   .card-brand {
-    width: 170px;
+    width: 180px;
     height: 100px;
   }
   .service {
@@ -631,5 +632,12 @@ table thead.custom-thead th {
 
   .service h5 {
     font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .card-brand {
+    width: 130px;
+    height: 100px;
   }
 }
