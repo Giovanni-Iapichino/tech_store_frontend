@@ -224,6 +224,13 @@ table thead.custom-thead th {
   padding: 22px 18px 18px 18px;
   margin-bottom: 28px;
   border: 1px solid #ff6543;
+  max-height: 300px;
+  overflow-x: auto;
+  scri
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .filter-section h6 {
   color: #ff6543;
