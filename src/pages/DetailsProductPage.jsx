@@ -6,7 +6,7 @@ import { faEuroSign, faArrowLeft, faHeart } from "@fortawesome/free-solid-svg-ic
 import { useWishlist } from "../context/WishlistContext";
 import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
-import { useNewsletter } from "../context/newsletterContext";
+
 import PopUpNewsletter from "../components/PopUpNewsletter";
 
 export default function DetailsProductPage() {
