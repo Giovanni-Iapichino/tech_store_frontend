@@ -382,6 +382,16 @@ table thead.custom-thead th {
   z-index: 1000;
 }
 
+.cart-dropdown-list {
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Triangolino che punta all'icona del carrello */
 .cart-dropdown::before {
   content: "";
@@ -545,7 +555,7 @@ table thead.custom-thead th {
     width: 100%;
   }
   .cart-dropdown {
-    left: -136px;
+    left: -140px;
     top: 30px;
     right: 0;
   }

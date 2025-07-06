@@ -20,16 +20,13 @@ export default function CartDropdown({ onClose }) {
   return (
     <div className="cart-dropdown bg-white shadow p-3 mt-2 rounded cart-dropdown-animate">
       <h5 className="text-center">Il tuo Carrello</h5>
-      <ul className="list-unstyled">
+      <ul className="list-unstyled cart-dropdown-list">
         {cart.map((item) => (
           <li key={item.id} className="mb-2">
             <strong>{item.title}</strong> x {item.quantity}
             <br />
             <span>€ {(item.price * item.quantity).toFixed(2)}</span>
-            <button
-              onClick={() => removeFromCart(item.id)}
-              className="btn btn-sm float-end"
-            >
+            <button onClick={() => removeFromCart(item.id)} className="btn btn-sm float-end">
               <FontAwesomeIcon icon={faTrash} style={{ color: "#be0909" }} />
             </button>
           </li>
