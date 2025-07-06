@@ -155,8 +155,8 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="d-flex flex-column flex-sm-row gap-4">
-          <div className="d-flex flex-column gap-4 col-12 col-sm-6">
+        <div className="d-flex flex-column flex-lg-row gap-4">
+          <div className="d-flex flex-column gap-4 col-12 col-lg-6">
             <h5 className="">Promotions on going</h5>
             <div className="promotions d-flex gap-4 justify-content-between align-items-center">
               {/* <div className="banner">
@@ -168,7 +168,7 @@ export default function HomePage() {
           </div> */}
             </div>
           </div>
-          <div className="d-flex flex-column gap-4 col-12 col-sm-6">
+          <div className="d-flex flex-column gap-4 col-12 col-lg-6">
             <h5 className="">Promotions in coming</h5>
             <div className="promotions d-flex gap-4 justify-content-between align-items-center overflow-y-auto">
               {/* <div className="banner">
