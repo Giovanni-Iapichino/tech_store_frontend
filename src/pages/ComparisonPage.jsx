@@ -6,12 +6,13 @@ import { useCart } from "../context/CartContext";
 import { useState, useEffect } from "react";
 import { bottom } from "@popperjs/core";
 import { useNewsletter } from "../context/newsletterContext";
+import PopUpNewsletter from "../components/PopUpNewsletter";
 
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
   const { cart, addToCart, removeFromCart, updateQuantity } = useCart();
   const [showCartActions, setShowCartActions] = useState({});
-  const { randomClick, updateRandomClick } = useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
 
   useEffect(() => {
     if (newsletter === "false") {
