@@ -3,22 +3,40 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCartShopping, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../context/CartContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { bottom } from "@popperjs/core";
+import { useNewsletter } from "../context/newsletterContext";
 
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
   const { cart, addToCart, removeFromCart, updateQuantity } = useCart();
   const [showCartActions, setShowCartActions] = useState({});
+  const { randomClick, updateRandomClick } = useNewsletter();
+
+  useEffect(() => {
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (randomClick === 0) {
+      setOpen(true);
+    }
+  }, [randomClick]);
 
   if (compareList.length === 0)
     return (
-      <div className="container">
-        <p>Nessun prodotto selezionato per il confronto.</p>
-        <Link className="btn btn-warning mt-4" to="/shop">
-          Torna allo Shop
-        </Link>
-      </div>
+      <>
+        {open && newsletter === "false" && <PopUpNewsletter />}
+        <div className="container">
+          <p>Nessun prodotto selezionato per il confronto.</p>
+          <Link className="btn btn-warning mt-4" to="/shop">
+            Torna allo Shop
+          </Link>
+        </div>
+      </>
     );
 
   const EXCLUDED_KEYS = ["id", "title", "thumbnail", "create_at", "update_at", "description", "slug"];
@@ -32,113 +50,116 @@ export default function ComparisonPage() {
   };
 
   return (
-    <div className="container">
-      <h1 className="my-4" style={{ color: "#ff6543" }}>
-        <strong>Confronto Prodotti</strong>
-      </h1>
-      <div className="d-flex flex-column flex-sm-row gap-3 overflow-auto">
-        {compareList.map((product) => {
-          const cartQty = getCartQuantity(product.id);
-          return (
-            <div className="card p-3 shadow" key={product.id} style={{ minWidth: "300px" }}>
-              <h5>{product.title}</h5>
-              {/* Visualizza tutte le info tranne quelle escluse */}
-              {allKeys.map((key) => (
-                <div key={key}>
-                  <span style={{ fontWeight: 600 }}>{key.replace(/_/g, " ")}:</span> {String(product[key])}
+    <>
+      {open && newsletter === "false" && <PopUpNewsletter />}
+      <div className="container">
+        <h1 className="my-4" style={{ color: "#ff6543" }}>
+          <strong>Confronto Prodotti</strong>
+        </h1>
+        <div className="d-flex flex-column flex-sm-row gap-3 overflow-auto">
+          {compareList.map((product) => {
+            const cartQty = getCartQuantity(product.id);
+            return (
+              <div className="card p-3 shadow" key={product.id} style={{ minWidth: "300px" }}>
+                <h5>{product.title}</h5>
+                {/* Visualizza tutte le info tranne quelle escluse */}
+                {allKeys.map((key) => (
+                  <div key={key}>
+                    <span style={{ fontWeight: 600 }}>{key.replace(/_/g, " ")}:</span> {String(product[key])}
+                  </div>
+                ))}
+                <div className="d-flex justify-content-center gap-2 mt-2">
+                  <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCompare(product.id)} title="Rimuovi dal confronto">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                  <button
+                    className="btn btn-outline-primary btn-sm"
+                    title="Gestisci carrello"
+                    style={{ color: "#ff6543", borderColor: "#ff6543" }}
+                    onClick={() =>
+                      setShowCartActions((prev) => ({
+                        ...prev,
+                        [product.id]: !prev[product.id],
+                      }))
+                    }
+                  >
+                    <FontAwesomeIcon icon={faCartShopping} />
+                  </button>
                 </div>
-              ))}
-              <div className="d-flex justify-content-center gap-2 mt-2">
-                <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCompare(product.id)} title="Rimuovi dal confronto">
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-                <button
-                  className="btn btn-outline-primary btn-sm"
-                  title="Gestisci carrello"
-                  style={{ color: "#ff6543", borderColor: "#ff6543" }}
-                  onClick={() =>
-                    setShowCartActions((prev) => ({
-                      ...prev,
-                      [product.id]: !prev[product.id],
-                    }))
-                  }
-                >
-                  <FontAwesomeIcon icon={faCartShopping} />
-                </button>
+                {showCartActions[product.id] && (
+                  <div className="d-flex align-items-center justify-content-center gap-2 mt-2">
+                    <button
+                      className="btn btn-outline-primary btn-sm"
+                      style={{
+                        borderRadius: "50%",
+                        width: 32,
+                        height: 32,
+                        padding: 0,
+                        fontSize: "1.1rem",
+                        color: "#ff6543",
+                        borderColor: "#ff6543",
+                      }}
+                      onClick={() => {
+                        if (cartQty > 1) {
+                          updateQuantity(product.id, cartQty - 1);
+                        } else if (cartQty === 1) {
+                          removeFromCart(product.id);
+                        }
+                      }}
+                      disabled={cartQty === 0}
+                      title="Rimuovi uno"
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </button>
+                    <span
+                      style={{
+                        minWidth: 28,
+                        textAlign: "center",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {cartQty}
+                    </span>
+                    <button
+                      className="btn btn-outline-primary btn-sm"
+                      style={{
+                        borderRadius: "50%",
+                        width: 32,
+                        height: 32,
+                        padding: 0,
+                        fontSize: "1.1rem",
+                        color: "#ff6543",
+                        borderColor: "#ff6543",
+                      }}
+                      onClick={() => addToCart(product)}
+                      title="Aggiungi uno"
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </div>
+                )}
               </div>
-              {showCartActions[product.id] && (
-                <div className="d-flex align-items-center justify-content-center gap-2 mt-2">
-                  <button
-                    className="btn btn-outline-primary btn-sm"
-                    style={{
-                      borderRadius: "50%",
-                      width: 32,
-                      height: 32,
-                      padding: 0,
-                      fontSize: "1.1rem",
-                      color: "#ff6543",
-                      borderColor: "#ff6543",
-                    }}
-                    onClick={() => {
-                      if (cartQty > 1) {
-                        updateQuantity(product.id, cartQty - 1);
-                      } else if (cartQty === 1) {
-                        removeFromCart(product.id);
-                      }
-                    }}
-                    disabled={cartQty === 0}
-                    title="Rimuovi uno"
-                  >
-                    <FontAwesomeIcon icon={faMinus} />
-                  </button>
-                  <span
-                    style={{
-                      minWidth: 28,
-                      textAlign: "center",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {cartQty}
-                  </span>
-                  <button
-                    className="btn btn-outline-primary btn-sm"
-                    style={{
-                      borderRadius: "50%",
-                      width: 32,
-                      height: 32,
-                      padding: 0,
-                      fontSize: "1.1rem",
-                      color: "#ff6543",
-                      borderColor: "#ff6543",
-                    }}
-                    onClick={() => addToCart(product)}
-                    title="Aggiungi uno"
-                  >
-                    <FontAwesomeIcon icon={faPlus} />
-                  </button>
-                </div>
-              )}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <div className="d-flex justify-content-center mt-4">
+          <button className="btn btn-warning mt-4 mx-3" style={{ background: "#ff6543", color: "white", border: "white" }} onClick={clearCompare}>
+            Svuota confronto
+          </button>
+          <Link
+            to="/shop"
+            className="btn btn-warning mt-4 mx-3"
+            style={{
+              background: "#ff6543",
+              color: "white",
+              border: "white",
+              width: 146,
+            }}
+          >
+            Torna allo shop
+          </Link>
+        </div>
       </div>
-      <div className="d-flex justify-content-center mt-4">
-        <button className="btn btn-warning mt-4 mx-3" style={{ background: "#ff6543", color: "white", border: "white" }} onClick={clearCompare}>
-          Svuota confronto
-        </button>
-        <Link
-          to="/shop"
-          className="btn btn-warning mt-4 mx-3"
-          style={{
-            background: "#ff6543",
-            color: "white",
-            border: "white",
-            width: 146,
-          }}
-        >
-          Torna allo shop
-        </Link>
-      </div>
-    </div>
+    </>
   );
 }
