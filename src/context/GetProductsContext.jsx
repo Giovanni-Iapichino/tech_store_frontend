@@ -11,7 +11,8 @@ const ProductsProvider = ({ children }) => {
   const [promotions, setPromotions] = useState([]);
   const [promotionsOnGoing, setPromotionsOnGoing] = useState([]);
   const [promotionsInComing, setPromotionsInComing] = useState([]);
-  const fetchProducts = (page = 1, limit = 4) => {
+
+  const fetchProducts = (page, limit) => {
     setLoading(true);
     axios
       .get("http://127.0.0.1:3000/api/v1/products", {
