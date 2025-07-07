@@ -125,8 +125,8 @@
 
 /* --- Promotion Item --- */
 .promotion-item {
-  width: 180px;
-  height: 250px;
+  /* width: 180px;
+  height: 250px; */
   object-fit: cover;
   border-radius: 10px;
   overflow: hidden;
@@ -598,10 +598,10 @@ table thead.custom-thead th {
 
 @media screen and (min-width: 576px) {
   .promotion-item {
-    /* width: 180px; */
-    width: 100%;
-    /* height: 220px; */
-    height: auto;
+    width: 180px;
+    /* width: 100%; */
+    height: 220px;
+    /* height: auto; */
   }
   .container-details .col-md-6 {
     height: 600px;
@@ -625,10 +625,10 @@ table thead.custom-thead th {
 }
 @media screen and (min-width: 768px) {
   .promotion-item {
-  /* width: 180px; */
-    width: 100%;
-    /* height: 220px; */
+  width: 180px;
+    /* width: 100%; */
     height: 250px;
+    /* height: 250px; */
   }
   .promotion-item-content {
     font-size: 14px;
