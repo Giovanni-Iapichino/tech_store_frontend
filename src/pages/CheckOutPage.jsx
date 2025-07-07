@@ -59,7 +59,11 @@ export default function CheckOutPage() {
             products: cart.map((item) => ({
               title: item.title,
               quantity: item.quantity,
-              price: item.promotion?.discount_price ?? item.price,
+              price:
+                item.promotion?.discount_price &&
+                item.promotion.promo_state !== "futura"
+                  ? item.promotion.discount_price
+                  : item.price,
             })),
             total: total.toFixed(2),
           })
@@ -106,7 +110,8 @@ export default function CheckOutPage() {
                   </span>
                   <span>
                     €{" "}
-                    {item.promotion?.discount_price ? (
+                    {item.promotion?.discount_price &&
+                    item.promotion.promo_state !== "futura" ? (
                       <>
                         <strong style={{ color: "#be0909" }}>
                           €

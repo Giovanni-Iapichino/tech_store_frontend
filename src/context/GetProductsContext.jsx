@@ -15,7 +15,7 @@ const ProductsProvider = ({ children }) => {
   const fetchProducts = (page, limit) => {
     setLoading(true);
     axios
-      .get("http://127.0.0.1:3000/api/v1/products", {
+      .get(`http://127.0.0.1:3000/api/v1/products?promo_state=in_corso`, {
         params: { page, limit },
       })
       .then((response) => {

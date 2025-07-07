@@ -118,7 +118,8 @@ export default function CartPage() {
                     {item.operating_system} - {item.megapixel}
                   </td>
                   <td>
-                    {item.promotion?.discount_price ? (
+                    {item.promotion?.discount_price &&
+                    item.promotion.promo_state !== "futura" ? (
                       <>
                         <strong style={{ color: "#be0909" }}>
                           €
@@ -179,7 +180,8 @@ export default function CartPage() {
                   </td>
                   <td>
                     <strong>
-                      {item.promotion?.discount_price ? (
+                      {item.promotion?.discount_price &&
+                      item.promotion.promo_state !== "futura" ? (
                         <>
                           <span style={{ color: "#be0909" }}>
                             €
