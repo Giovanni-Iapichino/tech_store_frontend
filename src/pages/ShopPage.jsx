@@ -344,11 +344,11 @@ export default function ShopPage() {
 
         {/* filtri sopra i 576px */}
         <div className="d-flex gap-4">
-          <div className="row gx-2 gy-2 flex-grow-1 justify-content-center" style={{ height: "3px" }}>
+          <div className="row gx-2 gy-2 flex-grow-1 justify-content-center np-products" style={{ maxBlockSize: "fit-content" }}>
             {paginatedProducts.map((product) => {
               const isInCompare = compareList.some((p) => p.id === product.id);
               return (
-                <div key={product.id} className="col-5 col-sm-4 col-md-4 col-lg-3" style={{ maxHeight: "250px" }}>
+                <div key={product.id} className="col-5 col-sm-6 col-md-4 col-lg-3 np-product-576">
                   <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />
                 </div>
               );
