@@ -270,7 +270,7 @@ table thead.custom-thead th {
 /* --- Checkbox Confronta sopra immagine --- */
 .compare-checkbox-container {
   position: absolute;
-  top: 12px;
+  buttom: 12px;
   left: 12px;
   z-index: 2;
   display: flex;
@@ -590,6 +590,10 @@ table thead.custom-thead th {
     font-size: 2rem;
     text-align: center;
   }
+  .card-content {
+    margin-top: 25px;
+    gap: 25px;
+  }
 }
 
 @media screen and (min-width: 576px) {
@@ -613,6 +617,11 @@ table thead.custom-thead th {
   .np-product-576{
     /* width: 50%; */
   }
+  .card-content {
+    margin-top: 0px;
+    gap: 0px;
+  }
+  
 }
 @media screen and (min-width: 768px) {
   .promotion-item {
