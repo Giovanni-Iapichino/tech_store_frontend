@@ -46,7 +46,7 @@ export default function CartPage() {
             />
             Il tuo carrello è vuoto
           </h3>
-          <Link to="/shop" className="btn btn-primary">
+          <Link to="/shop" className="btn btn-orange">
             <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
             Torna allo Shop
           </Link>
