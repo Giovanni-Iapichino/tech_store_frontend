@@ -37,16 +37,22 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
         to={`/shop/${product.slug}`}
       >
         {/* Image  and Mobile Action Buttons*/}
-        <div className="d-flex flex-column align-items-start justify-content-start">
+        <div className="d-flex flex-column align-items-start justify-content-start position-relative mt-sm-3">
           <div className="card-content d-flex flex-column align-items-start justify-content-center">
             {/* Image */}
-            <div className="col-6 col-sm-10 mx-sm-auto">
-              <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
-            </div>
+            {window.matchMedia("(pointer: coarse)").matches ? (
+              <div className="col-6 col-lg-8 mx-xl-auto">
+                <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
+              </div>
+            ) : (
+              <div className="col-6 col-md-10 mx-auto">
+                <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
+              </div>
+            )}
             {/* Promotion */}
             {product.promotion && (
-              <div className="d-flex flex-row align-items-center justify-content-center gap-2">
-                <div className="promo_state p-1">
+              <div className="d-flex flex-row align-items-center justify-content-center gap-2 col-12">
+                <div className="promo_state p-1 col-8">
                   {product.promotion.promo_state !== "in_corso" && (
                     <div className="promotion-item-content d-flex align-items-center justify-content-center">
                       <span className="d-none d-sm-block" style={{ fontSize: "10px", marginRight: "5px" }}>
@@ -65,37 +71,89 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             )}
           </div>
           {/* Mobile Action Buttons */}
-          <div
-            className="d-flex flex-column col-6 d-sm-none flex-column align-items-center justify-content-center gap-2"
-            style={{ top: "10px", right: "10px" }}
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            {product.promotion?.promo_state !== "futura" &&
-              (isInCart ? (
-                <div className="gap-2 w-100 d-flex flex-column align-items-center justify-content-center">
-                  <button
-                    className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
-                    style={{
-                      height: "15px",
-                      width: "15px",
-                      top: "35px",
-                      left: "66px",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (quantity === 1) {
-                        removeFromCart(product.id);
-                        setIsInCart(false);
-                      } else {
-                        setQuantity(quantity - 1);
-                        updateQuantity(product.id, parseInt(quantity) - 1);
-                      }
-                    }}
-                  >
-                    {quantity > 1 ? (
+          {window.matchMedia("(pointer: coarse)").matches ? (
+            <div
+              className="d-flex flex-column col-6 flex-column align-items-center justify-content-center gap-2"
+              style={{ top: "10px", right: "10px" }}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              {product.promotion?.promo_state !== "futura" &&
+                (isInCart ? (
+                  <div className="gap-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                    <button
+                      className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        top: "35px",
+                        right: "55px",
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (quantity === 1) {
+                          removeFromCart(product.id);
+                          setIsInCart(false);
+                        } else {
+                          setQuantity(quantity - 1);
+                          updateQuantity(product.id, parseInt(quantity) - 1);
+                        }
+                      }}
+                    >
+                      {quantity > 1 ? (
+                        <FontAwesomeIcon
+                          style={{
+                            height: "15px",
+                            width: "15px",
+                            padding: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "10px",
+                          }}
+                          icon={faMinus}
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          style={{
+                            height: "15px",
+                            width: "15px",
+                            padding: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          icon={faTrashCan}
+                        />
+                      )}
+                    </button>
+                    <div
+                      className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
+                      style={{
+                        height: "20px",
+                        width: "20px",
+                        backgroundColor: "#ff6543",
+                        top: "33px",
+                        right: "28px",
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      {quantity}
+                    </div>
+                    <button
+                      className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
+                      style={{
+                        height: "15px",
+                        width: "15px",
+                        top: "35px",
+                        right: "5px",
+                      }}
+                    >
                       <FontAwesomeIcon
+                        icon={faPlus}
                         style={{
                           height: "15px",
                           width: "15px",
@@ -105,65 +163,65 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                           justifyContent: "center",
                           fontSize: "10px",
                         }}
-                        icon={faMinus}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        style={{
-                          height: "15px",
-                          width: "15px",
-                          padding: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setQuantity(quantity + 1);
+                          updateQuantity(product.id, parseInt(quantity) + 1);
                         }}
-                        icon={faTrashCan}
                       />
-                    )}
-                  </button>
-                  <div
-                    className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
-                    style={{
-                      height: "20px",
-                      width: "20px",
-                      backgroundColor: "#ff6543",
-                      top: "33px",
-                      right: "28px",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                  >
-                    {quantity}
+                    </button>
                   </div>
+                ) : (
                   <button
-                    className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
+                    className="btn rounded-circle d-flex p-2 align-items-center justify-content-center position-absolute"
                     style={{
-                      height: "15px",
-                      width: "15px",
-                      top: "35px",
-                      right: "5px",
+                      height: "35px",
+                      width: "35px",
+                      backgroundColor: "#ff6543",
+                      top: "25px",
+                      right: "20px",
                     }}
                   >
                     <FontAwesomeIcon
-                      icon={faPlus}
+                      className="btn d-flex align-items-center justify-content-center position-absolute"
                       style={{
-                        height: "15px",
-                        width: "15px",
-                        padding: "10px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "10px",
+                        height: "20px",
+                        width: "20px",
                       }}
+                      icon={faCartShopping}
                       onClick={(e) => {
                         e.preventDefault();
-                        setQuantity(quantity + 1);
-                        updateQuantity(product.id, parseInt(quantity) + 1);
+                        addToCart(product);
+                        setIsInCart(true);
                       }}
                     />
                   </button>
-                </div>
+                ))}
+              {isInWishlist ? (
+                <button
+                  className="btn rounded-circle d-flex p-2 align-items-center justify-content-center position-absolute"
+                  style={{
+                    height: "35px",
+                    width: "35px",
+                    backgroundColor: "#ff6543",
+                    top: "65px",
+                    right: "20px",
+                  }}
+                >
+                  <FontAwesomeIcon
+                    className="btn d-flex align-items-center justify-content-center"
+                    style={{
+                      height: "20px",
+                      width: "20px",
+                    }}
+                    icon={faTrashCan}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      removeFromWishlist(product.id);
+                      setIsInWishlist(false);
+                    }}
+                  />
+                </button>
               ) : (
                 <button
                   className="btn rounded-circle d-flex p-2 align-items-center justify-content-center position-absolute"
@@ -171,7 +229,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                     height: "35px",
                     width: "35px",
                     backgroundColor: "#ff6543",
-                    top: "25px",
+                    top: "65px",
                     right: "20px",
                   }}
                 >
@@ -181,6 +239,116 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                       height: "20px",
                       width: "20px",
                     }}
+                    icon={faHeart}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToWishlist(product);
+                      setIsInWishlist(true);
+                    }}
+                  />
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="action-buttons gap-2 position-absolute bottom-50% end-50% p-3 d-flex align-items-center justify-content-center d-none d-sm-flex">
+              {product.promotion?.promo_state !== "futura" &&
+                (isInCart ? (
+                  <div className="gap-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                    <button
+                      className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
+                      style={{
+                        backgroundColor: "#ff6543",
+                        height: "30px",
+                        width: "30px",
+                        top: "-20px",
+                        left: "22px",
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (quantity === 1) {
+                          removeFromCart(product.id);
+                          setIsInCart(false);
+                        } else {
+                          setQuantity(quantity - 1);
+                          updateQuantity(product.id, parseInt(quantity) - 1);
+                        }
+                      }}
+                    >
+                      {quantity > 1 ? (
+                        <FontAwesomeIcon
+                          style={{
+                            height: "15px",
+                            width: "15px",
+                            padding: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          icon={faMinus}
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          style={{
+                            height: "15px",
+                            width: "15px",
+                            padding: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          icon={faTrashCan}
+                        />
+                      )}
+                    </button>
+                    <div
+                      className="btn rounded-circle p-2 d-flex align-items-center justify-content-center "
+                      style={{
+                        height: "40px",
+                        width: "40px",
+                        backgroundColor: "#ff6543",
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      {quantity}
+                    </div>
+                    <button
+                      className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
+                      style={{
+                        backgroundColor: "#ff6543",
+                        height: "30px",
+                        width: "30px",
+                        top: "62px",
+                        left: "22px",
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        style={{
+                          height: "15px",
+                          width: "15px",
+                          padding: "10px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setQuantity(quantity + 1);
+                          updateQuantity(product.id, parseInt(quantity) + 1);
+                        }}
+                      />
+                    </button>
+                  </div>
+                ) : (
+                  <FontAwesomeIcon
+                    className="btn rounded-circle p-2 d-flex align-items-center justify-content-center"
+                    style={{
+                      height: "20px",
+                      width: "20px",
+                      backgroundColor: "#ff6543",
+                    }}
                     icon={faCartShopping}
                     onClick={(e) => {
                       e.preventDefault();
@@ -188,24 +356,14 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                       setIsInCart(true);
                     }}
                   />
-                </button>
-              ))}
-            {isInWishlist ? (
-              <button
-                className="btn rounded-circle d-flex p-2 align-items-center justify-content-center position-absolute"
-                style={{
-                  height: "35px",
-                  width: "35px",
-                  backgroundColor: "#ff6543",
-                  top: "65px",
-                  right: "20px",
-                }}
-              >
+                ))}
+              {isInWishlist ? (
                 <FontAwesomeIcon
-                  className="btn d-flex align-items-center justify-content-center"
+                  className="btn rounded-circle p-2 d-flex align-items-center justify-content-center"
                   style={{
                     height: "20px",
                     width: "20px",
+                    backgroundColor: "#ff6543",
                   }}
                   icon={faTrashCan}
                   onClick={(e) => {
@@ -214,23 +372,13 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                     setIsInWishlist(false);
                   }}
                 />
-              </button>
-            ) : (
-              <button
-                className="btn rounded-circle d-flex p-2 align-items-center justify-content-center position-absolute"
-                style={{
-                  height: "35px",
-                  width: "35px",
-                  backgroundColor: "#ff6543",
-                  top: "65px",
-                  right: "20px",
-                }}
-              >
+              ) : (
                 <FontAwesomeIcon
-                  className="btn d-flex align-items-center justify-content-center position-absolute"
+                  className="btn rounded-circle p-2 d-flex align-items-center justify-content-center"
                   style={{
                     height: "20px",
                     width: "20px",
+                    backgroundColor: "#ff6543",
                   }}
                   icon={faHeart}
                   onClick={(e) => {
@@ -239,9 +387,9 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                     setIsInWishlist(true);
                   }}
                 />
-              </button>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Title and price */}
@@ -258,147 +406,6 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                 <span className="original-price">{product.price}€</span>
               </span>
             )
-          )}
-        </div>
-
-        {/* Action buttons */}
-        <div className="action-buttons gap-2 position-absolute bottom-50% end-50% p-3 d-flex align-items-center justify-content-center d-none d-sm-flex">
-          {product.promotion?.promo_state !== "futura" &&
-            (isInCart ? (
-              <div className="gap-2 w-100 d-flex flex-column align-items-center justify-content-center">
-                <button
-                  className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
-                  style={{
-                    backgroundColor: "#ff6543",
-                    height: "30px",
-                    width: "30px",
-                    top: "-20px",
-                    left: "22px",
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (quantity === 1) {
-                      removeFromCart(product.id);
-                      setIsInCart(false);
-                    } else {
-                      setQuantity(quantity - 1);
-                      updateQuantity(product.id, parseInt(quantity) - 1);
-                    }
-                  }}
-                >
-                  {quantity > 1 ? (
-                    <FontAwesomeIcon
-                      style={{
-                        height: "15px",
-                        width: "15px",
-                        padding: "10px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                      icon={faMinus}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      style={{
-                        height: "15px",
-                        width: "15px",
-                        padding: "10px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                      icon={faTrashCan}
-                    />
-                  )}
-                </button>
-                <div
-                  className="btn rounded-circle p-2 d-flex align-items-center justify-content-center "
-                  style={{
-                    height: "40px",
-                    width: "40px",
-                    backgroundColor: "#ff6543",
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }}
-                >
-                  {quantity}
-                </div>
-                <button
-                  className="btn rounded-circle p-2 d-flex align-items-center justify-content-center position-absolute"
-                  style={{
-                    backgroundColor: "#ff6543",
-                    height: "30px",
-                    width: "30px",
-                    top: "62px",
-                    left: "22px",
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    style={{
-                      height: "15px",
-                      width: "15px",
-                      padding: "10px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setQuantity(quantity + 1);
-                      updateQuantity(product.id, parseInt(quantity) + 1);
-                    }}
-                  />
-                </button>
-              </div>
-            ) : (
-              <FontAwesomeIcon
-                className="btn rounded-circle p-2 d-flex align-items-center justify-content-center"
-                style={{
-                  height: "20px",
-                  width: "20px",
-                  backgroundColor: "#ff6543",
-                }}
-                icon={faCartShopping}
-                onClick={(e) => {
-                  e.preventDefault();
-                  addToCart(product);
-                  setIsInCart(true);
-                }}
-              />
-            ))}
-          {isInWishlist ? (
-            <FontAwesomeIcon
-              className="btn rounded-circle p-2 d-flex align-items-center justify-content-center"
-              style={{
-                height: "20px",
-                width: "20px",
-                backgroundColor: "#ff6543",
-              }}
-              icon={faTrashCan}
-              onClick={(e) => {
-                e.preventDefault();
-                removeFromWishlist(product.id);
-                setIsInWishlist(false);
-              }}
-            />
-          ) : (
-            <FontAwesomeIcon
-              className="btn rounded-circle p-2 d-flex align-items-center justify-content-center"
-              style={{
-                height: "20px",
-                width: "20px",
-                backgroundColor: "#ff6543",
-              }}
-              icon={faHeart}
-              onClick={(e) => {
-                e.preventDefault();
-                addToWishlist(product);
-                setIsInWishlist(true);
-              }}
-            />
           )}
         </div>
 

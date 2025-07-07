@@ -9,7 +9,7 @@ export const useNewsletter = () => {
 
 export const NewsletterProvider = ({ children }) => {
   const [open, setOpen] = useState(true);
-  const [randomClick, setRandomClick] = useState(parseInt(Math.random() * 5) + 1);
+  const [randomClick, setRandomClick] = useState(parseInt(Math.random() * 16) + 5);
   const [timestamp, setTimestamp] = useState(Date.now());
   const [newsletter, setNewsletter] = useState(localStorage.getItem("newsletter") || "false");
   const [alert, setAlert] = useState(null);
