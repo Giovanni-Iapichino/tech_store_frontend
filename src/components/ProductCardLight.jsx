@@ -51,7 +51,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             )}
             {/* Promotion */}
             {product.promotion && (
-              <div className="d-flex flex-row align-items-center justify-content-center gap-2 col-12">
+              <div className="d-flex flex-row align-items-center justify-content-center col-12">
                 <div className="promo_state p-1 col-8">
                   {product.promotion.promo_state !== "in_corso" && (
                     <div className="promotion-item-content d-flex align-items-center justify-content-center">
