@@ -47,7 +47,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const total = cart.reduce((acc, item) => {
-    const price = item.promotion?.discount_price
+    const hasActivePromo =
+      item.promotion &&
+      item.promotion.discount_price &&
+      item.promotion.promo_state !== "futura";
+    const price = hasActivePromo
       ? parseFloat(item.promotion.discount_price)
       : parseFloat(item.price);
     return acc + price * item.quantity;
