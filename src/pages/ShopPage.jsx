@@ -440,7 +440,7 @@ export default function ShopPage() {
           <button className="pagination-btn" onClick={handlePrevPage} disabled={currentPage === 1}>
             Prev
           </button>
-          <span className="d-none d-sm-block">Pagina </span> <span className="text-orange fw-bold">{currentPage}</span>
+          <span className="d-none d-sm-block">Pagina</span><span className="text-orange fw-bold mx-1">{currentPage}</span><span>di</span><span className="text-orange fw-bold mx-1">{totalPages}</span>
           <button className="pagination-btn" onClick={handleNextPage} disabled={isLastPage}>
             Next
           </button>
