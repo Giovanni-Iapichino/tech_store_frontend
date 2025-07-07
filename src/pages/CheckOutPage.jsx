@@ -59,7 +59,7 @@ export default function CheckOutPage() {
             products: cart.map((item) => ({
               title: item.title,
               quantity: item.quantity,
-              price: item.price,
+              price: item.promotion?.discount_price ?? item.price,
             })),
             total: total.toFixed(2),
           })
@@ -71,7 +71,9 @@ export default function CheckOutPage() {
       })
       .catch((err) => {
         console.error("Errore API:", err.response?.data || err.message);
-        setError("Si è verificato un errore durante il checkout. Riprova più tardi.");
+        setError(
+          "Si è verificato un errore durante il checkout. Riprova più tardi."
+        );
       })
       .finally(() => {
         setLoading(false);
@@ -95,11 +97,35 @@ export default function CheckOutPage() {
             <h2>Riepilogo ordine</h2>
             <ul className="list-group mb-3">
               {cart.map((item) => (
-                <li className="list-group-item d-flex justify-content-between" key={item.id}>
+                <li
+                  className="list-group-item d-flex justify-content-between"
+                  key={item.id}
+                >
                   <span>
                     {item.brand} {item.title} {item.model} x{item.quantity}
                   </span>
-                  <span>€ {(item.price * item.quantity).toFixed(2)}</span>
+                  <span>
+                    €{" "}
+                    {item.promotion?.discount_price ? (
+                      <>
+                        <strong style={{ color: "#be0909" }}>
+                          €
+                          {(
+                            parseFloat(item.promotion.discount_price) *
+                            item.quantity
+                          ).toFixed(2)}
+                        </strong>
+                        <br />
+                        <small className="text-decoration-line-through text-muted">
+                          €{parseFloat(item.price * item.quantity).toFixed(2)}
+                        </small>
+                      </>
+                    ) : (
+                      <strong>
+                        €{parseFloat(item.price * item.quantity).toFixed(2)}
+                      </strong>
+                    )}
+                  </span>
                 </li>
               ))}
               <li className="list-group-item d-flex justify-content-between">
@@ -113,43 +139,100 @@ export default function CheckOutPage() {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">Nome</label>
-                <input name="Nome" type="text" onChange={handleChange} value={billing.Nome} className="form-control" required></input>
+                <input
+                  name="Nome"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Nome}
+                  className="form-control"
+                  required
+                ></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Cognome</label>
-                <input name="Cognome" type="text" onChange={handleChange} value={billing.Cognome} className="form-control" required></input>
+                <input
+                  name="Cognome"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Cognome}
+                  className="form-control"
+                  required
+                ></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Email</label>
-                <input name="Email" type="email" onChange={handleChange} value={billing.Email} className="form-control" required></input>
+                <input
+                  name="Email"
+                  type="email"
+                  onChange={handleChange}
+                  value={billing.Email}
+                  className="form-control"
+                  required
+                ></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Città</label>
-                <input name="Città" type="text" onChange={handleChange} value={billing.Città} className="form-control" required></input>
+                <input
+                  name="Città"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Città}
+                  className="form-control"
+                  required
+                ></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Nazione</label>
-                <input name="Nazione" type="text" onChange={handleChange} value={billing.Nazione} className="form-control" required></input>
+                <input
+                  name="Nazione"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Nazione}
+                  className="form-control"
+                  required
+                ></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Indirizzo</label>
-                <input name="Indirizzo" type="text" onChange={handleChange} value={billing.Indirizzo} className="form-control" required></input>
+                <input
+                  name="Indirizzo"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.Indirizzo}
+                  className="form-control"
+                  required
+                ></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">CAP</label>
-                <input name="CAP" type="text" onChange={handleChange} value={billing.CAP} className="form-control" required></input>
+                <input
+                  name="CAP"
+                  type="text"
+                  onChange={handleChange}
+                  value={billing.CAP}
+                  className="form-control"
+                  required
+                ></input>
               </div>
 
-              <button type="submit" className="btn btn-orange" disabled={loading}>
+              <button
+                type="submit"
+                className="btn btn-orange"
+                disabled={loading}
+              >
                 {loading ? "Invio in corso..." : "Procedi al pagamento"}
               </button>
-              {success && <div className="alert alert-success mt-3">Ordine effettuato con successo!</div>}
+              {success && (
+                <div className="alert alert-success mt-3">
+                  Ordine effettuato con successo!
+                </div>
+              )}
               {error && <div className="alert alert-danger mt-3">{error}</div>}
             </form>
           </div>
