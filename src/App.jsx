@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { LoaderProvider } from "./context/LoaderContex";
-
 import DefaultLayout from "./layouts/DefaultLayout";
 
 import HomePage from "./pages/HomePage";
