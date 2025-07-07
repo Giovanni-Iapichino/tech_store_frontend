@@ -2,6 +2,7 @@ import { useCart } from "../context/CartContext";
 import { Link, useLocation } from "react-router-dom";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export default function CartDropdown({ onClose }) {
   const { cart, removeFromCart, total } = useCart();
@@ -9,6 +10,11 @@ export default function CartDropdown({ onClose }) {
   if (cart.length === 0)
     return (
       <div className="cart-dropdown bg-white shadow p-3 mt-2 rounded cart-dropdown-animate">
+        <div className="float-end">
+          <button onClick={onClose} className="btn btn-sm w-100">
+            <FontAwesomeIcon icon={faXmark} style={{ color: "#be0909" }} />
+          </button>
+        </div>
         <p className="text-center">Il carrello è vuoto</p>
       </div>
     );
@@ -19,14 +25,38 @@ export default function CartDropdown({ onClose }) {
 
   return (
     <div className="cart-dropdown bg-white shadow p-3 mt-2 rounded cart-dropdown-animate">
+      <div className="float-end">
+        <button onClick={onClose} className="btn btn-sm w-100">
+          <FontAwesomeIcon icon={faXmark} style={{ color: "#be0909" }} />
+        </button>
+      </div>
       <h5 className="text-center">Il tuo Carrello</h5>
+
       <ul className="list-unstyled cart-dropdown-list">
         {cart.map((item) => (
           <li key={item.id} className="mb-2">
             <strong>{item.title}</strong> x {item.quantity}
             <br />
-            <span>€ {(item.price * item.quantity).toFixed(2)}</span>
-            <button onClick={() => removeFromCart(item.id)} className="btn btn-sm float-end">
+            <span>
+              €{" "}
+              {item.promotion?.discount_price ? (
+                <>
+                  <strong style={{ color: "#be0909" }}>
+                    €{parseFloat(item.promotion.discount_price).toFixed(2)}
+                  </strong>
+                  <br />
+                  <small className="text-decoration-line-through text-muted">
+                    €{parseFloat(item.price).toFixed(2)}
+                  </small>
+                </>
+              ) : (
+                <strong>€{parseFloat(item.price).toFixed(2)}</strong>
+              )}
+            </span>
+            <button
+              onClick={() => removeFromCart(item.id)}
+              className="btn btn-sm float-end"
+            >
               <FontAwesomeIcon icon={faTrash} style={{ color: "#be0909" }} />
             </button>
           </li>

@@ -46,7 +46,12 @@ export const CartProvider = ({ children }) => {
     setCart([]);
   };
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const total = cart.reduce((acc, item) => {
+    const price = item.promotion?.discount_price
+      ? parseFloat(item.promotion.discount_price)
+      : parseFloat(item.price);
+    return acc + price * item.quantity;
+  }, 0);
 
   return (
     <CartContext.Provider

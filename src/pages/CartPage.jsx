@@ -1,7 +1,15 @@
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faArrowLeft, faCartShopping, faCircleCheck, faBrush } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faArrowLeft,
+  faCartShopping,
+  faCircleCheck,
+  faBrush,
+  faPlus,
+  faMinus,
+} from "@fortawesome/free-solid-svg-icons";
 import HeaderMessage from "../components/HeaderMessage";
 import { useNewsletter } from "../context/newsletterContext";
 import { useEffect } from "react";
@@ -9,7 +17,8 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, total } = useCart();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
+    useNewsletter();
 
   useEffect(() => {
     if (newsletter === "false") {
@@ -30,7 +39,11 @@ export default function CartPage() {
         {open && newsletter === "false" && <PopUpNewsletter />}
         <div className="container text-center mt-5">
           <h3 className="mb-3">
-            <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} className="me-2" />
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              style={{ color: "#ff6543" }}
+              className="me-2"
+            />
             Il tuo carrello è vuoto
           </h3>
           <Link to="/shop" className="btn btn-primary">
@@ -48,7 +61,11 @@ export default function CartPage() {
       <div className="container mt-5">
         <div className="mb-4"></div>
         <h2 className="mb-4">
-          <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} className="me-2" />
+          <FontAwesomeIcon
+            icon={faCartShopping}
+            style={{ color: "#ff6543" }}
+            className="me-2"
+          />
           Il tuo Carrello
         </h2>
 
@@ -58,6 +75,7 @@ export default function CartPage() {
               <tr>
                 <th>Prodotto</th>
                 <th>Dettagli</th>
+                <th>Prezzo Unitario</th>
                 <th style={{ width: "120px" }}>Quantità</th>
                 <th>Totale</th>
                 <th></th>
@@ -67,7 +85,11 @@ export default function CartPage() {
               {cart.map((item) => (
                 <tr key={item.id}>
                   <td>
-                    <Link className="w-100" to={`/shop/${item.slug}`} key={item.id}>
+                    <Link
+                      className="w-100"
+                      to={`/shop/${item.slug}`}
+                      key={item.id}
+                    >
                       <img
                         src={item.thumbnail}
                         alt={`${item.title} ${item.model}`}
@@ -81,7 +103,11 @@ export default function CartPage() {
                     </Link>
                   </td>
                   <td>
-                    <Link className="w-100" to={`/shop/${item.slug}`} key={item.id}>
+                    <Link
+                      className="w-100"
+                      to={`/shop/${item.slug}`}
+                      key={item.id}
+                    >
                       <strong>
                         {item.brand.toUpperCase()} {item.title} {item.model}
                       </strong>
@@ -92,14 +118,94 @@ export default function CartPage() {
                     {item.operating_system} - {item.megapixel}
                   </td>
                   <td>
-                    <input type="number" min="1" value={item.quantity} onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))} className="form-control text-center" />
+                    {item.promotion?.discount_price ? (
+                      <>
+                        <strong style={{ color: "#be0909" }}>
+                          €
+                          {parseFloat(item.promotion.discount_price).toFixed(2)}
+                        </strong>
+                        <br />
+                        <small className="text-decoration-line-through text-muted">
+                          €{parseFloat(item.price).toFixed(2)}
+                        </small>
+                      </>
+                    ) : (
+                      <strong>€{parseFloat(item.price).toFixed(2)}</strong>
+                    )}
                   </td>
                   <td>
-                    <strong>€{(item.price * item.quantity).toFixed(2)}</strong>
+                    <div className="d-flex align-items-center justify-content-center gap-2">
+                      <button
+                        className="btn"
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            Math.max(1, item.quantity - 1)
+                          )
+                        }
+                        disabled={item.quantity <= 1}
+                        style={{ minWidth: "32px" }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faMinus}
+                          style={{ color: "#ff8800" }}
+                        />
+                      </button>
+                      <span
+                        className="form-control text-center"
+                        style={{
+                          width: "60px",
+                          background: "#f8f9fa",
+                          border: "1px solid #ced4da",
+                          pointerEvents: "none",
+                          userSelect: "none",
+                        }}
+                      >
+                        {item.quantity}
+                      </span>
+                      <button
+                        className="btn"
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
+                        style={{ minWidth: "32px" }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faPlus}
+                          style={{ color: "#ff8800" }}
+                        />
+                      </button>
+                    </div>
                   </td>
                   <td>
-                    <button className="btn btn-sm" onClick={() => removeFromCart(item.id)}>
-                      <FontAwesomeIcon icon={faTrash} style={{ color: "#be0909" }} />
+                    <strong>
+                      {item.promotion?.discount_price ? (
+                        <>
+                          <span style={{ color: "#be0909" }}>
+                            €
+                            {(
+                              item.promotion.discount_price * item.quantity
+                            ).toFixed(2)}
+                          </span>
+                          <br />
+                          <small className="text-decoration-line-through text-muted">
+                            €{(item.price * item.quantity).toFixed(2)}
+                          </small>
+                        </>
+                      ) : (
+                        <>€{(item.price * item.quantity).toFixed(2)}</>
+                      )}
+                    </strong>
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-sm"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        style={{ color: "#be0909" }}
+                      />
                     </button>
                   </td>
                 </tr>
@@ -112,19 +218,32 @@ export default function CartPage() {
 
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
           <h4 className="mb-3 mb-md-0">
-            <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} className="me-2" />
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              style={{ color: "#ff6543" }}
+              className="me-2"
+            />
             Totale: €{total.toFixed(2)}
           </h4>
           <div className="d-flex flex-md-row gap-2 justify-content-center align-items-center">
-            <Link to="/shop" className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center">
+            <Link
+              to="/shop"
+              className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center"
+            >
               <FontAwesomeIcon icon={faArrowLeft} className="me-1" />
               <span className="d-none d-md-block">Continua gli acquisti</span>
             </Link>
-            <button className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center" onClick={clearCart}>
+            <button
+              className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center"
+              onClick={clearCart}
+            >
               <FontAwesomeIcon icon={faBrush} className="me-1" />
               <span className="d-none d-md-block">Svuota carrello</span>
             </button>
-            <Link to="/checkout" className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center">
+            <Link
+              to="/checkout"
+              className="btn btn-orange col-3 col-md-4 d-flex justify-content-center align-items-center"
+            >
               <FontAwesomeIcon icon={faCircleCheck} className="me-1" />
               <span className="d-none d-md-block">Procedi al checkout</span>
             </Link>
