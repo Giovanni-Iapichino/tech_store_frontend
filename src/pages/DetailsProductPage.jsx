@@ -10,13 +10,13 @@ import { useNewsletter } from "../context/newsletterContext";
 import PopUpNewsletter from "../components/PopUpNewsletter";
 
 export default function DetailsProductPage() {
-  const { addToCart } = useCart(); //aggiungi al carrello
-  const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
-  const [product, setProduct] = useState(); //prodotto da visualizzare
+  const { addToCart } = useCart();                         //aggiungi al carrello
+  const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
+  const [product, setProduct] = useState();                //prodotto da visualizzare
   const { slug } = useParams();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
 
-  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
+  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug;         // URL dell'API per ottenere il prodotto specifico
 
   useEffect(() => {
     if (newsletter === "false") {
