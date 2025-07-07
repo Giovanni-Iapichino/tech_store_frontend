@@ -116,7 +116,20 @@ export default function CartPage() {
                     {item.operating_system} - {item.megapixel}
                   </td>
                   <td>
-                    <strong>€{item.price.toFixed(2)}</strong>
+                    {item.promotion?.discount_price ? (
+                      <>
+                        <strong style={{ color: "#be0909" }}>
+                          €
+                          {parseFloat(item.promotion.discount_price).toFixed(2)}
+                        </strong>
+                        <br />
+                        <small className="text-decoration-line-through text-muted">
+                          €{parseFloat(item.price).toFixed(2)}
+                        </small>
+                      </>
+                    ) : (
+                      <strong>€{parseFloat(item.price).toFixed(2)}</strong>
+                    )}
                   </td>
                   <td>
                     <input
@@ -130,7 +143,13 @@ export default function CartPage() {
                     />
                   </td>
                   <td>
-                    <strong>€{(item.price * item.quantity).toFixed(2)}</strong>
+                    <strong>
+                      €
+                      {(
+                        (item.promotion?.discount_price ?? item.price) *
+                        item.quantity
+                      ).toFixed(2)}
+                    </strong>
                   </td>
                   <td>
                     <button

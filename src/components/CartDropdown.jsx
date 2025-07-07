@@ -37,7 +37,22 @@ export default function CartDropdown({ onClose }) {
           <li key={item.id} className="mb-2">
             <strong>{item.title}</strong> x {item.quantity}
             <br />
-            <span>€ {(item.price * item.quantity).toFixed(2)}</span>
+            <span>
+              €{" "}
+              {item.promotion?.discount_price ? (
+                <>
+                  <strong style={{ color: "#be0909" }}>
+                    €{parseFloat(item.promotion.discount_price).toFixed(2)}
+                  </strong>
+                  <br />
+                  <small className="text-decoration-line-through text-muted">
+                    €{parseFloat(item.price).toFixed(2)}
+                  </small>
+                </>
+              ) : (
+                <strong>€{parseFloat(item.price).toFixed(2)}</strong>
+              )}
+            </span>
             <button
               onClick={() => removeFromCart(item.id)}
               className="btn btn-sm float-end"
