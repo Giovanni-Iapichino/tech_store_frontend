@@ -87,7 +87,7 @@ export default function Navbar() {
               </button>
             </form>
           </div>
-          <div className="d-flex flex-md-row-reverse flex-grow-1 gap-3 col-12 col-sm-2 justify-content-center align-items-center">
+          <div className="d-flex flex-md-row-reverse flex-grow-1 gap-3 col-12 col-sm-2 justify-content-center justify-content-md-start align-items-center">
             {/* Bottoni */}
             <div className="buttons d-flex gap-3">
               <Link className="position-relative mt-2" to="/wishlist">
@@ -138,7 +138,6 @@ export default function Navbar() {
                 {/* Dropdown carrello */}
                 {showCart && <CartDropdown onClose={() => setShowCart(false)} />}
               </div>
-              <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4 mt-2" icon={faUser} />
             </div>
           </div>
         </div>
