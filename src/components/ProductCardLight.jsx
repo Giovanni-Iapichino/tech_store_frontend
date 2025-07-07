@@ -44,19 +44,15 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             </div>
           )}
         </div>
-        {/* {product.promotion && (
+        {product.promotion && (
           <div className="promo_state position-absolute top-0 start-0 p-1">
-            {product.promotion.promo_state === "in corso" ? (
-              <div className="promotion-item-content d-flex flex-column gap-2">
-                <span>in corso</span>
-              </div>
-            ) : (
+            {product.promotion.promo_state !== "in_corso" && (
               <div className="promotion-item-content d-flex flex-column gap-2">
                 <span>dal {new Date(product.promotion.start_date).toLocaleDateString()}</span>
               </div>
             )}
           </div>
-        )} */}
+        )}
 
         {/* Image */}
         <div className="mt-3">
