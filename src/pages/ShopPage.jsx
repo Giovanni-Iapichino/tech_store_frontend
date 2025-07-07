@@ -219,7 +219,7 @@ export default function ShopPage() {
             {showPromoOnly ? "🔴 Solo promo" : "⚪ Tutti"}
           </button>
         </div> */}
-        <div className="d-sm-none mb-4 d-flex gap-2 justify-content-center">
+        <div className="d-md-none mb-4 d-flex gap-2 justify-content-center">
           {/* Filtro promo - chip singolo */}
 
           {/* Filtro brand - chips orizzontali */}
@@ -347,7 +347,7 @@ export default function ShopPage() {
             {paginatedProducts.map((product) => {
               const isInCompare = compareList.some((p) => p.id === product.id);
               return (
-                <div key={product.id} className="col-6 col-sm-3 np-product-576">
+                <div key={product.id} className="col-6 col-xl-3 np-product-576">
                   <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />
                 </div>
               );
@@ -355,7 +355,7 @@ export default function ShopPage() {
 
             {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
           </div>
-          <div className="flex-column mx-3 h-100 d-none d-sm-flex" style={{ minWidth: "180px" }}>
+          <div className="flex-column mx-3 h-100 d-none d-md-flex" style={{ minWidth: "180px" }}>
             {/* Filtro promo */}
             <div className="filter-section">
               <h6 className="mt-3">Solo prodotti in promozione</h6>
