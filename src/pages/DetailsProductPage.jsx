@@ -11,7 +11,7 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 
 
 export default function DetailsProductPage() {
-  const { addToCart } = useCart();                         //aggiungi al carrello
+  const { addToCart,  cart  } = useCart();                         //aggiungi al carrello
   const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
   const [product, setProduct] = useState();               //prodotto da visualizzare
   const { slug } = useParams();
