@@ -8,7 +8,7 @@ import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
 import { useNewsletter } from "../context/newsletterContext";
 import PopUpNewsletter from "../components/PopUpNewsletter";
-import AcquistaButton from "./BuyBotton";
+
 
 export default function DetailsProductPage() {
   const { addToCart } = useCart();                         //aggiungi al carrello
@@ -16,6 +16,7 @@ export default function DetailsProductPage() {
   const [product, setProduct] = useState();               //prodotto da visualizzare
   const { slug } = useParams();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+  const navigate = useNavigate();                          //per navigare tra le pagine
 
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug;         // URL dell'API per ottenere il prodotto specifico
 
@@ -87,9 +88,14 @@ export default function DetailsProductPage() {
                     </p>
                   </div>
                   <div className="button ">
-                    <AcquistaButton  onClick={() => addToCart(product)}/>
                     <button
-                      className="btn  m-2 p-2"
+                      className="btn btn-success m-1 p-2"
+                      onClick={() =>{addToCart(product); navigate("/checkout")}}
+                    >
+                      Acquista
+                    </button>
+                    <button
+                      className="btn m-1 p-2"
                       style={{
                         background: "#ff6543",
                         color: "white",
@@ -105,7 +111,7 @@ export default function DetailsProductPage() {
                         background: "white",
                         border: "1px solid #ff6543",
                       }}
-                      onClick={() => addToWishlist(product)}
+                      onClick={() => addToWishlist(product) } 
                     >
                       <FontAwesomeIcon icon={faHeart} className="text-danger" />
                     </button>

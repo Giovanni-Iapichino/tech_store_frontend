@@ -11,9 +11,8 @@ import ComparisonPage from "./pages/ComparisonPage";
 import WishListPage from "./pages/WishListPage";
 import CartPage from "./pages/CartPage";
 import CheckOutPage from "./pages/CheckOutPage";
-import CheckOut from "./pages/CheckOut";
 import OrderSummaryPage from "./pages/OrderSummaryPage";
-import AcquistaButton from "./pages/BuyBotton";
+
 
 import { ProductsProvider } from "./context/GetProductsContext";
 import { CartProvider } from "./context/CartContext";
@@ -38,8 +37,6 @@ export default function app() {
                           <Route index element={<ShopPage />}></Route>
                           <Route path=":slug" element={<DetailsProductPage />}></Route>
                         </Route>
-                        <Route path="/buy" element={<AcquistaButton />}></Route>
-                        <Route path="/checkoutbuy" element={<CheckOut />}></Route>
                         <Route path="/comparison" element={<ComparisonPage />}></Route>
                         <Route path="/wishlist" element={<WishListPage />}></Route>
                         <Route path="/cart" element={<CartPage />}></Route>
