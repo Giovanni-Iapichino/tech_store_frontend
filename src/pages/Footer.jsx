@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="container">
         <div className="row">
           {/* Colonna 1 */}
-          <div className="col-md-6">
+          <div className="col-md-4">
             <ul className="list-unstyled">
               <li className="fw-bold mb-2">TechStore</li>
               <li>
@@ -20,8 +20,15 @@ export default function Footer() {
           </div>
 
           {/* Colonna 2 */}
-          <div className="col-md-6">
+          <div className="col-md-4">
             <MenuLink />
+          </div>
+
+          {/* Colonna 2 */}
+          <div className="col-md-4">
+            <h5>Contact Us</h5>
+            <p>Do you have any queries or suggestions? tech.store.team.2@gmail.com</p>
+            <p>If you need support? Just give us a call. +55 111 222 333 44</p>
           </div>
         </div>
         <div className="row">
