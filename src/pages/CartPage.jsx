@@ -7,6 +7,8 @@ import {
   faCartShopping,
   faCircleCheck,
   faBrush,
+  faPlus,
+  faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMessage from "../components/HeaderMessage";
 import { useNewsletter } from "../context/newsletterContext";
@@ -132,23 +134,67 @@ export default function CartPage() {
                     )}
                   </td>
                   <td>
-                    <input
-                      type="number"
-                      min="1"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        updateQuantity(item.id, parseInt(e.target.value))
-                      }
-                      className="form-control text-center"
-                    />
+                    <div className="d-flex align-items-center justify-content-center gap-2">
+                      <button
+                        className="btn"
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            Math.max(1, item.quantity - 1)
+                          )
+                        }
+                        disabled={item.quantity <= 1}
+                        style={{ minWidth: "32px" }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faMinus}
+                          style={{ color: "#ff8800" }}
+                        />
+                      </button>
+                      <span
+                        className="form-control text-center"
+                        style={{
+                          width: "60px",
+                          background: "#f8f9fa",
+                          border: "1px solid #ced4da",
+                          pointerEvents: "none",
+                          userSelect: "none",
+                        }}
+                      >
+                        {item.quantity}
+                      </span>
+                      <button
+                        className="btn"
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
+                        style={{ minWidth: "32px" }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faPlus}
+                          style={{ color: "#ff8800" }}
+                        />
+                      </button>
+                    </div>
                   </td>
                   <td>
                     <strong>
-                      €
-                      {(
-                        (item.promotion?.discount_price ?? item.price) *
-                        item.quantity
-                      ).toFixed(2)}
+                      {item.promotion?.discount_price ? (
+                        <>
+                          <span style={{ color: "#be0909" }}>
+                            €
+                            {(
+                              item.promotion.discount_price * item.quantity
+                            ).toFixed(2)}
+                          </span>
+                          <br />
+                          <small className="text-decoration-line-through text-muted">
+                            €{(item.price * item.quantity).toFixed(2)}
+                          </small>
+                        </>
+                      ) : (
+                        <>€{(item.price * item.quantity).toFixed(2)}</>
+                      )}
                     </strong>
                   </td>
                   <td>
