@@ -41,6 +41,7 @@ export default function PopUpNewsletter() {
           })
           .then(() => {
             localStorage.setItem("newsletter", "true");
+            setNewsletter("true");
             localStorage.removeItem("timestamp");
             localStorage.removeItem("randomClick");
             setForm({
