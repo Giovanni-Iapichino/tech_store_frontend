@@ -10,8 +10,9 @@ import { useNewsletter } from "../context/newsletterContext";
 import PopUpNewsletter from "../components/PopUpNewsletter";
 
 
+
 export default function DetailsProductPage() {
-  const { addToCart,  cart  } = useCart();                         //aggiungi al carrello
+  const { addToCart } = useCart();                         //aggiungi al carrello
   const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
   const [product, setProduct] = useState();               //prodotto da visualizzare
   const { slug } = useParams();
@@ -76,9 +77,9 @@ export default function DetailsProductPage() {
                     </h1>
                   </div>
                   <div className="text">
-                    <p className="price">
-                      <FontAwesomeIcon icon={faEuroSign} /> {product.price}
-                    </p>
+                      <p className="price">
+                        <FontAwesomeIcon icon={faEuroSign} /> {product.price} 
+                      </p>
                     <p>
                       <strong>
                         Descrizione:

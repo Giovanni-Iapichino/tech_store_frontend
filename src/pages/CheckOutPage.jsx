@@ -109,7 +109,7 @@ export default function CheckOutPage() {
                     {item.brand} {item.title} {item.model} x{item.quantity}
                   </span>
                   <span>
-                    €{" "}
+                    {" "}
                     {item.promotion?.discount_price &&
                     item.promotion.promo_state !== "futura" ? (
                       <>
