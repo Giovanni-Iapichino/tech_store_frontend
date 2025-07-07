@@ -1,9 +1,10 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 
 
 const AcquistaButton = () => {
+    const { addToCart } = useCart();  
   const navigate = useNavigate();
 
   const vaiAlCheckout = () => {                                            // Non controlliamo il carrello → vai sempre al checkout
