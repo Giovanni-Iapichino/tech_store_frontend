@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign, faArrowLeft, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -8,11 +8,12 @@ import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
 import { useNewsletter } from "../context/newsletterContext";
 import PopUpNewsletter from "../components/PopUpNewsletter";
+import AcquistaButton from "./BuyBotton";
 
 export default function DetailsProductPage() {
   const { addToCart } = useCart();                         //aggiungi al carrello
   const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
-  const [product, setProduct] = useState();                //prodotto da visualizzare
+  const [product, setProduct] = useState();               //prodotto da visualizzare
   const { slug } = useParams();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
 
@@ -40,6 +41,7 @@ export default function DetailsProductPage() {
   };
   useEffect(fetchProduct, []); // chiama la funzione fetchProduct al caricamento del componente
 
+ 
   return (
     <>
       {open && newsletter === "false" && <PopUpNewsletter />}
@@ -78,9 +80,7 @@ export default function DetailsProductPage() {
                     </p>
                   </div>
                   <div className="button ">
-                    <Link to={`/checkout`}>
-                      <button className="btn btn-success p-2">Acquista</button>
-                    </Link>
+                    <AcquistaButton />
                     <button
                       className="btn  m-2 p-2"
                       style={{
