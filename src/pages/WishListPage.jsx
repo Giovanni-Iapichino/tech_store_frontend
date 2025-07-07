@@ -1,5 +1,14 @@
 import { Link } from "react-router-dom";
-import { faTrash, faArrowLeft, faCartShopping, faCircleCheck, faBrush, faHeart, faPlus, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faArrowLeft,
+  faCartShopping,
+  faCircleCheck,
+  faBrush,
+  faHeart,
+  faPlus,
+  faHeartCrack,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
@@ -10,7 +19,8 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 export default function WishListPage() {
   const { wishlist, removeFromWishlist, clearWishlist } = useWishlist();
   const { addToCart } = useCart();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
+    useNewsletter();
 
   useEffect(() => {
     if (newsletter === "false") {
@@ -30,10 +40,14 @@ export default function WishListPage() {
         {open && newsletter === "false" && <PopUpNewsletter />}
         <div className="container text-center mt-5">
           <h3 className="mb-3">
-            <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} className="me-2" />
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              style={{ color: "#ff6543" }}
+              className="me-2"
+            />
             La tua wishlist è vuota
           </h3>
-          <Link to="/shop" className="btn btn-primary">
+          <Link to="/shop" className="btn btn-orange">
             <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
             Torna allo shop
           </Link>
@@ -46,7 +60,11 @@ export default function WishListPage() {
       {open && newsletter === "false" && <PopUpNewsletter />}
       <div className="container mt-5">
         <h2 className="mb-4">
-          <FontAwesomeIcon icon={faHeart} style={{ color: "#ff6543" }} className="me-2" />
+          <FontAwesomeIcon
+            icon={faHeart}
+            style={{ color: "#ff6543" }}
+            className="me-2"
+          />
           La tua wishlist
         </h2>
 
@@ -63,7 +81,11 @@ export default function WishListPage() {
               {wishlist.map((item) => (
                 <tr key={item.id}>
                   <td>
-                    <Link className="w-100" to={`/shop/${item.slug}`} key={item.id}>
+                    <Link
+                      className="w-100"
+                      to={`/shop/${item.slug}`}
+                      key={item.id}
+                    >
                       <img
                         src={item.thumbnail}
                         alt={`${item.title} ${item.model}`}
@@ -77,7 +99,11 @@ export default function WishListPage() {
                     </Link>
                   </td>
                   <td>
-                    <Link className="w-100" to={`/shop/${item.slug}`} key={item.id}>
+                    <Link
+                      className="w-100"
+                      to={`/shop/${item.slug}`}
+                      key={item.id}
+                    >
                       <strong>
                         {item.brand.toUpperCase()} {item.title} {item.model}
                       </strong>
@@ -89,17 +115,32 @@ export default function WishListPage() {
                   </td>
                   <td>
                     <div className="d-flex gap-2 justify-content-center">
-                      <button style={{ border: "none", backgroundColor: "transparent" }} onClick={() => removeFromWishlist(item.id)}>
-                        <FontAwesomeIcon icon={faHeartCrack} style={{ color: "#ff6543" }} />
+                      <button
+                        style={{
+                          border: "none",
+                          backgroundColor: "transparent",
+                        }}
+                        onClick={() => removeFromWishlist(item.id)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faHeartCrack}
+                          style={{ color: "#ff6543" }}
+                        />
                       </button>
                       <button
-                        style={{ border: "none", backgroundColor: "transparent" }}
+                        style={{
+                          border: "none",
+                          backgroundColor: "transparent",
+                        }}
                         onClick={() => {
                           addToCart(item);
                           removeFromWishlist(item.id);
                         }}
                       >
-                        <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ff6543" }} />
+                        <FontAwesomeIcon
+                          icon={faCartShopping}
+                          style={{ color: "#ff6543" }}
+                        />
                       </button>
                     </div>
                   </td>
