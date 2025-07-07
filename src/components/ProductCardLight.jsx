@@ -36,31 +36,33 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
         className="text-dark col-2 border rounded-3 d-flex flex-column justify-content-around align-items-center promotion-item position-relative text-decoration-none mx-auto"
         to={`/shop/${product.slug}`}
       >
-        {/* Promotion */}
-        <div className="position-absolute top-0 end-0 p-1">
-          {product.promotion && (
-            <div className="fs-6 bg-danger text-white rounded-3 p-1">
-              <span>{parseInt(product.promotion.discount)}%</span>
+        {/* Image  and Mobile Action Buttons*/}
+        <div className="d-flex flex-column align-items-start justify-content-start">
+          <div className="card-content d-flex flex-column align-items-start justify-content-center">
+            {/* Image */}
+            <div className="col-6 col-sm-12">
+              <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
             </div>
-          )}
-        </div>
-        {product.promotion && (
-          <div className="promo_state position-absolute top-0 start-0 p-1">
-            {product.promotion.promo_state !== "in_corso" && (
-              <div className="promotion-item-content d-flex flex-column gap-2">
-                <span>
-                  <span className="d-none d-sm-block">dal</span> {product.promotion.start_date}
-                </span>
+            {/* Promotion */}
+            {product.promotion && (
+              <div className="d-flex flex-row align-items-center justify-content-center gap-2">
+                <div className="promo_state p-1">
+                  {product.promotion.promo_state !== "in_corso" && (
+                    <div className="promotion-item-content d-flex align-items-center justify-content-center">
+                      <span className="d-none d-sm-block" style={{ fontSize: "10px", marginRight: "5px" }}>
+                        dal
+                      </span>
+                      <span style={{ fontSize: "12px" }}>{product.promotion.start_date}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="p-1">
+                  <div className="fs-6 bg-danger text-white rounded-3 p-1">
+                    <span>-{parseInt(product.promotion.discount)}%</span>
+                  </div>
+                </div>
               </div>
             )}
-          </div>
-        )}
-
-        {/* Image  and Mobile Action Buttons*/}
-        <div className="d-flex flex-row mt-4 align-items-center justify-content-center">
-          {/* Image */}
-          <div className="mt-3 col-6 col-sm-12">
-            <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
           </div>
           {/* Mobile Action Buttons */}
           <div
@@ -77,7 +79,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                   style={{
                     height: "15px",
                     width: "15px",
-                    top: "60px",
+                    top: "35px",
                     left: "66px",
                   }}
                   onClick={(e) => {
@@ -124,7 +126,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                     height: "20px",
                     width: "20px",
                     backgroundColor: "#ff6543",
-                    top: "58px",
+                    top: "33px",
                     right: "28px",
                   }}
                   onClick={(e) => {
@@ -138,7 +140,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                   style={{
                     height: "15px",
                     width: "15px",
-                    top: "60px",
+                    top: "35px",
                     right: "5px",
                   }}
                 >
@@ -168,7 +170,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                   height: "35px",
                   width: "35px",
                   backgroundColor: "#ff6543",
-                  top: "50px",
+                  top: "25px",
                   right: "20px",
                 }}
               >
@@ -194,7 +196,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                   height: "35px",
                   width: "35px",
                   backgroundColor: "#ff6543",
-                  top: "90px",
+                  top: "65px",
                   right: "20px",
                 }}
               >
@@ -219,7 +221,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                   height: "35px",
                   width: "35px",
                   backgroundColor: "#ff6543",
-                  top: "90px",
+                  top: "65px",
                   right: "20px",
                 }}
               >
@@ -244,16 +246,17 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
         {/* Title and price */}
         <div className="promotion-item-content d-flex flex-column">
           <span className="text-center">{product.title[0].toUpperCase() + product.title.slice(1)}</span>
-          {product.promotion && (
+          {product.promotion ? (
             <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
               <span className="original-price text-decoration-line-through">{product.price}€</span>
               <span className="discounted-price text-danger fw-bold">{product.promotion.discount_price}€</span>
             </span>
-          )}
-          {isShopPage && (
-            <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
-              <span className="original-price">{product.price}€</span>
-            </span>
+          ) : (
+            isShopPage && (
+              <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
+                <span className="original-price">{product.price}€</span>
+              </span>
+            )
           )}
         </div>
 
@@ -401,7 +404,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
         {isShopPage && (
           <div
             className="compare-button position-absolute d-flex align-items-center justify-content-center gap-2"
-            style={{ top: "10px", left: "10px" }}
+            style={{ top: "2px", left: "2px" }}
             onClick={(e) => {
               e.preventDefault();
               if (isInCompare) {
@@ -416,9 +419,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             ) : (
               <FontAwesomeIcon style={{ height: "20px", width: "20px" }} icon={faCircleCheckRegular} />
             )}
-            <span className="d-none d-sm-block" style={{ fontSize: "10px" }}>
-              Compare
-            </span>
+            <span style={{ fontSize: "10px" }}>Compare</span>
           </div>
         )}
 
