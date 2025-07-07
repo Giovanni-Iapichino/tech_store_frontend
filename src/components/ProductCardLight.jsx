@@ -48,9 +48,9 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
           <div className="promo_state position-absolute top-0 start-0 p-1">
             {product.promotion.promo_state !== "in_corso" && (
               <div className="promotion-item-content d-flex flex-column gap-2">
-                <span>
-                  <span className="d-none d-sm-block">dal</span> {product.promotion.start_date}
-                </span>
+                  <span className="m-1">
+                  <br /> dal {product.promotion.start_date}
+                  </span>
               </div>
             )}
           </div>
