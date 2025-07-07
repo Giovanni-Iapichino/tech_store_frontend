@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-dark text-white py-5 mt-5">
       <div className="container">
-        <div className="row">
+        <div className="row g-4">
           {/* Colonna 1 */}
           <div className="col-md-4">
             <ul className="list-unstyled">
