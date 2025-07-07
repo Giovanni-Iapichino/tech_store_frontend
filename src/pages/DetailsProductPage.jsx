@@ -58,10 +58,17 @@ export default function DetailsProductPage() {
             </div>
             <div className="container-details">
               <div className="row ">
+                <div className="col-md-2 mb-2">
+                  <div className="img">
+                    <img src="../smartphone_placeholder.jpeg" />
+                    <img src="../smartphone_placeholder.jpeg" />
+                    <img src="../smartphone_placeholder.jpeg" />
+                  </div>
+                </div>
                 <div className="col-md-6 mb-6">
                   <img src="../smartphone_placeholder.jpeg" alt="smartphone" />
                 </div>
-                <div className="col-md-6 mb-6">
+                <div className="col-md-4 mb-4">
                   <div className="title">
                     <h1>
                       {product.brand} {product.title} {product.model}
