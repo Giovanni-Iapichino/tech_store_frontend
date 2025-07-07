@@ -87,7 +87,7 @@ export default function DetailsProductPage() {
                     </p>
                   </div>
                   <div className="button ">
-                    <AcquistaButton />
+                    <AcquistaButton  onClick={() => addToCart(product)}/>
                     <button
                       className="btn  m-2 p-2"
                       style={{
