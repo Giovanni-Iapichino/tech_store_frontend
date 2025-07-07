@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useProducts } from "../context/GetProductsContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -45,7 +46,7 @@ export default function ShopPage() {
   const [showPromoOnly, setShowPromoOnly] = useState(searchParams.get("promo") === "true"); // nuovo stato filtro promo
   const [urlError, setUrlError] = useState(null);
 
-  const PRODUCTS_PER_PAGE = 12;
+  const PRODUCTS_PER_PAGE = 16;
 
   // Richiama i prodotti dal backend con paginazione
   useEffect(() => {
@@ -343,11 +344,11 @@ export default function ShopPage() {
 
         {/* filtri sopra i 576px */}
         <div className="d-flex gap-4">
-          <div className="row gap-4 flex-grow-1 justify-content-center">
+          <div className="row gx-2 gy-2 flex-grow-1 justify-content-center np-products" style={{ maxBlockSize: "fit-content" }}>
             {paginatedProducts.map((product) => {
               const isInCompare = compareList.some((p) => p.id === product.id);
               return (
-                <div key={product.id} className="col-5 col-sm-4 col-md-4 col-lg-3" style={{ maxHeight: "250px" }}>
+                <div key={product.id} className="col-5 col-sm-6 col-md-4 col-lg-3 np-product-576">
                   <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />
                 </div>
               );
@@ -440,7 +441,7 @@ export default function ShopPage() {
           <button className="pagination-btn" onClick={handlePrevPage} disabled={currentPage === 1}>
             Prev
           </button>
-          <span className="d-none d-sm-block">Pagina </span> <span className="text-orange fw-bold">{currentPage}</span>
+          <span className="d-none d-sm-block">Pagina</span><span className="text-orange fw-bold mx-1">{currentPage}</span><span>di</span><span className="text-orange fw-bold mx-1">{totalPages}</span>
           <button className="pagination-btn" onClick={handleNextPage} disabled={isLastPage}>
             Next
           </button>
