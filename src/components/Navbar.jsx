@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import CartDropdown from "./CartDropdown";
+import MenuLink from "./MenuLink";
 
 export default function Navbar() {
   const [showCart, setShowCart] = useState(false);
@@ -61,23 +62,30 @@ export default function Navbar() {
             </button>
           </div>
           <div className="justify-content-center align-items-center d-none d-sm-flex col-6 col-md-4">
-            <ul className="d-flex gap-1 justify-content-center list-unstyled align-items-center mb-0">
-              <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Offerte
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Shop
-                </NavLink>
-              </li>
-            </ul>
+            <MenuLink />
+          </div>
+          {/* Menu centrato */}
+          <div className="collapse justify-content-center d-sm-none" id="navbarNav">
+            <MenuLink />
+          </div>
+          <div className="d-flex flex-column flex-md-row col-12 col-md-3 justify-content-center align-items-center">
+            {/* FORM di ricerca dentro la navbar */}
+            <form onSubmit={handleSubmit} className="d-flex justify-content-center align-items-center np-form w-100 mt-2 mt-md-0">
+              <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+              <button
+                className="btn"
+                type="submit"
+                style={{
+                  background: "#ff6543",
+                  color: "#fff",
+                  borderRadius: "0 25px 25px 0",
+                  border: "none",
+                  padding: "8px 14px",
+                }}
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </button>
+            </form>
           </div>
           <div className="d-flex flex-md-row-reverse flex-grow-1 gap-3 col-12 col-sm-2 justify-content-center align-items-center">
             {/* Bottoni */}
@@ -90,21 +98,21 @@ export default function Navbar() {
                 )}
 
                 {/* {wishlistItems > 0 && (
-                <span
-                  className="badge bg-dark position-absolute rounded-circle"
-                  style={{
-                    top: "-10px",
-                    right: "-10px",
-                    width: "20px",
-                    height: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {wishlistItems}
-                </span>
-              )} */}
+                      <span
+                        className="badge bg-dark position-absolute rounded-circle"
+                        style={{
+                          top: "-10px",
+                          right: "-10px",
+                          width: "20px",
+                          height: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {wishlistItems}
+                      </span>
+                    )} */}
               </Link>
               <div className="position-relative mt-2">
                 <span onClick={() => setShowCart(!showCart)} style={{ cursor: "pointer" }}>
@@ -132,45 +140,6 @@ export default function Navbar() {
               </div>
               <FontAwesomeIcon style={{ color: "#ff6543" }} className="fs-4 mt-2" icon={faUser} />
             </div>
-          </div>
-          {/* Menu centrato */}
-          <div className="collapse justify-content-center d-sm-none" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Offerte
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/shop">
-                  Shop
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <div className="d-flex flex-column flex-md-row col-12 col-md-3 justify-content-center align-items-center">
-            {/* FORM di ricerca dentro la navbar */}
-            <form onSubmit={handleSubmit} className="d-flex justify-content-center align-items-center np-form w-100 mt-2 mt-md-0">
-              <input type="text" className="form-control border-0 shadow-none np-input" placeholder="Cerca..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-              <button
-                className="btn"
-                type="submit"
-                style={{
-                  background: "#ff6543",
-                  color: "#fff",
-                  borderRadius: "0 25px 25px 0",
-                  border: "none",
-                  padding: "8px 14px",
-                }}
-              >
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </button>
-            </form>
           </div>
         </div>
       </nav>

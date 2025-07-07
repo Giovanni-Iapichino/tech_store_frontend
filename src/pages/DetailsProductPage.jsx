@@ -10,20 +10,35 @@ import { useNewsletter } from "../context/newsletterContext";
 import PopUpNewsletter from "../components/PopUpNewsletter";
 
 export default function DetailsProductPage() {
-  const { addToCart } = useCart();                    //aggiungi al carrello
-  const { addToWishlist } = useWishlist();           //aggiungi alla wishlist
-  const [product, setProduct] = useState();         //prodotto da visualizzare
+  const { addToCart } = useCart(); //aggiungi al carrello
+  const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
+  const [product, setProduct] = useState(); //prodotto da visualizzare
   const { slug } = useParams();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
 
-  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug;       // URL dell'API per ottenere il prodotto specifico
+  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
+
+  useEffect(() => {
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (randomClick === 0) {
+      setOpen(true);
+    }
+  }, [randomClick]);
 
   const fetchProduct = () => {
-    axios.get(productApiUrl).then((res) => {               // chiamata API per ottenere il prodotto
-      const { product } = res.data;                        // destruttura la risposta per ottenere il prodotto
-      setProduct(product);                                 // imposta il prodotto nello stato
+    axios.get(productApiUrl).then((res) => {
+      // chiamata API per ottenere il prodotto
+      const { product } = res.data; // destruttura la risposta per ottenere il prodotto
+      setProduct(product); // imposta il prodotto nello stato
     });
   };
-  useEffect(fetchProduct, []);                             // chiama la funzione fetchProduct al caricamento del componente
+  useEffect(fetchProduct, []); // chiama la funzione fetchProduct al caricamento del componente
 
   return (
     <>
@@ -110,10 +125,10 @@ export default function DetailsProductPage() {
                 </div>
               </nav>
               <div className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex={0}>
                   {product.description}
                 </div>
-                <div className="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                <div className="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}>
                   <ul>
                     <li>
                       <strong>Sistema operativo:</strong> {product.operating_system}
