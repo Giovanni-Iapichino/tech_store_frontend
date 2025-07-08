@@ -10,11 +10,6 @@ export default function MenuLink() {
       </li>
       <li className="nav-item">
         <NavLink className="nav-link" to="/shop">
-          Offerte
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/shop">
           Shop
         </NavLink>
       </li>
