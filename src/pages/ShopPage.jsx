@@ -15,7 +15,8 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 export default function ShopPage() {
   const { products, loading, error, fetchProducts } = useProducts();
   const { compareList, addToCompare, removeFromCompare } = useCompare();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
+    useNewsletter();
 
   useEffect(() => {
     if (newsletter === "false") {
@@ -36,14 +37,27 @@ export default function ShopPage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || ""); //cosa scrivi nella barra di ricerca
-  const [submittedTerm, setSubmittedTerm] = useState(searchParams.get("q") || ""); //cosa hai effettivamente cercato
-  const [filterType, setFilterType] = useState(searchParams.get("type") || "All"); //il tipo di campo cercato
-  const [priceRange, setPriceRange] = useState(searchParams.get("price") || "All"); //fascia di prezzo selezionata
-  const [selectedBrand, setSelectedBrand] = useState(searchParams.get("brand") || "All"); //brand selezionato
-  const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(searchParams.get("os") || "All"); //sistema operativo selezionato
+  const [submittedTerm, setSubmittedTerm] = useState(
+    searchParams.get("q") || ""
+  ); //cosa hai effettivamente cercato
+  const [filterType, setFilterType] = useState(
+    searchParams.get("type") || "All"
+  ); //il tipo di campo cercato
+  const [priceRange, setPriceRange] = useState(
+    searchParams.get("price") || "All"
+  ); //fascia di prezzo selezionata
+  const [selectedBrand, setSelectedBrand] = useState(
+    searchParams.get("brand") || "All"
+  ); //brand selezionato
+  const [selectedOperatingSystem, setSelectedOperatingSystem] = useState(
+    searchParams.get("os") || "All"
+  ); //sistema operativo selezionato
   const [currentPage, setCurrentPage] = useState(1); //pagina attuale per la paginazione
-  const [showPromoOnly, setShowPromoOnly] = useState(searchParams.get("promo") === "true"); // nuovo stato filtro promo
+  const [showPromoOnly, setShowPromoOnly] = useState(
+    searchParams.get("promo") === "true"
+  ); // nuovo stato filtro promo
   const [urlError, setUrlError] = useState(null);
+  const [compareError, setCompareError] = useState("");
 
   const PRODUCTS_PER_PAGE = 20;
 
@@ -67,11 +81,22 @@ export default function ShopPage() {
   // Controllo errori URL
   useEffect(() => {
     // Parametri e valori validi
-    const allowedParams = ["q", "type", "price", "brand", "os", "page", "promo"];
+    const allowedParams = [
+      "q",
+      "type",
+      "price",
+      "brand",
+      "os",
+      "page",
+      "promo",
+    ];
     const validTypes = ["All", "Title", "Model"];
     const validPrices = ["All", "100-200", "200-300", "300-400", "400+"];
     const validBrands = ["All", ...new Set(products.map((p) => p.brand))];
-    const validOS = ["All", ...new Set(products.map((p) => p.operating_system))];
+    const validOS = [
+      "All",
+      ...new Set(products.map((p) => p.operating_system)),
+    ];
 
     let error = null;
 
@@ -84,20 +109,40 @@ export default function ShopPage() {
     }
 
     // Controlla i valori dei parametri previsti
-    if (!error && searchParams.get("type") && !validTypes.includes(searchParams.get("type"))) {
+    if (
+      !error &&
+      searchParams.get("type") &&
+      !validTypes.includes(searchParams.get("type"))
+    ) {
       error = "Parametro 'type' non valido nell'URL.";
     }
-    if (!error && searchParams.get("price") && !validPrices.includes(searchParams.get("price"))) {
+    if (
+      !error &&
+      searchParams.get("price") &&
+      !validPrices.includes(searchParams.get("price"))
+    ) {
       error = "Parametro 'price' non valido nell'URL.";
     }
-    if (!error && searchParams.get("brand") && !validBrands.includes(searchParams.get("brand"))) {
+    if (
+      !error &&
+      searchParams.get("brand") &&
+      !validBrands.includes(searchParams.get("brand"))
+    ) {
       error = "Parametro 'brand' non valido nell'URL.";
     }
-    if (!error && searchParams.get("os") && !validOS.includes(searchParams.get("os"))) {
+    if (
+      !error &&
+      searchParams.get("os") &&
+      !validOS.includes(searchParams.get("os"))
+    ) {
       error = "Parametro 'os' non valido nell'URL.";
     }
     // Correggi: accetta solo "true" o assenza per promo
-    if (!error && searchParams.has("promo") && searchParams.get("promo") !== "true") {
+    if (
+      !error &&
+      searchParams.has("promo") &&
+      searchParams.get("promo") !== "true"
+    ) {
       error = "Parametro 'promo' non valido nell'URL.";
     }
     setUrlError(error);
@@ -124,10 +169,19 @@ export default function ShopPage() {
   if (error) return <p>{error}</p>;
   if (urlError)
     return (
-      <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
-        <div className="alert alert-danger text-center" style={{ maxWidth: 420 }}>
+      <div
+        className="d-flex flex-column justify-content-center align-items-center"
+        style={{ minHeight: "60vh" }}
+      >
+        <div
+          className="alert alert-danger text-center"
+          style={{ maxWidth: 420 }}
+        >
           {urlError} <br />
-          <button className="btn btn-orange mt-3" onClick={() => (window.location.href = "/shop")}>
+          <button
+            className="btn btn-orange mt-3"
+            onClick={() => (window.location.href = "/shop")}
+          >
             Torna allo Shop
           </button>
         </div>
@@ -135,7 +189,10 @@ export default function ShopPage() {
     );
 
   const uniqueBrands = ["All", ...new Set(products.map((p) => p.brand).sort())]; //estrae l'elenco dei brand
-  const uniqueOperatingSystems = ["All", ...new Set(products.map((p) => p.operating_system).sort())]; //estrae l'elenco dei sistemi operativi
+  const uniqueOperatingSystems = [
+    "All",
+    ...new Set(products.map((p) => p.operating_system).sort()),
+  ]; //estrae l'elenco dei sistemi operativi
 
   //determino su cosa cercare
   const getFilteredField = (product) => {
@@ -156,13 +213,22 @@ export default function ShopPage() {
 
   // filtro generale
   const filteredProducts = products.filter((product) => {
-    const matchesSearch = submittedTerm.trim() === "" || getFilteredField(product).toLowerCase().includes(submittedTerm.toLowerCase()); //q = ricerca generale
+    const matchesSearch =
+      submittedTerm.trim() === "" ||
+      getFilteredField(product)
+        .toLowerCase()
+        .includes(submittedTerm.toLowerCase()); //q = ricerca generale
     const matchesPrice = isPriceInRange(product.price); // prezzo
-    const matchesBrand = selectedBrand === "All" || product.brand === selectedBrand; // brand
-    const matchesOS = selectedOperatingSystem === "All" || product.operating_system === selectedOperatingSystem; // sistema operativo
+    const matchesBrand =
+      selectedBrand === "All" || product.brand === selectedBrand; // brand
+    const matchesOS =
+      selectedOperatingSystem === "All" ||
+      product.operating_system === selectedOperatingSystem; // sistema operativo
     const matchesPromo = !showPromoOnly || !!product.promotion; // promo attiva solo se richiesto
 
-    return matchesSearch && matchesPrice && matchesBrand && matchesOS && matchesPromo;
+    return (
+      matchesSearch && matchesPrice && matchesBrand && matchesOS && matchesPromo
+    );
   });
 
   // PAGINAZIONE DOPO IL FILTRO
@@ -202,6 +268,14 @@ export default function ShopPage() {
         <HeaderMessage text="Shop" />
       </div>
       <div className="container">
+        {compareError && (
+          <div>
+            <div className="alert alert-danger text-center d-flex justify-content-center align-items-center position-fixed np-compare-error">
+              <div>{compareError}</div>
+            </div>
+          </div>
+        )}
+
         {/* <h2 className="mb-4" style={{ color: "#ff6543" }}>
           <strong>Smartphone disponibili</strong>
         </h2> */}
@@ -343,19 +417,49 @@ export default function ShopPage() {
 
         {/* filtri sopra i 576px */}
         <div className="d-flex gap-4">
-          <div className="row gx-2 gy-2 flex-grow-1 justify-content-center np-products" style={{ maxBlockSize: "fit-content" }}>
+          <div
+            className="row gx-2 gy-2 flex-grow-1 justify-content-center np-products"
+            style={{ maxBlockSize: "fit-content" }}
+          >
             {paginatedProducts.map((product) => {
               const isInCompare = compareList.some((p) => p.id === product.id);
+              const handleCompareClick = () => {
+                if (!isInCompare && compareList.length >= 3) {
+                  setCompareError("Puoi confrontare al massimo 3 prodotti.");
+                  // togli l'errore dopo qualche secondo
+                  setTimeout(() => setCompareError(""), 1000);
+                  return;
+                }
+                if (isInCompare) {
+                  removeFromCompare(product.id);
+                } else {
+                  addToCompare(product);
+                }
+              };
               return (
-                <div key={product.id} className="col-6 col-xl-3 np-product-576">
-                  <ProductCardLight product={product} isInCompare={isInCompare} addToCompare={addToCompare} removeFromCompare={removeFromCompare} />
-                </div>
+                <>
+                  <div
+                    key={product.id}
+                    className="col-6 col-xl-3 np-product-576"
+                  >
+                    <ProductCardLight
+                      product={product}
+                      isInCompare={isInCompare}
+                      addToCompare={handleCompareClick}
+                      removeFromCompare={() => removeFromCompare(product.id)}
+                    />
+                  </div>
+                </>
               );
             })}
-
-            {paginatedProducts.length === 0 && <p className="mt-3">Nessun prodotto trovato.</p>}
+            {paginatedProducts.length === 0 && (
+              <p className="mt-3">Nessun prodotto trovato.</p>
+            )}
           </div>
-          <div className="flex-column mx-3 h-100 d-none d-md-flex" style={{ minWidth: "180px" }}>
+          <div
+            className="flex-column mx-3 h-100 d-none d-md-flex"
+            style={{ minWidth: "180px" }}
+          >
             {/* Filtro promo */}
             <div className="filter-section">
               <h6 className="mt-3">Solo prodotti in promozione</h6>
@@ -364,7 +468,10 @@ export default function ShopPage() {
                 onClick={() => {
                   const newPromo = !showPromoOnly;
                   setShowPromoOnly(newPromo);
-                  updateParams({ promo: newPromo ? "true" : undefined, page: 1 });
+                  updateParams({
+                    promo: newPromo ? "true" : undefined,
+                    page: 1,
+                  });
                 }}
               >
                 {showPromoOnly ? "Mostra tutti" : "Mostra solo promo"}
@@ -376,7 +483,9 @@ export default function ShopPage() {
               {uniqueBrands.map((brand) => (
                 <div key={brand}>
                   <button
-                    className={`filter-btn${selectedBrand === brand ? " selected" : ""}`}
+                    className={`filter-btn${
+                      selectedBrand === brand ? " selected" : ""
+                    }`}
                     onClick={() => {
                       setSelectedBrand(brand);
                       setCurrentPage(1);
@@ -395,7 +504,9 @@ export default function ShopPage() {
               {uniqueOperatingSystems.map((os) => (
                 <div key={os}>
                   <button
-                    className={`filter-btn${selectedOperatingSystem === os ? " selected" : ""}`}
+                    className={`filter-btn${
+                      selectedOperatingSystem === os ? " selected" : ""
+                    }`}
                     onClick={() => {
                       setSelectedOperatingSystem(os);
                       setCurrentPage(1);
@@ -420,7 +531,9 @@ export default function ShopPage() {
               ].map(({ label, value }) => (
                 <div key={value}>
                   <button
-                    className={`filter-btn${priceRange === value ? " selected" : ""}`}
+                    className={`filter-btn${
+                      priceRange === value ? " selected" : ""
+                    }`}
                     onClick={() => {
                       setPriceRange(value);
                       setCurrentPage(1);
@@ -434,24 +547,43 @@ export default function ShopPage() {
             </div>
           </div>
         </div>
+        {compareError && (
+          <div
+            className="alert alert-danger text-center my-2"
+            style={{ maxWidth: 420, margin: "auto" }}
+          >
+            {compareError}
+          </div>
+        )}
 
         {/* Paginazione */}
         <div className="my-3 w-100 mx-auto d-flex justify-content-center align-items-center border rounded p-2">
-          <button className="pagination-btn" onClick={handlePrevPage} disabled={currentPage === 1}>
+          <button
+            className="pagination-btn"
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+          >
             Prev
           </button>
           <span className="d-none d-sm-block">Pagina</span>
           <span className="text-orange fw-bold mx-1">{currentPage}</span>
           <span>di</span>
           <span className="text-orange fw-bold mx-1">{totalPages}</span>
-          <button className="pagination-btn" onClick={handleNextPage} disabled={isLastPage}>
+          <button
+            className="pagination-btn"
+            onClick={handleNextPage}
+            disabled={isLastPage}
+          >
             Next
           </button>
         </div>
 
         {/* Bottone fisso per confronto */}
         {compareList.length >= 2 && (
-          <button className="btn-compare fixed-compare-btn" onClick={() => navigate("/comparison")}>
+          <button
+            className="btn-compare fixed-compare-btn"
+            onClick={() => navigate("/comparison")}
+          >
             Vai al confronto ({compareList.length} prodotti)
           </button>
         )}
