@@ -15,12 +15,14 @@ import { useCart } from "../context/CartContext";
 import { useNewsletter } from "../context/newsletterContext";
 import { useEffect } from "react";
 import PopUpNewsletter from "../components/PopUpNewsletter";
+import { useToast } from "../context/ToastContext";
 
 export default function WishListPage() {
   const { wishlist, removeFromWishlist, clearWishlist } = useWishlist();
   const { addToCart } = useCart();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } =
     useNewsletter();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (newsletter === "false") {
@@ -120,7 +122,10 @@ export default function WishListPage() {
                           border: "none",
                           backgroundColor: "transparent",
                         }}
-                        onClick={() => removeFromWishlist(item.id)}
+                        onClick={() => {
+                          removeFromWishlist(item.id);
+                          showToast("Prodotto rimosso dalla wishlist");
+                        }}
                       >
                         <FontAwesomeIcon
                           icon={faHeartCrack}
@@ -133,8 +138,11 @@ export default function WishListPage() {
                           backgroundColor: "transparent",
                         }}
                         onClick={() => {
-                          addToCart(item);
-                          removeFromWishlist(item.id);
+                          {
+                            addToCart(item);
+                            removeFromWishlist(item.id);
+                            showToast("Prodotto aggiunto al carrello");
+                          }
                         }}
                       >
                         <FontAwesomeIcon

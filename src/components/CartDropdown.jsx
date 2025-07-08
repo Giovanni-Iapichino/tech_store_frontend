@@ -3,9 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useToast } from "../context/ToastContext";
 
 export default function CartDropdown({ onClose }) {
   const { cart, removeFromCart, total } = useCart();
+  const { showToast } = useToast();
 
   if (cart.length === 0)
     return (
@@ -55,7 +57,10 @@ export default function CartDropdown({ onClose }) {
               )}
             </span>
             <button
-              onClick={() => removeFromCart(item.id)}
+              onClick={() => {
+                removeFromCart(item.id);
+                showToast("Prodotto rimosso dal carrello");
+              }}
               className="btn btn-sm float-end"
             >
               <FontAwesomeIcon icon={faTrash} style={{ color: "#be0909" }} />

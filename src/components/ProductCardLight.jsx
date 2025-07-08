@@ -1,5 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faHeart, faTrashCan, faMinus, faPlus, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faHeart,
+  faTrashCan,
+  faMinus,
+  faPlus,
+  faCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck as faCircleCheckRegular } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
@@ -7,13 +14,22 @@ import { useWishlist } from "../context/WishlistContext";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useCompare } from "../context/CompareContext"; // Importo il contesto per la comparazione dei prodotti
+import { useToast } from "../context/ToastContext";
 
-export default function ProductCardLigth({ product, isInCompare, addToCompare, removeFromCompare }) {
+export default function ProductCardLigth({
+  product,
+  isInCompare,
+  addToCompare,
+  removeFromCompare,
+}) {
   const { addToCart, removeFromCart, cart, updateQuantity } = useCart();
   const [isInCart, setIsInCart] = useState(false);
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [quantity, setQuantity] = useState(cart.find((item) => item.id === product.id)?.quantity || 1);
+  const [quantity, setQuantity] = useState(
+    cart.find((item) => item.id === product.id)?.quantity || 1
+  );
+  const { showToast } = useToast();
 
   const location = useLocation();
   const isShopPage = location.pathname === "/shop";
@@ -42,11 +58,19 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             {/* Image */}
             {window.matchMedia("(pointer: coarse)").matches ? (
               <div className="col-6 col-lg-8">
-                <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
+                <img
+                  className="w-100 h-100"
+                  src="/smartphone_placeholder.jpeg"
+                  alt={product.title[0].toUpperCase() + product.title.slice(1)}
+                />
               </div>
             ) : (
               <div className="col-6 col-md-10 mx-auto">
-                <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
+                <img
+                  className="w-100 h-100"
+                  src="/smartphone_placeholder.jpeg"
+                  alt={product.title[0].toUpperCase() + product.title.slice(1)}
+                />
               </div>
             )}
             {/* Promotion */}
@@ -55,10 +79,15 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                 <div className="promo_state p-1 col-8">
                   {product.promotion.promo_state !== "in_corso" && (
                     <div className="promotion-item-content d-flex align-items-center justify-content-center">
-                      <span className="d-none d-sm-block" style={{ fontSize: "10px", marginRight: "5px" }}>
+                      <span
+                        className="d-none d-sm-block"
+                        style={{ fontSize: "10px", marginRight: "5px" }}
+                      >
                         dal
                       </span>
-                      <span style={{ fontSize: "12px" }}>{product.promotion.start_date}</span>
+                      <span style={{ fontSize: "12px" }}>
+                        {product.promotion.start_date}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -94,6 +123,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                         e.preventDefault();
                         if (quantity === 1) {
                           removeFromCart(product.id);
+                          showToast("Prodotto rimosso dal carrello");
                           setIsInCart(false);
                         } else {
                           setQuantity(quantity - 1);
@@ -192,6 +222,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                       onClick={(e) => {
                         e.preventDefault();
                         addToCart(product);
+                        showToast("Prodotto aggiunto al carrello");
                         setIsInCart(true);
                       }}
                     />
@@ -218,6 +249,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                     onClick={(e) => {
                       e.preventDefault();
                       removeFromWishlist(product.id);
+                      showToast("Prodotto rimosso dalla wishlist");
                       setIsInWishlist(false);
                     }}
                   />
@@ -243,6 +275,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                     onClick={(e) => {
                       e.preventDefault();
                       addToWishlist(product);
+                      showToast("Prodotto aggiunto alla wishlist");
                       setIsInWishlist(true);
                     }}
                   />
@@ -267,6 +300,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                         e.preventDefault();
                         if (quantity === 1) {
                           removeFromCart(product.id);
+                          showToast("Prodotto rimosso dal carrello");
                           setIsInCart(false);
                         } else {
                           setQuantity(quantity - 1);
@@ -353,6 +387,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                     onClick={(e) => {
                       e.preventDefault();
                       addToCart(product);
+                      showToast("Prodotto aggiunto al carrello");
                       setIsInCart(true);
                     }}
                   />
@@ -369,6 +404,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                   onClick={(e) => {
                     e.preventDefault();
                     removeFromWishlist(product.id);
+                    showToast("Prodotto rimosso dalla wishlist");
                     setIsInWishlist(false);
                   }}
                 />
@@ -384,6 +420,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                   onClick={(e) => {
                     e.preventDefault();
                     addToWishlist(product);
+                    showToast("Prodotto aggiunto alla wishlist");
                     setIsInWishlist(true);
                   }}
                 />
@@ -394,11 +431,17 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
 
         {/* Title and price */}
         <div className="promotion-item-content d-flex flex-column">
-          <span className="text-center">{product.title[0].toUpperCase() + product.title.slice(1)}</span>
+          <span className="text-center">
+            {product.title[0].toUpperCase() + product.title.slice(1)}
+          </span>
           {product.promotion ? (
             <span className="d-flex flex-row align-items-center justify-content-center gap-2 w-100">
-              <span className="original-price text-decoration-line-through">{product.price}€</span>
-              <span className="discounted-price text-danger fw-bold">{product.promotion.discount_price}€</span>
+              <span className="original-price text-decoration-line-through">
+                {product.price}€
+              </span>
+              <span className="discounted-price text-danger fw-bold">
+                {product.promotion.discount_price}€
+              </span>
             </span>
           ) : (
             isShopPage && (
@@ -418,15 +461,24 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
               e.preventDefault();
               if (isInCompare) {
                 removeFromCompare(product.id);
+                showToast("Prodotto rimosso dalla comparazione");
               } else {
                 addToCompare(product);
+                showToast("Prodotto aggiunto alla comparazione");
               }
             }}
           >
             {isInCompare ? (
-              <FontAwesomeIcon style={{ height: "20px", width: "20px" }} className="text-success" icon={faCircleCheck} />
+              <FontAwesomeIcon
+                style={{ height: "20px", width: "20px" }}
+                className="text-success"
+                icon={faCircleCheck}
+              />
             ) : (
-              <FontAwesomeIcon style={{ height: "20px", width: "20px" }} icon={faCircleCheckRegular} />
+              <FontAwesomeIcon
+                style={{ height: "20px", width: "20px" }}
+                icon={faCircleCheckRegular}
+              />
             )}
             <span style={{ fontSize: "10px" }}>Compare</span>
           </div>
