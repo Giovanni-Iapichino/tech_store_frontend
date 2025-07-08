@@ -26,10 +26,9 @@ export default function ProductCardLigth({
   const [isInCart, setIsInCart] = useState(false);
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [quantity, setQuantity] = useState(
-    cart.find((item) => item.id === product.id)?.quantity || 1
-  );
-  const { showToast } = useToast();
+  const [quantity, setQuantity] = useState(cart.find((item) => item.id === product.id)?.quantity || 1);
+  const [compareError, setCompareError] = useState("");
+  const { isInCompare: isInCompareContext } = useCompare(); // Uso il contesto per verificare se il prodotto è in comparazione
 
   const location = useLocation();
   const isShopPage = location.pathname === "/shop";
