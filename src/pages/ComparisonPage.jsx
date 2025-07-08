@@ -63,11 +63,13 @@ export default function ComparisonPage() {
           <table className="table table-bordered text-center align-middle">
             <thead>
               <tr>
-                <th style={{ width: "180px" }}>Nome</th>
+                <th style={{ width: "180px" }}></th>
                 {compareList.map((product) => (
                   <th key={product.id}>
                     <div className="d-flex justify-content-between align-items-center">
-                      <span>{product.title}</span>
+                      <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
+                        <img src={product.thumbnail || "/placeholder.jpg"} alt={product.title} style={{ maxWidth: "100px" }} />
+                      </span>
                       <button
                         className="btn btn-sm btn-outline-danger ms-2"
                         title="Rimuovi dal confronto"
@@ -82,14 +84,12 @@ export default function ComparisonPage() {
             </thead>
             <tbody>
               <tr>
-                <th></th>
+                <th>Nome</th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <img
-                      src={product.thumbnail || "/placeholder.jpg"}
-                      alt={product.title}
-                      style={{ maxWidth: "100px" }}
-                    />
+                      <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
+                        {product.title}
+                      </span>
                   </td>
                 ))}
               </tr>
