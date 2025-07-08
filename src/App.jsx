@@ -11,7 +11,6 @@ import CartPage from "./pages/CartPage";
 import CheckOutPage from "./pages/CheckOutPage";
 import OrderSummaryPage from "./pages/OrderSummaryPage";
 
-
 import { ProductsProvider } from "./context/GetProductsContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
