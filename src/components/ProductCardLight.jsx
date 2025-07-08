@@ -30,7 +30,7 @@ export default function ProductCardLigth({
     cart.find((item) => item.id === product.id)?.quantity || 1
   );
   const [compareError, setCompareError] = useState("");
-  const { isInCompare: isInCompareContext } = useCompare(); // Uso il contesto per verificare se il prodotto è in comparazione
+  const { compareList, isInCompare: isInCompareContext } = useCompare(); // Uso il contesto per verificare se il prodotto è in comparazione
   const { showToast } = useToast();
 
   const location = useLocation();
@@ -465,6 +465,7 @@ export default function ProductCardLigth({
                 removeFromCompare(product.id);
                 showToast("Prodotto rimosso dalla comparazione");
               } else {
+                if (compareList.length >= 3) return;
                 addToCompare(product);
                 showToast("Prodotto aggiunto alla comparazione");
               }
