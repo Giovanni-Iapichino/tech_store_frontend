@@ -6,6 +6,8 @@ import {
   faEuroSign,
   faArrowLeft,
   faHeart,
+  faMinus,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
 import RelatedProducts from "./RElatedProductCard";
@@ -16,7 +18,7 @@ import { useToast } from "../context/ToastContext";
 
 export default function DetailsProductPage() {
   const [product, setProduct] = useState();               //prodotto da visualizzare
-  const { addToCart } = useCart();                         //aggiungi al carrello
+  const { addToCart, updateQuantity } = useCart();                         //aggiungi al carrello
   const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
   const { slug } = useParams();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } =
@@ -32,6 +34,8 @@ export default function DetailsProductPage() {
       updateRandomClick(currentValue - 1);
     }
   }, []);
+  
+
 
   useEffect(() => {
     if (randomClick === 0) {
@@ -56,7 +60,12 @@ export default function DetailsProductPage() {
           <div className="container">
             <div className="bottom-prev">
               <Link to={`/shop`}>
-                <button className="btn btn-primary ">
+                <button className="btn "  
+                  style={{
+                    color: "white",
+                    background: " #ff6543",
+                    border: "1px solid #ff6543",
+                  }}>
                   <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
                   Torna allo shop
                 </button>
@@ -109,6 +118,26 @@ export default function DetailsProductPage() {
                     </strong>
                     {product.description}
                  </div>
+                  <div className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
+                    <button className="btn" onClick={() => updateQuantity(productid, Math.max(1, product.quantity - 1))} disabled={product.quantity <= 1} style={{ minWidth: "32px" }}>
+                      <FontAwesomeIcon icon={faMinus} style={{ color: "#ff8800" }} />
+                    </button>
+                    <span
+                      className="form-control text-center"
+                      style={{
+                        width: "60px",
+                        background: "#f8f9fa",
+                        border: "1px solid #ced4da",
+                        pointerEvents: "none",
+                        userSelect: "none",
+                      }}
+                    >
+                    {product.quantity}
+                    </span>
+                    <button className="btn" onClick={() => updateQuantity(product.id, product.quantity + 1)} style={{ minWidth: "32px" }}>
+                      <FontAwesomeIcon icon={faPlus} style={{ color: "#ff8800" }} />
+                    </button>
+                  </div>
                   <div className="button ">
                     <button
                       className="btn btn-success m-1 p-2"
