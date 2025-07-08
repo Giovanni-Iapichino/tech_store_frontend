@@ -14,11 +14,13 @@ import HeaderMessage from "../components/HeaderMessage";
 import { useNewsletter } from "../context/newsletterContext";
 import { useEffect } from "react";
 import PopUpNewsletter from "../components/PopUpNewsletter";
+import { useToast } from "../context/ToastContext";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, total } = useCart();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } =
     useNewsletter();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (newsletter === "false") {
@@ -202,7 +204,10 @@ export default function CartPage() {
                   <td>
                     <button
                       className="btn btn-sm"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => {
+                        removeFromCart(item.id);
+                        showToast("Prodotto rimosso dal carrello");
+                      }}
                     >
                       <FontAwesomeIcon
                         icon={faTrash}
