@@ -12,9 +12,9 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 
 
 export default function DetailsProductPage() {
+  const [product, setProduct] = useState();               //prodotto da visualizzare
   const { addToCart } = useCart();                         //aggiungi al carrello
   const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
-  const [product, setProduct] = useState();               //prodotto da visualizzare
   const { slug } = useParams();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
   const navigate = useNavigate();                          //per navigare tra le pagine
@@ -43,7 +43,6 @@ export default function DetailsProductPage() {
   };
   useEffect(fetchProduct, []); // chiama la funzione fetchProduct al caricamento del componente
 
- 
   return (
     <>
       {open && newsletter === "false" && <PopUpNewsletter />}
@@ -77,17 +76,34 @@ export default function DetailsProductPage() {
                     </h1>
                   </div>
                   <div className="text">
+                    {product.discount && product.discount > 0 ? (
+                      <>
+                        <span className="discount">
+                          <span className="text-muted fs-6">
+                            <del>
+                              <FontAwesomeIcon icon={faEuroSign} /> {product.price}
+                            </del>
+                            {" "} -{product.discount}%
+                          </span>
+                        </span>
+                        <span>
+                          <p className="price">
+                            <FontAwesomeIcon icon={faEuroSign} />{" "}
+                            {(product.price - (product.price * product.discount / 100)).toFixed(2)}
+                          </p>
+                        </span>
+                      </>
+                    ) : (
                       <p className="price">
-                        <FontAwesomeIcon icon={faEuroSign} /> {product.price} 
+                        <FontAwesomeIcon icon={faEuroSign} /> {product.price}
                       </p>
-                    <p>
-                      <strong>
-                        Descrizione:
-                        <br />
-                      </strong>
-                      {product.description}
-                    </p>
-                  </div>
+                    )}
+                    <strong>
+                      Descrizione:
+                      <br />
+                    </strong>
+                    {product.description}
+                 </div>
                   <div className="button ">
                     <button
                       className="btn btn-success m-1 p-2"

@@ -48,16 +48,28 @@ const RelatedProducts = () => {
                 <h6 className="card-title">
                   {product.brand} {product.title} {product.model}
                 </h6>
-                <p
-                  className="card-text"
-                  style={{
-                    color: " #089408",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faEuroSign} />
-                  {product.price}
-                </p>
+                {product.discount && product.discount > 0 ? (
+                  <>
+                    <span className="discount">
+                      <span className="text-muted fs-6">
+                        <del>
+                          <FontAwesomeIcon icon={faEuroSign} /> {product.price}
+                        </del>
+                        {" "} -{product.discount}%
+                      </span>
+                    </span>
+                    <span>
+                      <p className="price" style={{color: "#089408"}}>
+                        <FontAwesomeIcon icon={faEuroSign} />{" "}
+                        {(product.price - (product.price * product.discount / 100)).toFixed(2)}
+                      </p>
+                    </span>
+                  </>
+                ) : (
+                  <p className="price" style={{color: "#089408"}}>
+                    <FontAwesomeIcon icon={faEuroSign}/> {product.price}
+                  </p>
+                )}
                 <button className="btn px-0" onClick={() => addToCart(product)}>
                   <FontAwesomeIcon
                     icon={faCartShopping}
