@@ -2,24 +2,35 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEuroSign, faArrowLeft, faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEuroSign,
+  faArrowLeft,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
 import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
 import { useNewsletter } from "../context/newsletterContext";
 import PopUpNewsletter from "../components/PopUpNewsletter";
-
-
+import { useToast } from "../context/ToastContext";
 
 export default function DetailsProductPage() {
+<<<<<<< HEAD
   const [product, setProduct] = useState();               //prodotto da visualizzare
   const { addToCart } = useCart();                         //aggiungi al carrello
   const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
+=======
+  const { addToCart } = useCart(); //aggiungi al carrello
+  const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
+  const [product, setProduct] = useState(); //prodotto da visualizzare
+>>>>>>> 727694ebbf130ed16c7bd6844e185fd64c4724e5
   const { slug } = useParams();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
-  const navigate = useNavigate();                          //per navigare tra le pagine
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
+    useNewsletter();
+  const navigate = useNavigate(); //per navigare tra le pagine
+  const { showToast } = useToast(); //per mostrare i toast
 
-  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug;         // URL dell'API per ottenere il prodotto specifico
+  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
 
   useEffect(() => {
     if (newsletter === "false") {
@@ -107,7 +118,10 @@ export default function DetailsProductPage() {
                   <div className="button ">
                     <button
                       className="btn btn-success m-1 p-2"
-                      onClick={() =>{addToCart(product); navigate("/checkout")}}
+                      onClick={() => {
+                        addToCart(product);
+                        navigate("/checkout");
+                      }}
                     >
                       Acquista
                     </button>
@@ -117,7 +131,10 @@ export default function DetailsProductPage() {
                         background: "#ff6543",
                         color: "white",
                       }}
-                      onClick={() => addToCart(product)}
+                      onClick={() => {
+                        addToCart(product);
+                        showToast("Prodotto aggiunto al carrello");
+                      }}
                     >
                       Aggiungi a carrello
                     </button>
@@ -128,7 +145,10 @@ export default function DetailsProductPage() {
                         background: "white",
                         border: "1px solid #ff6543",
                       }}
-                      onClick={() => addToWishlist(product) } 
+                      onClick={() => {
+                        addToWishlist(product);
+                        showToast("Prodotto aggiunto alla wishlist");
+                      }}
                     >
                       <FontAwesomeIcon icon={faHeart} className="text-danger" />
                     </button>
@@ -146,22 +166,53 @@ export default function DetailsProductPage() {
             <div className="container-form">
               <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button " role="tab" aria-controls="nav-home" aria-selected="true">
+                  <button
+                    className="nav-link active"
+                    id="nav-home-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-home"
+                    type="button "
+                    role="tab"
+                    aria-controls="nav-home"
+                    aria-selected="true"
+                  >
                     Descrizione
                   </button>
-                  <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                  <button
+                    className="nav-link"
+                    id="nav-profile-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-profile"
+                    aria-selected="false"
+                  >
                     Scheda tecnica
                   </button>
                 </div>
               </nav>
               <div className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex={0}>
+                <div
+                  className="tab-pane fade show active p-3"
+                  id="nav-home"
+                  role="tabpanel"
+                  aria-labelledby="nav-home-tab"
+                  tabIndex={0}
+                >
                   {product.description}
                 </div>
-                <div className="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}>
+                <div
+                  className="tab-pane fade p-3"
+                  id="nav-profile"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab"
+                  tabIndex={0}
+                >
                   <ul>
                     <li>
-                      <strong>Sistema operativo:</strong> {product.operating_system}
+                      <strong>Sistema operativo:</strong>{" "}
+                      {product.operating_system}
                     </li>
                     <li>
                       <strong>Ram:</strong> {product.ram}
