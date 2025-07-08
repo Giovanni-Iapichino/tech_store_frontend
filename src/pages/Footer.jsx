@@ -27,23 +27,19 @@ export default function Footer() {
           {/* Colonna 2 */}
           <div className="col-md-4">
             <h5>Contattaci</h5>
+            <p>Hai domande o suggerimenti?</p>
             <p>
-              Hai domande o suggerimenti?
-              <p>
-                scrivici a{" "}
-                <a className="text-white" href="mailto:tech.store.team.2@gmail.com" target="_blank">
-                  tech.store.team.2@gmail.com
-                </a>
-              </p>
+              scrivici a{" "}
+              <a className="text-white" href="mailto:tech.store.team.2@gmail.com" target="_blank">
+                tech.store.team.2@gmail.com
+              </a>
             </p>
+            <p>Hai bisogno di assistenza?</p>
             <p>
-              Hai bisogno di assistenza?
-              <p>
-                Contattaci.{" "}
-                <a className="text-white" href="tel:+3933344455566" target="_blank">
-                  +39 333 444 555 66
-                </a>
-              </p>
+              Contattaci.{" "}
+              <a className="text-white" href="tel:+3933344455566" target="_blank">
+                +39 333 444 555 66
+              </a>
             </p>
           </div>
         </div>
