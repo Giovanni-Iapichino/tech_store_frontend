@@ -4,15 +4,22 @@ import { useNewsletter } from "../context/newsletterContext";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faCartShopping, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faCartShopping,
+  faPlus,
+  faMinus,
+} from "@fortawesome/free-solid-svg-icons";
 import PopUpNewsletter from "../components/PopUpNewsletter";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
+import { useToast } from "../context/ToastContext";
 
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
   const { cart, addToCart, removeFromCart, updateQuantity } = useCart();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
+    useNewsletter();
+  const { showToast } = useToast();
 
   // Controllo newsletter
   useEffect(() => {
@@ -34,14 +41,26 @@ export default function ComparisonPage() {
         {open && newsletter === "false" && <PopUpNewsletter />}
         <div className="container text-center my-5">
           <p>Nessun prodotto selezionato per il confronto.</p>
-          <Link className="btn btn-warning mt-4" to="/shop" style={{ background: "#ff6543", color: "white", border: "white" }}>
+          <Link
+            className="btn btn-warning mt-4"
+            to="/shop"
+            style={{ background: "#ff6543", color: "white", border: "white" }}
+          >
             Torna allo Shop
           </Link>
         </div>
       </>
     );
 
-  const EXCLUDED_KEYS = ["id", "title", "thumbnail", "create_at", "update_at", "description", "slug"];
+  const EXCLUDED_KEYS = [
+    "id",
+    "title",
+    "thumbnail",
+    "create_at",
+    "update_at",
+    "description",
+    "slug",
+  ];
   const allKeys = Array.from(
     new Set(compareList.flatMap((product) => Object.keys(product)))
   ).filter((key) => !EXCLUDED_KEYS.includes(key));
@@ -67,15 +86,28 @@ export default function ComparisonPage() {
                 {compareList.map((product) => (
                   <th key={product.id}>
                     <div className="d-flex justify-content-between align-items-center">
-                      <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
-                        <img src={product.thumbnail || "/placeholder.jpg"} alt={product.title} style={{ maxWidth: "100px" }} />
+                      <span
+                        className="d-block mx-auto"
+                        style={{ fontWeight: 600 }}
+                      >
+                        <img
+                          src={product.thumbnail || "/placeholder.jpg"}
+                          alt={product.title}
+                          style={{ maxWidth: "100px" }}
+                        />
                       </span>
                       <button
                         className="btn btn-sm btn-outline-danger ms-2"
                         title="Rimuovi dal confronto"
-                        onClick={() => removeFromCompare(product.id)}
+                        onClick={() => {
+                          removeFromCompare(product.id);
+                          showToast("Prodotto rimosso dal confronto");
+                        }}
                       >
-                        <FontAwesomeIcon icon={faXmark} style={{ color: "red",  fontSize: "1.2rem" }} />
+                        <FontAwesomeIcon
+                          icon={faXmark}
+                          style={{ color: "red", fontSize: "1.2rem" }}
+                        />
                       </button>
                     </div>
                   </th>
@@ -87,9 +119,12 @@ export default function ComparisonPage() {
                 <th>Nome</th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                      <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
-                        {product.title}
-                      </span>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.title}
+                    </span>
                   </td>
                 ))}
               </tr>
@@ -120,6 +155,7 @@ export default function ComparisonPage() {
                               updateQuantity(product.id, cartQty - 1);
                             } else if (cartQty === 1) {
                               removeFromCart(product.id);
+                              showToast("Prodotto rimosso dal carrello");
                             }
                           }}
                           disabled={cartQty === 0}
@@ -131,7 +167,10 @@ export default function ComparisonPage() {
                         <button
                           className="btn btn-sm btn-outline-primary"
                           style={{ color: "#ff6543", borderColor: "#ff6543" }}
-                          onClick={() => addToCart(product)}
+                          onClick={() => {
+                            addToCart(product);
+                            showToast("Prodotto aggiunto al carrello");
+                          }}
                           title="Aggiungi uno"
                         >
                           <FontAwesomeIcon icon={faPlus} />
