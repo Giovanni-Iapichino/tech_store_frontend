@@ -15,15 +15,9 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 import { useToast } from "../context/ToastContext";
 
 export default function DetailsProductPage() {
-<<<<<<< HEAD
   const [product, setProduct] = useState();               //prodotto da visualizzare
   const { addToCart } = useCart();                         //aggiungi al carrello
   const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
-=======
-  const { addToCart } = useCart(); //aggiungi al carrello
-  const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
-  const [product, setProduct] = useState(); //prodotto da visualizzare
->>>>>>> 727694ebbf130ed16c7bd6844e185fd64c4724e5
   const { slug } = useParams();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } =
     useNewsletter();
