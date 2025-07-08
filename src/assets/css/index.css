@@ -633,8 +633,8 @@ table thead.custom-thead th {
     /* width: 50%; */
   }
   .card-content {
-    margin-top: 25px;
-    gap: 25px;
+    margin-top: 0px;
+    gap: 10px;
   }
   
 }
@@ -651,6 +651,7 @@ table thead.custom-thead th {
   .cart-dropdown {
     right: -277px;
     top: 35px;
+    left: -220px;
   }
 
   .np-product{
@@ -661,12 +662,12 @@ table thead.custom-thead th {
   /* Triangolino per desktop - posizionato a sinistra */
   .cart-dropdown::before {
     right: auto;
-    left: 145px;
+    left: 228px;
   }
 
   .cart-dropdown::after {
     right: auto;
-    left: 145px;
+    left: 228px;
   }
   .card-brand {
     width: 180px;

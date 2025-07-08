@@ -40,17 +40,11 @@ export default function CartDropdown({ onClose }) {
             <strong>{item.title}</strong> x {item.quantity}
             <br />
             <span>
-              €{" "}
-              {item.promotion?.discount_price &&
-              item.promotion.promo_state !== "futura" ? (
+              {item.promotion?.discount_price && item.promotion.promo_state !== "futura" ? (
                 <>
-                  <strong style={{ color: "#be0909" }}>
-                    €{parseFloat(item.promotion.discount_price).toFixed(2)}
-                  </strong>
+                  <strong style={{ color: "#be0909" }}>€{parseFloat(item.promotion.discount_price).toFixed(2)}</strong>
                   <br />
-                  <small className="text-decoration-line-through text-muted">
-                    €{parseFloat(item.price).toFixed(2)}
-                  </small>
+                  <small className="text-decoration-line-through text-muted">€{parseFloat(item.price).toFixed(2)}</small>
                 </>
               ) : (
                 <strong>€{parseFloat(item.price).toFixed(2)}</strong>
