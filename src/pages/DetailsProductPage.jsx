@@ -17,14 +17,16 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 import { useToast } from "../context/ToastContext";
 
 export default function DetailsProductPage() {
-  const [product, setProduct] = useState();               //prodotto da visualizzare
-  const { addToCart, updateQuantity } = useCart();                         //aggiungi al carrello
-  const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
+  const [product, setProduct] = useState();                         //prodotto da visualizzare
+  const [quantity, setQuantity] = useState(1);                         // quantità del prodotto da aggiungere al carrello
+  const { addToCart, updateQuantity, cart } = useCart();                         //aggiungi al carrello
+
+  
+  const { addToWishlist } = useWishlist();                              //aggiungi alla wishlist
   const { slug } = useParams();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
-    useNewsletter();
-  const navigate = useNavigate(); //per navigare tra le pagine
-  const { showToast } = useToast(); //per mostrare i toast
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+  const navigate = useNavigate();                                       //per navigare tra le pagine
+  const { showToast } = useToast();     
 
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
 
@@ -34,14 +36,14 @@ export default function DetailsProductPage() {
       updateRandomClick(currentValue - 1);
     }
   }, []);
+
+
   
-
-
   useEffect(() => {
     if (randomClick === 0) {
-      setOpen(true);
+      setOpen(true); // apre il pop-up della newsletter se il numero di click casuali
     }
-  }, [randomClick]);
+  }, [randomClick, setOpen]);
 
   const fetchProduct = () => {
     axios.get(productApiUrl).then((res) => {
@@ -101,8 +103,8 @@ export default function DetailsProductPage() {
                           </span>
                         </span>
                         <span>
-                          <p className="price">
-                            <FontAwesomeIcon icon={faEuroSign} />{" "}
+                          <p className="price" style={{color:"#ff0000"}}>
+                            <FontAwesomeIcon icon={faEuroSign}/>{" "}
                             {(product.price - (product.price * product.discount / 100)).toFixed(2)}
                           </p>
                         </span>
@@ -118,27 +120,7 @@ export default function DetailsProductPage() {
                     </strong>
                     {product.description}
                  </div>
-                  <div className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
-                    <button className="btn" onClick={() => updateQuantity(productid, Math.max(1, product.quantity - 1))} disabled={product.quantity <= 1} style={{ minWidth: "32px" }}>
-                      <FontAwesomeIcon icon={faMinus} style={{ color: "#ff8800" }} />
-                    </button>
-                    <span
-                      className="form-control text-center"
-                      style={{
-                        width: "60px",
-                        background: "#f8f9fa",
-                        border: "1px solid #ced4da",
-                        pointerEvents: "none",
-                        userSelect: "none",
-                      }}
-                    >
-                    {product.quantity}
-                    </span>
-                    <button className="btn" onClick={() => updateQuantity(product.id, product.quantity + 1)} style={{ minWidth: "32px" }}>
-                      <FontAwesomeIcon icon={faPlus} style={{ color: "#ff8800" }} />
-                    </button>
-                  </div>
-                  <div className="button ">
+                  <div className="button">
                     <button
                       className="btn btn-success m-1 p-2"
                       onClick={() => {
@@ -182,7 +164,7 @@ export default function DetailsProductPage() {
                       <br />
                       Smartphone, {product.brand}
                     </p>
-                  </div>
+                  </div>         
                 </div>
               </div>
             </div>

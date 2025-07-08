@@ -23,7 +23,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
   const isShopPage = location.pathname === "/shop";
 
   useEffect(() => {
-    setIsInCart(cart.some((item) => item.id === product.id));
+    setIsInCart(cart.some((item) => item.id === product.id)); 
   }, [cart]);
 
   useEffect(() => {
