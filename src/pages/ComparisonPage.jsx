@@ -13,6 +13,7 @@ import {
 import PopUpNewsletter from "../components/PopUpNewsletter";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useToast } from "../context/ToastContext";
+import HeaderMessage from "../components/HeaderMessage";
 
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
@@ -52,18 +53,18 @@ export default function ComparisonPage() {
       </>
     );
 
-  const EXCLUDED_KEYS = [
-    "id",
-    "title",
-    "thumbnail",
-    "create_at",
-    "update_at",
-    "description",
-    "slug",
-  ];
-  const allKeys = Array.from(
-    new Set(compareList.flatMap((product) => Object.keys(product)))
-  ).filter((key) => !EXCLUDED_KEYS.includes(key));
+  // const EXCLUDED_KEYS = [
+  //   "id",
+  //   "title",
+  //   "thumbnail",
+  //   "create_at",
+  //   "update_at",
+  //   "description",
+  //   "slug",
+  // ];
+  // const allKeys = Array.from(
+  //   new Set(compareList.flatMap((product) => Object.keys(product)))
+  // ).filter((key) => !EXCLUDED_KEYS.includes(key));
 
   const getCartQuantity = (productId) => {
     const item = cart.find((c) => c.id === productId);
@@ -75,7 +76,9 @@ export default function ComparisonPage() {
       {open && newsletter === "false" && <PopUpNewsletter />}
       <div className="container overflow-auto">
         <h1 className="my-4 text-center" style={{ color: "#ff6543" }}>
-          <strong>Confronto Prodotti</strong>
+          <div className="mb-4">
+            <HeaderMessage text="Comparazione" />
+          </div>
         </h1>
 
         <div className="table-responsive">
@@ -116,7 +119,15 @@ export default function ComparisonPage() {
             </thead>
             <tbody>
               <tr>
-                <th>Nome</th>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Nome
+                </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
                     <span
@@ -129,7 +140,204 @@ export default function ComparisonPage() {
                 ))}
               </tr>
 
-              {allKeys.map((key) => (
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Marca
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.brand}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Modello
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.model}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Sistema operativo
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.operating_system}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Ram
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.ram}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Memoria
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.memory}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Pollici
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.inches}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Risoluzione
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.risolution}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Megapixel
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.megapixel}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <tr>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Prezzo
+                </th>
+                {compareList.map((product) => (
+                  <td key={product.id}>
+                    <span
+                      className="d-block mx-auto"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {product.price}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              {/* {allKeys.map((key) => (
                 <tr key={key}>
                   <th style={{ textTransform: "capitalize" }}>
                     {key.replace(/_/g, " ")}
@@ -138,10 +346,18 @@ export default function ComparisonPage() {
                     <td key={product.id}>{String(product[key])}</td>
                   ))}
                 </tr>
-              ))}
+              ))} */}
 
               <tr>
-                <th>Quantità nel carrello</th>
+                <th
+                  style={{
+                    fontWeight: 600,
+                    color: "#ff6543",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Quantità nel carrello
+                </th>
                 {compareList.map((product) => {
                   const cartQty = getCartQuantity(product.id);
                   return (
