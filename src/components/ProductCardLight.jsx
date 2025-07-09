@@ -432,8 +432,8 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
                 removeFromCompare(product.id);
                 showToast("Prodotto rimosso dalla comparazione");
               } else {
-                if (compareList.length >= 3) return;
                 addToCompare(product);
+                if (compareList.length >= 3) return;
                 showToast("Prodotto aggiunto alla comparazione");
               }
             }}

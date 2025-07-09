@@ -11,9 +11,9 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 import { useToast } from "../context/ToastContext";
 
 export default function DetailsProductPage() {
-  const [product, setProduct] = useState(); //prodotto da visualizzare
-  const [quantity, setQuantity] = useState(1); // quantità del prodotto da aggiungere al carrello
-  const { addToCart } = useCart(); //aggiungi al carrello
+  const [product, setProduct] = useState();                         //prodotto da visualizzare
+  const [quantity, setQuantity] = useState(1);                     // quantità del prodotto da aggiungere al carrello
+  const { addToCart } = useCart();                              //aggiungi al carrello
 
   const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
   const { slug } = useParams();
@@ -114,20 +114,25 @@ export default function DetailsProductPage() {
                   </div>
                   <div className="button">
                     <div className="d-flex align-items-center mb-2">
-                      <button className="btn btn-outline-secondary" onClick={() => setQuantity((q) => Math.max(1, q - 1))} style={{ minWidth: "36px" }}>
+                      <button className="btn btn-outline-secondary" onClick={() => setQuantity((quantity) => Math.max(1, quantity - 1))} style={{ minWidth: "36px" }}>
                         <FontAwesomeIcon icon={faMinus} />
                       </button>
                       <span className="mx-2" style={{ minWidth: "32px", textAlign: "center" }}>
                         {quantity}
                       </span>
-                      <button className="btn btn-outline-secondary" onClick={() => setQuantity((q) => q + 1)} style={{ minWidth: "36px" }}>
+                      <button className="btn btn-outline-secondary"
+                        onClick={() => {
+                          setQuantity(quantity + 1); 
+                          updateQuantity(product.id, parseInt(quantity) + 1);
+                        }} 
+                        style={{ minWidth: "36px" }}>
                         <FontAwesomeIcon icon={faPlus} />
                       </button>
                     </div>
                     <button
                       className="btn btn-success m-1 p-2"
                       onClick={() => {
-                        addToCart(product);
+                        addToCart(product, quantity);
                         navigate("/checkout");
                       }}
                     >
