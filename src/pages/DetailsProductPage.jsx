@@ -15,7 +15,7 @@ export default function DetailsProductPage() {
   const { addToCart, cart } = useCart();                              //aggiungi al carrello
   const [product, setProduct] = useState();                             //prodotto da visualizzare
   const [quantity, setQuantity] = useState(1);                          // quantità del prodotto da aggiungere al carrello
-  const [ isInCart, setIsInCart] = useState(cart.some((item) => item.id === product?.id) || false);
+  const [isInCart, setIsInCart] = useState(cart.some((item) => item.id === product?.id) || false);
   const [isBuy, setIsBuy] = useState(cart.some((item) => item.id === product?.id) || false);
   const [isAddCart, setIsAddCart] = useState(false);
 
@@ -169,14 +169,16 @@ export default function DetailsProductPage() {
                         if(isBuy){
                           navigate("/checkout");
                         } else {
-                          addToCart(product);
+                          if (!isInCart){
+                            addToCart(product);
+                          }
                           setIsInCart(true);
                           setIsBuy(true);
                         }
                       }}
                       disabled={isAddCart}
                     >
-                      {isBuy?"conferma": "acquista"}
+                      {isBuy? "conferma" : "acquista"}
                     </button>
                     <button
                       className="btn m-1 p-2"
@@ -192,6 +194,7 @@ export default function DetailsProductPage() {
                         setIsAddCart(true);
                       }}
                       disabled={isBuy}
+                      
                     >
                       Aggiungi a carrello
                     </button>
