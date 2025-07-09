@@ -37,7 +37,7 @@ const RelatedProducts = () => {
       }
     };
     fetchRelatedProducts();
-  }, [setRelated]);
+  }, [setRelated,slug]);
   return (
     <div className="related-products">
       <div className="row">
