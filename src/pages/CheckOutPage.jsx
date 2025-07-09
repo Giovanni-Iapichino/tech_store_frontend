@@ -47,7 +47,7 @@ export default function CheckOutPage() {
     const createPricePromises = cart.map((item) => {
       return axios
         .post("http://127.0.0.1:3000/api/v1/payment/create-price", {
-          product_data: { name: item.slug },
+          product_data: { name: item.title, metadata: { slug: item.slug } },
           unit_amount: item.promotion ? item.promotion.discount_price * 100 : item.price * 100,
           currency: "eur",
         })
