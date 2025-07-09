@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEuroSign, faArrowLeft, faHeart, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEuroSign,
+  faArrowLeft,
+  faHeart,
+  faMinus,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
 import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
@@ -14,13 +21,18 @@ export default function DetailsProductPage() {
   const { addToCart, cart } = useCart(); //aggiungi al carrello
   const [product, setProduct] = useState(); //prodotto da visualizzare
   const [quantity, setQuantity] = useState(1); // quantità del prodotto da aggiungere al carrello
-  const [isInCart, setIsInCart] = useState(cart.some((item) => item.id === product?.id) || false);
-  const [isBuy, setIsBuy] = useState(cart.some((item) => item.id === product?.id) || false);
+  const [isInCart, setIsInCart] = useState(
+    cart.some((item) => item.id === product?.id) || false
+  );
+  const [isBuy, setIsBuy] = useState(
+    cart.some((item) => item.id === product?.id) || false
+  );
   const [isAddCart, setIsAddCart] = useState(false);
 
   const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
   const { slug } = useParams();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
+    useNewsletter();
   const navigate = useNavigate(); //per navigare tra le pagine
   const { showToast } = useToast();
   const { updateQuantity, removeFromCart } = useCart();
@@ -55,7 +67,7 @@ export default function DetailsProductPage() {
       setProduct(product); // imposta il prodotto nello stato
     });
   };
-  useEffect(fetchProduct, []); // chiama la funzione fetchProduct al caricamento del componente
+  useEffect(fetchProduct, [slug]); // chiama la funzione fetchProduct al caricamento del componente
 
   useEffect(() => {
     setIsInCart(cart.some((item) => item.id === product?.id) || false);
@@ -109,14 +121,19 @@ export default function DetailsProductPage() {
                         <span className="discount">
                           <span className="text-muted fs-6">
                             <del>
-                              <FontAwesomeIcon icon={faEuroSign} /> {product.price}
+                              <FontAwesomeIcon icon={faEuroSign} />{" "}
+                              {product.price}
                             </del>{" "}
                             -{product.discount}%
                           </span>
                         </span>
                         <span>
                           <p className="price" style={{ color: "#ff0000" }}>
-                            <FontAwesomeIcon icon={faEuroSign} /> {(product.price - (product.price * product.discount) / 100).toFixed(2)}
+                            <FontAwesomeIcon icon={faEuroSign} />{" "}
+                            {(
+                              product.price -
+                              (product.price * product.discount) / 100
+                            ).toFixed(2)}
                           </p>
                         </span>
                       </>
@@ -134,11 +151,16 @@ export default function DetailsProductPage() {
                   <div className="button">
                     {isInCart && (
                       <div className="d-flex align-items-center mb-2">
-                        {cart.find((item) => item.id === product.id)?.quantity > 1 ? (
+                        {cart.find((item) => item.id === product.id)?.quantity >
+                        1 ? (
                           <button
                             className="btn btn-outline-secondary"
                             onClick={() => {
-                              updateQuantity(product.id, cart.find((item) => item.id === product.id)?.quantity - 1);
+                              updateQuantity(
+                                product.id,
+                                cart.find((item) => item.id === product.id)
+                                  ?.quantity - 1
+                              );
                             }}
                             style={{ minWidth: "36px" }}
                           >
@@ -155,13 +177,23 @@ export default function DetailsProductPage() {
                             <FontAwesomeIcon icon={faTrash} />
                           </button>
                         )}
-                        <span className="mx-2" style={{ minWidth: "32px", textAlign: "center" }}>
-                          {cart.find((item) => item.id === product.id)?.quantity}
+                        <span
+                          className="mx-2"
+                          style={{ minWidth: "32px", textAlign: "center" }}
+                        >
+                          {
+                            cart.find((item) => item.id === product.id)
+                              ?.quantity
+                          }
                         </span>
                         <button
                           className="btn btn-outline-secondary"
                           onClick={() => {
-                            updateQuantity(product.id, cart.find((item) => item.id === product.id)?.quantity + 1);
+                            updateQuantity(
+                              product.id,
+                              cart.find((item) => item.id === product.id)
+                                ?.quantity + 1
+                            );
                           }}
                           style={{ minWidth: "36px" }}
                         >
@@ -196,7 +228,9 @@ export default function DetailsProductPage() {
                         addToCart(product);
                         showToast("Prodotto aggiunto al carrello");
                         setIsInCart(true);
-                        setQuantity(cart.find((item) => item.id === product.id)?.quantity);
+                        setQuantity(
+                          cart.find((item) => item.id === product.id)?.quantity
+                        );
                         setIsAddCart(true);
                       }}
                       disabled={isBuy}
@@ -232,22 +266,53 @@ export default function DetailsProductPage() {
             <div className="container-form">
               <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button " role="tab" aria-controls="nav-home" aria-selected="true">
+                  <button
+                    className="nav-link active"
+                    id="nav-home-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-home"
+                    type="button "
+                    role="tab"
+                    aria-controls="nav-home"
+                    aria-selected="true"
+                  >
                     Descrizione
                   </button>
-                  <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                  <button
+                    className="nav-link"
+                    id="nav-profile-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-profile"
+                    aria-selected="false"
+                  >
                     Scheda tecnica
                   </button>
                 </div>
               </nav>
               <div className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex={0}>
+                <div
+                  className="tab-pane fade show active p-3"
+                  id="nav-home"
+                  role="tabpanel"
+                  aria-labelledby="nav-home-tab"
+                  tabIndex={0}
+                >
                   {product.description}
                 </div>
-                <div className="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}>
+                <div
+                  className="tab-pane fade p-3"
+                  id="nav-profile"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab"
+                  tabIndex={0}
+                >
                   <ul>
                     <li>
-                      <strong>Sistema operativo:</strong> {product.operating_system}
+                      <strong>Sistema operativo:</strong>{" "}
+                      {product.operating_system}
                     </li>
                     <li>
                       <strong>Ram:</strong> {product.ram}
