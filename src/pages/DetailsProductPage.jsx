@@ -220,6 +220,7 @@ export default function DetailsProductPage() {
                         setIsAddCart(true);
                       }}
                       disabled={isBuy}
+                      
                     >
                       Aggiungi a carrello
                     </button>
