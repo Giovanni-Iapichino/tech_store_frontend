@@ -10,18 +10,24 @@ import { useNewsletter } from "../context/newsletterContext";
 import PopUpNewsletter from "../components/PopUpNewsletter";
 import { useToast } from "../context/ToastContext";
 
+
 export default function DetailsProductPage() {
-  const [product, setProduct] = useState();                         //prodotto da visualizzare
-  const [quantity, setQuantity] = useState(1);                     // quantità del prodotto da aggiungere al carrello
-  const { addToCart } = useCart();                              //aggiungi al carrello
+  const { addToCart, cart } = useCart();                              //aggiungi al carrello
+  const [product, setProduct] = useState();                             //prodotto da visualizzare
+  const [quantity, setQuantity] = useState(1);                          // quantità del prodotto da aggiungere al carrello
+  const [ isInCart, setIsInCart] = useState(cart.some((item) => item.id === product?.id) || false);
+  const [isBuy, setIsBuy] = useState(cart.some((item) => item.id === product?.id) || false);
+  const [isAddCart, setIsAddCart] = useState(false);
+
 
   const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
   const { slug } = useParams();
   const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
   const navigate = useNavigate(); //per navigare tra le pagine
   const { showToast } = useToast();
+  const{ updateQuantity }= useCart();
 
-  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
+  const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug;          // URL dell'API per ottenere il prodotto specifico
 
   useEffect(() => {
     if (newsletter === "false") {
@@ -30,11 +36,22 @@ export default function DetailsProductPage() {
     }
   }, []);
 
+  
+   useEffect(() =>{
+    if(!cart.some((item) => item.id === product?.id)) {
+       setIsAddCart(false);
+       setIsBuy(false);
+       setIsInCart(false);
+    }
+  }, [cart, product]);
+
+
   useEffect(() => {
     if (randomClick === 0) {
       setOpen(true); // apre il pop-up della newsletter se il numero di click casuali
     }
   }, [randomClick, setOpen]);
+
 
   const fetchProduct = () => {
     axios.get(productApiUrl).then((res) => {
@@ -44,6 +61,16 @@ export default function DetailsProductPage() {
     });
   };
   useEffect(fetchProduct, []); // chiama la funzione fetchProduct al caricamento del componente
+
+
+  useEffect(() => {
+    setIsInCart(cart.some((item) => item.id === product?.id) || false);
+    if(cart.some((item) => item.id === product?.id)){
+      setIsBuy(false);
+    };
+  },[product])
+  
+
 
   return (
     <>
@@ -113,30 +140,43 @@ export default function DetailsProductPage() {
                     {product.description}
                   </div>
                   <div className="button">
-                    <div className="d-flex align-items-center mb-2">
-                      <button className="btn btn-outline-secondary" onClick={() => setQuantity((quantity) => Math.max(1, quantity - 1))} style={{ minWidth: "36px" }}>
-                        <FontAwesomeIcon icon={faMinus} />
-                      </button>
-                      <span className="mx-2" style={{ minWidth: "32px", textAlign: "center" }}>
-                        {quantity}
-                      </span>
-                      <button className="btn btn-outline-secondary"
-                        onClick={() => {
-                          setQuantity(quantity + 1); 
-                          updateQuantity(product.id, parseInt(quantity) + 1);
-                        }} 
-                        style={{ minWidth: "36px" }}>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </button>
-                    </div>
+                    {isInCart && (
+                      <div className="d-flex align-items-center mb-2">
+                        <button className="btn btn-outline-secondary"
+                          onClick={() => {
+                            updateQuantity(product.id, cart.find((item) => item.id === product.id)?.quantity - 1);
+                          }}
+                          style={{ minWidth: "36px" }}
+                        >
+                          <FontAwesomeIcon icon={faMinus} />
+                        </button>
+                        <span className="mx-2" style={{ minWidth: "32px", textAlign: "center" }}>
+                          {cart.find((item) => item.id === product.id)?.quantity}
+                        </span>
+                        <button className="btn btn-outline-secondary"
+                          onClick={() => {
+                          updateQuantity(product.id, cart.find((item) => item.id === product.id)?.quantity + 1);
+                          }}
+                          style={{ minWidth: "36px" }}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                      </div>
+                    )}
                     <button
                       className="btn btn-success m-1 p-2"
                       onClick={() => {
-                        addToCart(product, quantity);
-                        navigate("/checkout");
+                        if(isBuy){
+                          navigate("/checkout");
+                        } else {
+                          addToCart(product);
+                          setIsInCart(true);
+                          setIsBuy(true);
+                        }
                       }}
+                      disabled={isAddCart}
                     >
-                      Acquista
+                      {isBuy?"conferma": "acquista"}
                     </button>
                     <button
                       className="btn m-1 p-2"
@@ -147,7 +187,11 @@ export default function DetailsProductPage() {
                       onClick={() => {
                         addToCart(product);
                         showToast("Prodotto aggiunto al carrello");
+                        setIsInCart(true);
+                        setQuantity(cart.find((item) =>(item.id === product.id ))?.quantity);
+                        setIsAddCart(true);
                       }}
+                      disabled={isBuy}
                     >
                       Aggiungi a carrello
                     </button>
@@ -161,6 +205,7 @@ export default function DetailsProductPage() {
                       onClick={() => {
                         addToWishlist(product);
                         showToast("Prodotto aggiunto alla wishlist");
+                        updateQuantity(product.id, parseInt(quantity));
                       }}
                     >
                       <FontAwesomeIcon icon={faHeart} className="text-danger" />
