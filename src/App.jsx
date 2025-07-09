@@ -53,6 +53,10 @@ export default function app() {
                             element={<CheckOutPage />}
                           ></Route>
                           <Route
+                            path="/checkout/:slug"
+                            element={<CheckOutPage />}
+                          ></Route>
+                          <Route
                             path="/ordersummary"
                             element={<OrderSummaryPage />}
                           ></Route>

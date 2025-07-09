@@ -3,10 +3,13 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import HeaderMessage from "../components/HeaderMessage";
+import { useParams } from "react-router-dom";
 
 export default function CheckOutPage() {
+  const { slug } = useParams();
   const { cart, clearCart, total } = useCart();
   console.log("Carrello:", cart);
+  const filteredCart = cart.filter((item) => item.slug === slug);
   const [billing, setBilling] = useState({
     Nome: "",
     Cognome: "",
@@ -41,7 +44,7 @@ export default function CheckOutPage() {
       user_address: billing.Indirizzo,
       user_postalcode: billing.CAP,
       total,
-      productList: cart,
+      productList: slug ? filteredCart : cart,
     };
 
     axios
@@ -56,16 +59,26 @@ export default function CheckOutPage() {
             nome: billing.Nome,
             cognome: billing.Cognome,
             order_number: orderNumber,
-            products: cart.map((item) => ({
-              title: item.title,
-              quantity: item.quantity,
-              price:
-                item.promotion?.discount_price &&
-                item.promotion.promo_state !== "futura"
-                  ? item.promotion.discount_price
-                  : item.price,
-            })),
-            total: total.toFixed(2),
+            products: slug
+              ? filteredCart.map((item) => ({
+                  title: item.title,
+                  quantity: item.quantity,
+                  price:
+                    item.promotion?.discount_price &&
+                    item.promotion.promo_state !== "futura"
+                      ? item.promotion.discount_price
+                      : item.price,
+                }))
+              : cart.map((item) => ({
+                  title: item.title,
+                  quantity: item.quantity,
+                  price:
+                    item.promotion?.discount_price &&
+                    item.promotion.promo_state !== "futura"
+                      ? item.promotion.discount_price
+                      : item.price,
+                  total: total.toFixed(2),
+                })),
           })
           .then(() => {
             setSuccess(true);
@@ -100,39 +113,80 @@ export default function CheckOutPage() {
           <div className="col-md-6">
             <h2>Riepilogo ordine</h2>
             <ul className="list-group mb-3">
-              {cart.map((item) => (
-                <li
-                  className="list-group-item d-flex justify-content-between"
-                  key={item.id}
-                >
-                  <span>
-                    {item.brand} {item.title} {item.model} x{item.quantity}
-                  </span>
-                  <span>
-                    {" "}
-                    {item.promotion?.discount_price &&
-                    item.promotion.promo_state !== "futura" ? (
-                      <>
-                        <strong style={{ color: "#be0909" }}>
-                          €
-                          {(
-                            parseFloat(item.promotion.discount_price) *
-                            item.quantity
-                          ).toFixed(2)}
-                        </strong>
-                        <br />
-                        <small className="text-decoration-line-through text-muted">
-                          €{parseFloat(item.price * item.quantity).toFixed(2)}
-                        </small>
-                      </>
-                    ) : (
-                      <strong>
-                        €{parseFloat(item.price * item.quantity).toFixed(2)}
-                      </strong>
-                    )}
-                  </span>
-                </li>
-              ))}
+              {slug
+                ? filteredCart.map((item) => (
+                    <li
+                      className="list-group-item d-flex justify-content-between"
+                      key={item.id}
+                    >
+                      <span>
+                        {item.brand} {item.title} {item.model} x{item.quantity}
+                      </span>
+                      <span>
+                        {" "}
+                        {item.promotion?.discount_price &&
+                        item.promotion.promo_state !== "futura" ? (
+                          <>
+                            <strong style={{ color: "#be0909" }}>
+                              €
+                              {(
+                                parseFloat(item.promotion.discount_price) *
+                                item.quantity
+                              ).toFixed(2)}
+                            </strong>
+                            <br />
+                            <small className="text-decoration-line-through text-muted">
+                              €
+                              {parseFloat(item.price * item.quantity).toFixed(
+                                2
+                              )}
+                            </small>
+                          </>
+                        ) : (
+                          <strong>
+                            €{parseFloat(item.price * item.quantity).toFixed(2)}
+                          </strong>
+                        )}
+                      </span>
+                    </li>
+                  ))
+                : cart.map((item) => (
+                    <li
+                      className="list-group-item d-flex justify-content-between"
+                      key={item.id}
+                    >
+                      <span>
+                        {item.brand} {item.title} {item.model} x{item.quantity}
+                      </span>
+                      <span>
+                        {" "}
+                        {item.promotion?.discount_price &&
+                        item.promotion.promo_state !== "futura" ? (
+                          <>
+                            <strong style={{ color: "#be0909" }}>
+                              €
+                              {(
+                                parseFloat(item.promotion.discount_price) *
+                                item.quantity
+                              ).toFixed(2)}
+                            </strong>
+                            <br />
+                            <small className="text-decoration-line-through text-muted">
+                              €
+                              {parseFloat(item.price * item.quantity).toFixed(
+                                2
+                              )}
+                            </small>
+                          </>
+                        ) : (
+                          <strong>
+                            €{parseFloat(item.price * item.quantity).toFixed(2)}
+                          </strong>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+
               <li className="list-group-item d-flex justify-content-between">
                 <strong>Totale</strong>
                 <strong>€ {total.toFixed(2)}</strong>

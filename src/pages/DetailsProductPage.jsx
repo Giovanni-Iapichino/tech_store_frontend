@@ -191,7 +191,7 @@ export default function DetailsProductPage() {
                       className="btn btn-success m-1 p-2"
                       onClick={() => {
                         if (isBuy || isInCart) {
-                          navigate("/checkout");
+                          navigate("/checkout/" + product.slug);
                         } else {
                           if (!isInCart) {
                             addToCart(product);
