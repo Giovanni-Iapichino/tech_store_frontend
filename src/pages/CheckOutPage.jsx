@@ -11,6 +11,17 @@ export default function CheckOutPage() {
   const { cart, clearCart, total, setCart } = useCart();
   console.log("Carrello:", cart);
   const filteredCart = cart.filter((item) => item.slug === slug);
+  const orderTotal = slug
+    ? filteredCart.reduce((acc, item) => {
+        const hasPromo =
+          item.promotion?.discount_price &&
+          item.promotion.promo_state !== "futura";
+        const price = hasPromo
+          ? parseFloat(item.promotion.discount_price)
+          : parseFloat(item.price);
+        return acc + price * item.quantity;
+      }, 0)
+    : total;
   const [billing, setBilling] = useState({
     Nome: "",
     Cognome: "",
@@ -44,7 +55,7 @@ export default function CheckOutPage() {
       user_country: billing.Nazione,
       user_address: billing.Indirizzo,
       user_postalcode: billing.CAP,
-      total,
+      total: orderTotal.toFixed(2),
       productList: slug ? filteredCart : cart,
     };
 
@@ -198,7 +209,7 @@ export default function CheckOutPage() {
 
               <li className="list-group-item d-flex justify-content-between">
                 <strong>Totale</strong>
-                <strong>€ {total.toFixed(2)}</strong>
+                <strong>€ {orderTotal.toFixed(2)}</strong>
               </li>
             </ul>
           </div>
