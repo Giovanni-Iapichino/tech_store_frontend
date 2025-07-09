@@ -2,6 +2,7 @@ import { faHeart, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEuroSign } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 import { useEffect } from "react";
@@ -46,7 +47,9 @@ const RelatedProducts = () => {
               <img src={product.thumbnail} className="card-img-top" />
               <div className="card-body">
                 <h6 className="card-title ">
-                  {product.brand} {product.title} {product.model}
+                  <Link className="w-100" to={`/shop/${product.slug}`} key={product.id}>
+                    {product.brand} {product.title} {product.model}
+                  </Link>
                 </h6>
                 {product.discount && product.discount > 0 ? (
                   <>
