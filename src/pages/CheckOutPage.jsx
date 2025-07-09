@@ -48,21 +48,40 @@ export default function CheckOutPage() {
       productList: slug ? filteredCart : cart,
     };
 
-    const createPricePromises = cart.map((item) => {
-      return axios
-        .post("http://127.0.0.1:3000/api/v1/payment/create-price", {
-          product_data: { name: item.title, metadata: { slug: item.slug } },
-          unit_amount: item.promotion ? item.promotion.discount_price * 100 : item.price * 100,
-          currency: "eur",
+    localStorage.setItem("order", JSON.stringify(payload));
+    localStorage.setItem("slug", slug || false);
+
+    const createPricePromises = slug
+      ? filteredCart.map((item) => {
+          return axios
+            .post("http://127.0.0.1:3000/api/v1/payment/create-price", {
+              product_data: { name: item.title, metadata: { slug: item.slug } },
+              unit_amount: item.promotion ? item.promotion.discount_price * 100 : item.price * 100,
+              currency: "eur",
+            })
+            .then((response) => {
+              console.log(response.data);
+              return {
+                price: response.data.id,
+                quantity: item.quantity,
+              };
+            });
         })
-        .then((response) => {
-          console.log(response.data);
-          return {
-            price: response.data.id,
-            quantity: item.quantity,
-          };
+      : cart.map((item) => {
+          return axios
+            .post("http://127.0.0.1:3000/api/v1/payment/create-price", {
+              product_data: { name: item.title, metadata: { slug: item.slug } },
+              unit_amount: item.promotion ? item.promotion.discount_price * 100 : item.price * 100,
+              currency: "eur",
+            })
+            .then((response) => {
+              console.log(response.data);
+              return {
+                price: response.data.id,
+                quantity: item.quantity,
+              };
+            });
         });
-    });
 
     // Aspetta che tutte le Promise vengano risolte
     Promise.all(createPricePromises)
@@ -192,7 +211,7 @@ export default function CheckOutPage() {
               <button type="submit" className="btn btn-orange" disabled={loading}>
                 {loading ? "Invio in corso..." : "Procedi al pagamento"}
               </button>
-              {success && <div className="alert alert-success mt-3">Ordine effettuato con successo!</div>}
+              {/* {success && <div className="alert alert-success mt-3">Ordine effettuato con successo!</div>} */}
               {error && <div className="alert alert-danger mt-3">{error}</div>}
             </form>
           </div>
