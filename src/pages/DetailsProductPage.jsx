@@ -182,7 +182,7 @@ export default function DetailsProductPage() {
                           setIsBuy(true);
                         }
                       }}
-                      disabled={isAddCart}
+                     
                     >
                       {isBuy ? "conferma" : "acquista"}
                     </button>
@@ -199,7 +199,7 @@ export default function DetailsProductPage() {
                         setQuantity(cart.find((item) => item.id === product.id)?.quantity);
                         setIsAddCart(true);
                       }}
-                      disabled={isBuy}
+                     
                     >
                       Aggiungi a carrello
                     </button>
