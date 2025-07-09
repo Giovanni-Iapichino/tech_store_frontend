@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 export default function CheckOutPage() {
   const { slug } = useParams();
-  const { cart, clearCart, total } = useCart();
+  const { cart, clearCart, total, setCart } = useCart();
   console.log("Carrello:", cart);
   const filteredCart = cart.filter((item) => item.slug === slug);
   const [billing, setBilling] = useState({
@@ -83,7 +83,11 @@ export default function CheckOutPage() {
           })
           .then(() => {
             setSuccess(true);
-            clearCart();
+            if (slug) {
+              setCart(cart.filter((item) => item.slug !== slug));
+            } else {
+              clearCart();
+            }
             navigate("/ordersummary", { state: { order_number: orderNumber } });
           });
       })
