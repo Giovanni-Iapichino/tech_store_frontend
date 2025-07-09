@@ -271,7 +271,7 @@ export default function ShopPage() {
         {compareError && (
           <div>
             <div className="alert alert-danger text-center d-flex justify-content-center align-items-center position-fixed np-compare-error">
-              <div>{compareError}</div>
+              <div>{compareError}</div> {/* Messaggio di errore per la comparazione */}
             </div>
           </div>
         )}
