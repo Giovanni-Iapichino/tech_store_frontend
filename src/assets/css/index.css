@@ -689,6 +689,10 @@ table thead.custom-thead th {
   .service h5 {
     font-size: 18px;
   }
+  .card-content {
+    margin-top: 5px;
+    gap: 10px;
+}
 }
 
 @media screen and (min-width: 1024px) {
@@ -728,4 +732,15 @@ table thead.custom-thead th {
     opacity: 0;
     transform: translateX(100%);
   }
+}
+
+.hide-scrollbar {
+  /*FireFox*/
+  scrollbar-width: none;
+  /*IE10+*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  /*Chrome, Safari, Edge*/
+  display: none;
 }

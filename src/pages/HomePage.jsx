@@ -170,7 +170,9 @@ export default function HomePage() {
               {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div> */}
-              <div className="row gap-3 flex-nowrap overflow-y-auto p-3">{promotionsInComing && promotionsInComing.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
+              <div className="row gap-3 flex-nowrap overflow-y-auto p-3 hide-scrollbar">
+                {promotionsInComing && promotionsInComing.map((product) => <ProductCardLigth key={product.id} product={product} />)}
+              </div>
               {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div> */}
@@ -182,7 +184,7 @@ export default function HomePage() {
           {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div> */}
-          <div className="row gap-4 overflow-y-auto flex-nowrap p-2">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
+          <div className="row gap-4 overflow-y-auto flex-nowrap p-2 hide-scrollbar">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
           {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div> */}

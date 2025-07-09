@@ -23,7 +23,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
   const isShopPage = location.pathname === "/shop";
 
   useEffect(() => {
-    setIsInCart(cart.some((item) => item.id === product.id)); 
+    setIsInCart(cart.some((item) => item.id === product.id));
   }, [cart]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
         to={`/shop/${product.slug}`}
       >
         {/* Image  and Mobile Action Buttons*/}
-        <div className="d-flex flex-column align-items-start justify-content-start position-relative mt-sm-3">
+        <div className="d-flex flex-column align-items-start justify-content-start position-relative">
           <div className="card-content d-flex flex-column align-items-start justify-content-center">
             {/* Image */}
             {window.matchMedia("(pointer: coarse)").matches ? (
