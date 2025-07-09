@@ -46,11 +46,11 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             {/* Image */}
             {window.matchMedia("(pointer: coarse)").matches ? (
               <div className="col-6 col-lg-8">
-                <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
+                <img className="w-100 h-100" src={product.thumbnail} alt={product.title[0].toUpperCase() + product.title.slice(1)} />
               </div>
             ) : (
               <div className="col-6 col-md-10 mx-auto">
-                <img className="w-100 h-100" src="/smartphone_placeholder.jpeg" alt={product.title[0].toUpperCase() + product.title.slice(1)} />
+                <img className="w-100 h-100" src={product.thumbnail} alt={product.title[0].toUpperCase() + product.title.slice(1)} />
               </div>
             )}
             {/* Promotion */}
