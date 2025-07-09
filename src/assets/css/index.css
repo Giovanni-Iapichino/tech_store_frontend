@@ -244,7 +244,7 @@ table thead.custom-thead th {
   max-height: 300px;
   overflow-x: auto;
   scri
-  -ms-overflow-style: none;
+  -+ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
   }
