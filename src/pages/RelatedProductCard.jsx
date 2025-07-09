@@ -43,7 +43,7 @@ const RelatedProducts = () => {
         {related.map((product) => (
           <div key={product.id} className="col-2 mb-2">
             <div className="card">
-              <img src="../smartphone_placeholder.jpeg" alt="smartphone" className="card-img-top" />
+              <img src={product.thumbnail} className="card-img-top" />
               <div className="card-body">
                 <h6 className="card-title ">
                   {product.brand} {product.title} {product.model}

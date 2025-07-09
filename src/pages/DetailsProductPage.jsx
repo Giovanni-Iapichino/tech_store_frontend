@@ -101,13 +101,13 @@ export default function DetailsProductPage() {
               <div className="row">
                 <div className="col-md-2 mb-2">
                   <div className="img d-none d-md-block">
-                    <img src="../smartphone_placeholder.jpeg" />
-                    <img src="../smartphone_placeholder.jpeg" />
-                    <img src="../smartphone_placeholder.jpeg" />
+                    <img src={product.thumbnail} />
+                    <img src={product.thumbnail} />
+                    <img src={product.thumbnail} />
                   </div>
                 </div>
                 <div className="col-md-6 mb-6">
-                  <img src="../smartphone_placeholder.jpeg" alt="smartphone" />
+                  <img src={product.thumbnail} alt="smartphone" />
                 </div>
                 <div className="col-md-4 mb-4">
                   <div className="title">
@@ -202,7 +202,10 @@ export default function DetailsProductPage() {
                       </div>
                     )}
                     <button
-                      className="btn btn-success m-1 p-2"
+                      className="btn m-1 p-2" style={{
+                        color:"white",
+                        background:"#ff6543"
+                      }}
                       onClick={() => {
                         if (isBuy || isInCart) {
                           navigate("/checkout/" + product.slug);
@@ -216,7 +219,7 @@ export default function DetailsProductPage() {
                       }}
                      
                     >
-                      {isBuy ? "conferma" : "acquista"}
+                      {isBuy ? "Conferma" : "Acquista"}
                     </button>
                     <button
                       className="btn m-1 p-2"
