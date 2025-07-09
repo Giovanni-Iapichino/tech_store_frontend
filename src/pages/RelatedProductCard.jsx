@@ -38,10 +38,10 @@ const RelatedProducts = () => {
     fetchRelatedProducts();
   }, [setRelated]);
   return (
-    <div className="related-products d-flex gap-4 justify-content-between align-items-center overflow-y-auto">
-      <div className="row gap-3 col-12">
+    <div className="related-products">
+      <div className="row">
         {related.map((product) => (
-          <div key={product.id} className="mb-2">
+          <div key={product.id} className="col-2 mb-2">
             <div className="card">
               <img src="../smartphone_placeholder.jpeg" alt="smartphone" className="card-img-top" />
               <div className="card-body">
