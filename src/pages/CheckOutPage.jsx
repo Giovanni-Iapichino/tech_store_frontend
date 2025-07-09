@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import HeaderMessage from "../components/HeaderMessage";
+import { Link } from "react-router-dom";
 
 export default function CheckOutPage() {
   const { cart, clearCart, total } = useCart();
@@ -88,6 +89,10 @@ export default function CheckOutPage() {
     return (
       <div className="container text-center mt-5">
         <h3>Il carrello è vuoto</h3>
+         <Link to="/shop" className="btn btn-orange">
+            {/* <FontAwesomeIcon icon={faArrowLeft} className="me-2" /> */}
+            Torna allo shop
+          </Link>
       </div>
     );
   }
