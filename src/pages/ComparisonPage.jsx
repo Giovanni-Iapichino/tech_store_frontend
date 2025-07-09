@@ -4,12 +4,7 @@ import { useNewsletter } from "../context/newsletterContext";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faCartShopping,
-  faPlus,
-  faMinus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCartShopping, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import PopUpNewsletter from "../components/PopUpNewsletter";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useToast } from "../context/ToastContext";
@@ -18,8 +13,7 @@ import HeaderMessage from "../components/HeaderMessage";
 export default function ComparisonPage() {
   const { compareList, removeFromCompare, clearCompare } = useCompare();
   const { cart, addToCart, removeFromCart, updateQuantity } = useCart();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
-    useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
   const { showToast } = useToast();
 
   // Controllo newsletter
@@ -40,13 +34,10 @@ export default function ComparisonPage() {
     return (
       <>
         {open && newsletter === "false" && <PopUpNewsletter />}
+        <HeaderMessage text="Comparazione" />
         <div className="container text-center my-5">
           <p>Nessun prodotto selezionato per il confronto.</p>
-          <Link
-            className="btn btn-warning mt-4"
-            to="/shop"
-            style={{ background: "#ff6543", color: "white", border: "white" }}
-          >
+          <Link className="btn btn-warning mt-4" to="/shop" style={{ background: "#ff6543", color: "white", border: "white" }}>
             Torna allo Shop
           </Link>
         </div>
@@ -74,30 +65,22 @@ export default function ComparisonPage() {
   return (
     <>
       {open && newsletter === "false" && <PopUpNewsletter />}
+      <HeaderMessage text="Comparazione" />
       <div className="container overflow-auto">
         <h1 className="my-4 text-center" style={{ color: "#ff6543" }}>
-          <div className="mb-4">
-            <HeaderMessage text="Comparazione" />
-          </div>
+          <div className="mb-4"></div>
         </h1>
 
         <div className="table-responsive">
           <table className="table table-bordered text-center align-middle">
             <thead>
               <tr>
-                <th style={{ width: "180px" }}></th>
+                <th className="d-none d-md-block" style={{ width: "180px" }}></th>
                 {compareList.map((product) => (
                   <th key={product.id}>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <span
-                        className="d-block mx-auto"
-                        style={{ fontWeight: 600 }}
-                      >
-                        <img
-                          src={product.thumbnail || "/placeholder.jpg"}
-                          alt={product.title}
-                          style={{ maxWidth: "100px" }}
-                        />
+                    <div className="d-flex flex-column-reverse flex-md-row justify-content-between align-items-center">
+                      <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
+                        <img src={product.thumbnail || "/placeholder.jpg"} alt={product.title} style={{ maxWidth: "100px" }} />
                       </span>
                       <button
                         className="btn btn-sm btn-outline-danger ms-2"
@@ -107,10 +90,7 @@ export default function ComparisonPage() {
                           showToast("Prodotto rimosso dal confronto");
                         }}
                       >
-                        <FontAwesomeIcon
-                          icon={faXmark}
-                          style={{ color: "red", fontSize: "1.2rem" }}
-                        />
+                        <FontAwesomeIcon icon={faXmark} style={{ color: "red", fontSize: "1.2rem" }} />
                       </button>
                     </div>
                   </th>
@@ -120,6 +100,7 @@ export default function ComparisonPage() {
             <tbody>
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -130,10 +111,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.title}
                     </span>
                   </td>
@@ -142,6 +120,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -152,10 +131,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.brand}
                     </span>
                   </td>
@@ -163,6 +139,7 @@ export default function ComparisonPage() {
               </tr>
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -173,10 +150,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.model}
                     </span>
                   </td>
@@ -185,6 +159,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -195,10 +170,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.operating_system}
                     </span>
                   </td>
@@ -207,6 +179,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -217,10 +190,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.ram}
                     </span>
                   </td>
@@ -229,6 +199,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -239,10 +210,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.memory}
                     </span>
                   </td>
@@ -251,6 +219,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -261,10 +230,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.inches}
                     </span>
                   </td>
@@ -273,6 +239,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -283,10 +250,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.risolution}
                     </span>
                   </td>
@@ -295,6 +259,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -305,10 +270,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.megapixel}
                     </span>
                   </td>
@@ -317,6 +279,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -327,10 +290,7 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span
-                      className="d-block mx-auto"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                       {product.price}
                     </span>
                   </td>
@@ -350,6 +310,7 @@ export default function ComparisonPage() {
 
               <tr>
                 <th
+                  className="d-none d-md-block"
                   style={{
                     fontWeight: 600,
                     color: "#ff6543",
@@ -401,18 +362,10 @@ export default function ComparisonPage() {
         </div>
 
         <div className="d-flex justify-content-center mt-4 flex-wrap gap-3">
-          <button
-            className="btn btn-warning"
-            style={{ background: "#ff6543", color: "white", border: "white" }}
-            onClick={clearCompare}
-          >
+          <button className="btn btn-warning" style={{ background: "#ff6543", color: "white", border: "white" }} onClick={clearCompare}>
             Svuota confronto
           </button>
-          <Link
-            to="/shop"
-            className="btn"
-            style={{ background: "#ff6543", color: "white", border: "white" }}
-          >
+          <Link to="/shop" className="btn" style={{ background: "#ff6543", color: "white", border: "white" }}>
             Torna allo shop
           </Link>
         </div>

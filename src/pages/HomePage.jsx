@@ -13,10 +13,6 @@ export default function HomePage() {
   const { bestSeller, promotions, promotionsInComing, promotionsOnGoing } = useProducts();
   const { newsletter, randomClick, setOpen, open, updateRandomClick } = useNewsletter();
 
-  console.log(randomClick);
-  console.log(open);
-  console.log(newsletter);
-
   useEffect(() => {
     if (randomClick === 0) {
       setOpen(true);
@@ -170,7 +166,7 @@ export default function HomePage() {
           </div>
           <div className="d-flex flex-column gap-4 col-12 col-lg-6">
             <h5 className="">Promozioni in arrivo</h5>
-            <div className="promotions d-flex gap-4 justify-content-between align-items-center overflow-y-auto">
+            <div className="promotions d-flex gap-4 justify-content-between align-items-center">
               {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div> */}
