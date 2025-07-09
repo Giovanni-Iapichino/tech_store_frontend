@@ -106,7 +106,7 @@ export default function DetailsProductPage() {
                     <img src={product.thumbnail} />
                   </div>
                 </div>
-                <div className="col-md-6 mb-6">
+                <div className="col-md-6 mb-6 mt-3">
                   <img src={product.thumbnail} alt="smartphone" />
                 </div>
                 <div className="col-md-4 mb-4">
