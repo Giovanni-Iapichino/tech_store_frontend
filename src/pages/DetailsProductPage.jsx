@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEuroSign,
-  faArrowLeft,
-  faHeart,
-  faMinus,
-  faPlus
-} from "@fortawesome/free-solid-svg-icons";
+import { faEuroSign, faArrowLeft, faHeart, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useWishlist } from "../context/WishlistContext";
 import RelatedProducts from "./RElatedProductCard";
 import axios from "axios";
@@ -17,14 +11,15 @@ import PopUpNewsletter from "../components/PopUpNewsletter";
 import { useToast } from "../context/ToastContext";
 
 export default function DetailsProductPage() {
-  const [product, setProduct] = useState();               //prodotto da visualizzare
-  const { addToCart, updateQuantity } = useCart();                         //aggiungi al carrello
-  const { addToWishlist } = useWishlist();                 //aggiungi alla wishlist
+  const [product, setProduct] = useState(); //prodotto da visualizzare
+  const [quantity, setQuantity] = useState(1); // quantità del prodotto da aggiungere al carrello
+  const { addToCart } = useCart(); //aggiungi al carrello
+
+  const { addToWishlist } = useWishlist(); //aggiungi alla wishlist
   const { slug } = useParams();
-  const { randomClick, updateRandomClick, open, setOpen, newsletter } =
-    useNewsletter();
+  const { randomClick, updateRandomClick, open, setOpen, newsletter } = useNewsletter();
   const navigate = useNavigate(); //per navigare tra le pagine
-  const { showToast } = useToast(); //per mostrare i toast
+  const { showToast } = useToast();
 
   const productApiUrl = `http://localhost:3000/api/v1` + "/products/" + slug; // URL dell'API per ottenere il prodotto specifico
 
@@ -34,14 +29,12 @@ export default function DetailsProductPage() {
       updateRandomClick(currentValue - 1);
     }
   }, []);
-  
-
 
   useEffect(() => {
     if (randomClick === 0) {
-      setOpen(true);
+      setOpen(true); // apre il pop-up della newsletter se il numero di click casuali
     }
-  }, [randomClick]);
+  }, [randomClick, setOpen]);
 
   const fetchProduct = () => {
     axios.get(productApiUrl).then((res) => {
@@ -60,21 +53,23 @@ export default function DetailsProductPage() {
           <div className="container">
             <div className="bottom-prev">
               <Link to={`/shop`}>
-                <button className="btn "  
+                <button
+                  className="btn "
                   style={{
                     color: "white",
                     background: " #ff6543",
                     border: "1px solid #ff6543",
-                  }}>
+                  }}
+                >
                   <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
                   Torna allo shop
                 </button>
               </Link>
             </div>
             <div className="container-details">
-              <div className="row ">
+              <div className="row">
                 <div className="col-md-2 mb-2">
-                  <div className="img">
+                  <div className="img d-none d-md-block">
                     <img src="../smartphone_placeholder.jpeg" />
                     <img src="../smartphone_placeholder.jpeg" />
                     <img src="../smartphone_placeholder.jpeg" />
@@ -96,14 +91,13 @@ export default function DetailsProductPage() {
                           <span className="text-muted fs-6">
                             <del>
                               <FontAwesomeIcon icon={faEuroSign} /> {product.price}
-                            </del>
-                            {" "} -{product.discount}%
+                            </del>{" "}
+                            -{product.discount}%
                           </span>
                         </span>
                         <span>
-                          <p className="price">
-                            <FontAwesomeIcon icon={faEuroSign} />{" "}
-                            {(product.price - (product.price * product.discount / 100)).toFixed(2)}
+                          <p className="price" style={{ color: "#ff0000" }}>
+                            <FontAwesomeIcon icon={faEuroSign} /> {(product.price - (product.price * product.discount) / 100).toFixed(2)}
                           </p>
                         </span>
                       </>
@@ -117,28 +111,19 @@ export default function DetailsProductPage() {
                       <br />
                     </strong>
                     {product.description}
-                 </div>
-                  <div className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
-                    <button className="btn" onClick={() => updateQuantity(productid, Math.max(1, product.quantity - 1))} disabled={product.quantity <= 1} style={{ minWidth: "32px" }}>
-                      <FontAwesomeIcon icon={faMinus} style={{ color: "#ff8800" }} />
-                    </button>
-                    <span
-                      className="form-control text-center"
-                      style={{
-                        width: "60px",
-                        background: "#f8f9fa",
-                        border: "1px solid #ced4da",
-                        pointerEvents: "none",
-                        userSelect: "none",
-                      }}
-                    >
-                    {product.quantity}
-                    </span>
-                    <button className="btn" onClick={() => updateQuantity(product.id, product.quantity + 1)} style={{ minWidth: "32px" }}>
-                      <FontAwesomeIcon icon={faPlus} style={{ color: "#ff8800" }} />
-                    </button>
                   </div>
-                  <div className="button ">
+                  <div className="button">
+                    <div className="d-flex align-items-center mb-2">
+                      <button className="btn btn-outline-secondary" onClick={() => setQuantity((q) => Math.max(1, q - 1))} style={{ minWidth: "36px" }}>
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <span className="mx-2" style={{ minWidth: "32px", textAlign: "center" }}>
+                        {quantity}
+                      </span>
+                      <button className="btn btn-outline-secondary" onClick={() => setQuantity((q) => q + 1)} style={{ minWidth: "36px" }}>
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
                     <button
                       className="btn btn-success m-1 p-2"
                       onClick={() => {
@@ -189,53 +174,22 @@ export default function DetailsProductPage() {
             <div className="container-form">
               <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button
-                    className="nav-link active"
-                    id="nav-home-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-home"
-                    type="button "
-                    role="tab"
-                    aria-controls="nav-home"
-                    aria-selected="true"
-                  >
+                  <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button " role="tab" aria-controls="nav-home" aria-selected="true">
                     Descrizione
                   </button>
-                  <button
-                    className="nav-link"
-                    id="nav-profile-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-profile"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-profile"
-                    aria-selected="false"
-                  >
+                  <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
                     Scheda tecnica
                   </button>
                 </div>
               </nav>
               <div className="tab-content" id="nav-tabContent">
-                <div
-                  className="tab-pane fade show active p-3"
-                  id="nav-home"
-                  role="tabpanel"
-                  aria-labelledby="nav-home-tab"
-                  tabIndex={0}
-                >
+                <div className="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex={0}>
                   {product.description}
                 </div>
-                <div
-                  className="tab-pane fade p-3"
-                  id="nav-profile"
-                  role="tabpanel"
-                  aria-labelledby="nav-profile-tab"
-                  tabIndex={0}
-                >
+                <div className="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}>
                   <ul>
                     <li>
-                      <strong>Sistema operativo:</strong>{" "}
-                      {product.operating_system}
+                      <strong>Sistema operativo:</strong> {product.operating_system}
                     </li>
                     <li>
                       <strong>Ram:</strong> {product.ram}

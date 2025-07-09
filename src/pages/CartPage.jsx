@@ -59,7 +59,7 @@ export default function CartPage() {
             <thead className="custom-thead text-center">
               <tr>
                 <th>Prodotto</th>
-                <th className="d-none d-md-block">Dettagli</th>
+                <th className="d-none d-md-block p-4">Dettagli</th>
                 <th>Prezzo Unitario</th>
                 <th style={{ width: "120px" }}>Quantità</th>
                 <th>Totale</th>
