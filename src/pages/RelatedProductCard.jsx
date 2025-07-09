@@ -38,10 +38,10 @@ const RelatedProducts = () => {
     fetchRelatedProducts();
   }, [setRelated]);
   return (
-    <div className="related-products">
-      <div className="row gap-3">
+    <div className="related-products d-flex gap-4 justify-content-between align-items-center overflow-y-auto">
+      <div className="row gap-3 col-12">
         {related.map((product) => (
-          <div key={product.id} className="col-md-2 mb-2">
+          <div key={product.id} className="mb-2">
             <div className="card">
               <img src="../smartphone_placeholder.jpeg" alt="smartphone" className="card-img-top" />
               <div className="card-body">
@@ -54,20 +54,19 @@ const RelatedProducts = () => {
                       <span className="text-muted fs-6">
                         <del>
                           <FontAwesomeIcon icon={faEuroSign} /> {product.price}
-                        </del>
-                        {" "} -{product.discount}%
+                        </del>{" "}
+                        -{product.discount}%
                       </span>
                     </span>
                     <span>
-                      <p className="price" style={{color: "#089408"}}>
-                        <FontAwesomeIcon icon={faEuroSign} />{" "}
-                        {(product.price - (product.price * product.discount / 100)).toFixed(2)}
+                      <p className="price" style={{ color: "#089408" }}>
+                        <FontAwesomeIcon icon={faEuroSign} /> {(product.price - (product.price * product.discount) / 100).toFixed(2)}
                       </p>
                     </span>
                   </>
                 ) : (
-                  <p className="price" style={{color: "#089408"}}>
-                    <FontAwesomeIcon icon={faEuroSign}/> {product.price}
+                  <p className="price" style={{ color: "#089408" }}>
+                    <FontAwesomeIcon icon={faEuroSign} /> {product.price}
                   </p>
                 )}
                 <button className="btn px-0" onClick={() => addToCart(product)}>
