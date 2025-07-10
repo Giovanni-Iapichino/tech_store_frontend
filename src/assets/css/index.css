@@ -738,14 +738,27 @@ table thead.custom-thead th {
 
 .hide-scrollbar {
   /*FireFox*/
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
   /*IE10+*/
-  -ms-overflow-style: -ms-autohiding-scrollbar;
+  /* -ms-overflow-style: -ms-autohiding-scrollbar; */
 }
-.hide-scrollbar::-webkit-scrollbar {
+.hide-scrollbar::-webkit-scrollbar{
   /*Chrome, Safari, Edge*/
-  display: none;
+  /* display: none; */
+  /* color: #ff6543; */
+  /* background-color: #ff6543; */
+  width: 10px;
+  height: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  /* border: 1px solid #ff6543; */
 }
+
+.hide-scrollbar::-webkit-scrollbar-thumb{
+  background-color: #ff6543;
+  border-radius: 10px;
+  height: 2px;
+  cursor: pointer;
 
 .btn.disabled, .btn:disabled, fieldset:disabled .btn{
   border-color: none
