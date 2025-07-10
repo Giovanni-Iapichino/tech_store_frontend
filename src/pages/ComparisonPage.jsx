@@ -83,7 +83,7 @@ export default function ComparisonPage() {
                         <img src={product.thumbnail || "/placeholder.jpg"} alt={product.title} style={{ maxWidth: "100px" }} />
                       </span>
                       <button
-                        className="btn btn-sm btn-outline-danger ms-2 align-self-end align-self-md-start"
+                        className="btn btn-sm btn-outline-danger ms-2 align-self-end align-self-md-start me-2"
                         title="Rimuovi dal confronto"
                         onClick={() => {
                           removeFromCompare(product.id);
