@@ -112,7 +112,7 @@ export default function DetailsProductPage() {
                 <div className="col-md-4 mb-4">
                   <div className="title">
                     <h1>
-                      {product.brand} {product.title} {product.model}
+                      {product.title} {product.model}
                     </h1>
                   </div>
                   <div className="text">

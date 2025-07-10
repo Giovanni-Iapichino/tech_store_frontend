@@ -48,7 +48,7 @@ const RelatedProducts = () => {
               <div className="card-body d-flex flex-column justify-content-between">
                 <h6 className="card-title ">
                   <Link className="w-100" to={`/shop/${product.slug}`} key={product.id}>
-                    {product.brand} {product.title} {product.model}
+                    {product.title} {product.model}
                   </Link>
                 </h6>
                 {product.discount && product.discount > 0 ? (
