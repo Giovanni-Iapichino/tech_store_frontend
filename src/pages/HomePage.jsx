@@ -184,7 +184,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <h5 className="my-5">Best Selling Items</h5>
+        <h5 className="my-5">I più venduti</h5>
         <div className="promotions my-5 d-flex gap-3  align-items-center">
           {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />

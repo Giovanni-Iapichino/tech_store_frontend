@@ -111,9 +111,9 @@ export default function ComparisonPage() {
                 </th>
                 {compareList.map((product) => (
                   <td key={product.id}>
-                    <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
+                    <Link className="d-block mx-auto" style={{ fontWeight: 600 }} to={`/shop/${product.slug}`}>
                       {product.title}
-                    </span>
+                    </Link>
                   </td>
                 ))}
               </tr>
