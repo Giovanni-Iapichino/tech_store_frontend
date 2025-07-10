@@ -35,7 +35,7 @@
 .container-details .col-md-4 .bottom-text {
   padding: 30px 10px;
 }
-.container-details .col-md-2 img{
+.container-details .col-md-2 img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -56,7 +56,6 @@
 }
 .container-related h3 {
   margin-left: 10px;
- 
 }
 .container-details .row,
 .container-form,
@@ -78,7 +77,6 @@
   height: 100%;
   max-width: 130px;
 }
-
 
 /* --- Carusel --- */
 .title-carusel {
@@ -243,7 +241,7 @@ table thead.custom-thead th {
   border: 1px solid #ff6543;
   max-height: 300px;
   overflow-x: auto;
-  scri
+  scrollbar-width: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
@@ -615,7 +613,7 @@ table thead.custom-thead th {
     margin-top: 25px;
     gap: 25px;
   }
-  .table>:not(caption)>*>*  {
+  .table > :not(caption) > * > * {
     padding: 10px 0;
   }
 }
@@ -638,18 +636,17 @@ table thead.custom-thead th {
     height: 100%;
     text-align: center;
   }
-  .np-product-576{
+  .np-product-576 {
     /* width: 50%; */
   }
   .card-content {
     margin-top: 0px;
     gap: 10px;
   }
-  
 }
 @media screen and (min-width: 768px) {
   .promotion-item {
-  width: 180px;
+    width: 180px;
     /* width: 100%; */
     height: 250px;
     /* height: 250px; */
@@ -663,7 +660,7 @@ table thead.custom-thead th {
     left: -220px;
   }
 
-  .np-product{
+  .np-product {
     max-height: 250px;
     width: 100%;
   }
@@ -692,7 +689,7 @@ table thead.custom-thead th {
   .card-content {
     margin-top: 5px;
     gap: 10px;
-}
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -713,7 +710,7 @@ table thead.custom-thead th {
   z-index: 9999;
   animation: slideIn 0.3s ease-out, fadeOut 0.3s ease-in 1.7s forwards;
   background-color: #ff6543;
-  color: white
+  color: white;
 }
 
 @keyframes slideIn {
