@@ -744,3 +744,7 @@ table thead.custom-thead th {
   /*Chrome, Safari, Edge*/
   display: none;
 }
+
+.btn.disabled, .btn:disabled, fieldset:disabled .btn{
+  border-color: none
+}

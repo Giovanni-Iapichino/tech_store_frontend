@@ -83,7 +83,7 @@ export default function CartPage() {
                       />
                     </Link>
                   </td>
-                  <td className="d-none d-md-block">
+                  <td className="d-none d-md-block p-4">
                     <Link className="w-100" to={`/shop/${item.slug}`} key={item.id}>
                       <strong>
                         {item.brand.toUpperCase()} {item.title} {item.model}
