@@ -13,12 +13,8 @@ export default function CheckOutPage() {
   const filteredCart = cart.filter((item) => item.slug === slug);
   const orderTotal = slug
     ? filteredCart.reduce((acc, item) => {
-        const hasPromo =
-          item.promotion?.discount_price &&
-          item.promotion.promo_state !== "futura";
-        const price = hasPromo
-          ? parseFloat(item.promotion.discount_price)
-          : parseFloat(item.price);
+        const hasPromo = item.promotion?.discount_price && item.promotion.promo_state !== "futura";
+        const price = hasPromo ? parseFloat(item.promotion.discount_price) : parseFloat(item.price);
         return acc + price * item.quantity;
       }, 0)
     : total;
@@ -106,7 +102,6 @@ export default function CheckOutPage() {
         console.log("Checkout session created:", response.data);
         window.location.href = response.data.url;
         setSuccess(true);
-        setLoading(false);
       })
       .catch((error) => {
         console.error("Error during checkout:", error);
