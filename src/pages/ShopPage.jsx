@@ -437,7 +437,6 @@ export default function ShopPage() {
                 }
               };
               return (
-                <>
                   <div
                     key={product.id}
                     className="col-6 col-xl-3 np-product-576"
@@ -449,7 +448,6 @@ export default function ShopPage() {
                       removeFromCompare={() => removeFromCompare(product.id)}
                     />
                   </div>
-                </>
               );
             })}
             {paginatedProducts.length === 0 && (
