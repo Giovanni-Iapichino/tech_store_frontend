@@ -642,7 +642,7 @@ table thead.custom-thead th {
     /* width: 50%; */
   }
   .card-content {
-    margin-top: 0px;
+    margin-top: 20px;
     gap: 10px;
   }
 }
@@ -689,8 +689,8 @@ table thead.custom-thead th {
     font-size: 18px;
   }
   .card-content {
-    margin-top: 5px;
-    gap: 10px;
+    margin-top: 15px;
+    gap: 0;
   }
 }
 
