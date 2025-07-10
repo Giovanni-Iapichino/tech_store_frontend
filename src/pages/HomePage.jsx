@@ -151,7 +151,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="d-flex flex-column flex-lg-row gap-4">
+        <div className="d-flex flex-column flex-lg-row">
           <div className="d-flex flex-column gap-4 col-12 col-lg-6">
             <h5 className="">Promozioni in corso</h5>
             <div className="promotions d-flex gap-4 justify-content-between align-items-center">
@@ -166,13 +166,16 @@ export default function HomePage() {
           </div> */}
             </div>
           </div>
-          <div className="d-flex flex-column gap-4 col-12 col-lg-6">
+          <div className="d-flex flex-column gap-4 col-12 col-lg-6 ms-lg-5">
             <h5 className="">Promozioni in arrivo</h5>
             <div className="promotions d-flex gap-4 justify-content-between align-items-center">
               {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div> */}
-              <div className="row gap-4 overflow-y-auto flex-nowrap p-2 hide-scrollbar justify-content-between col-12">
+              <div
+                className="row gap-4 overflow-y-auto flex-nowrap
+               hide-scrollbar justify-content-between col-12 p-3"
+              >
                 {promotionsInComing && promotionsInComing.map((product) => <ProductCardLigth key={product.id} product={product} />)}
               </div>
               {/* <div className="banner-arrow">
