@@ -75,7 +75,7 @@ export default function ComparisonPage() {
           <table className="table table-bordered text-center align-middle">
             <thead>
               <tr>
-                <th className="d-none d-md-block" style={{ width: "180px" }}></th>
+                <th className="d-none d-md-block" style={{ height: "130px" }}></th>
                 {compareList.map((product) => (
                   <th key={product.id}>
                     <div className="d-flex flex-column-reverse flex-md-row justify-content-between align-items-center">
