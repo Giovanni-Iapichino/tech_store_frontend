@@ -78,12 +78,12 @@ export default function ComparisonPage() {
                 <th className="d-none d-md-block" style={{ height: "130px" }}></th>
                 {compareList.map((product) => (
                   <th key={product.id}>
-                    <div className="d-flex flex-column-reverse flex-md-row justify-content-between align-items-center">
+                    <div className="d-flex flex-column-reverse flex-md-row justify-content-between align-items-center gap-3">
                       <span className="d-block mx-auto" style={{ fontWeight: 600 }}>
                         <img src={product.thumbnail || "/placeholder.jpg"} alt={product.title} style={{ maxWidth: "100px" }} />
                       </span>
                       <button
-                        className="btn btn-sm btn-outline-danger ms-2"
+                        className="btn btn-sm btn-outline-danger ms-2 align-self-end align-self-md-start"
                         title="Rimuovi dal confronto"
                         onClick={() => {
                           removeFromCompare(product.id);
