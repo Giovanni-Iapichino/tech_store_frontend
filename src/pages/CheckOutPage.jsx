@@ -59,56 +59,58 @@ export default function CheckOutPage() {
       productList: slug ? filteredCart : cart,
     };
 
-    axios
-      .post("http://127.0.0.1:3000/api/v1/orders", payload)
-      .then((response) => {
-        const orderNumber = response.data.order_number;
+    localStorage.setItem("order", JSON.stringify(payload));
+    localStorage.setItem("slug", slug || false);
 
-        return axios
-          .post("http://127.0.0.1:3000/api/v1/send-email", {
-            type: "order",
-            email: billing.Email,
-            nome: billing.Nome,
-            cognome: billing.Cognome,
-            order_number: orderNumber,
-            products: slug
-              ? filteredCart.map((item) => ({
-                  title: item.title,
-                  quantity: item.quantity,
-                  price:
-                    item.promotion?.discount_price &&
-                    item.promotion.promo_state !== "futura"
-                      ? item.promotion.discount_price
-                      : item.price,
-                }))
-              : cart.map((item) => ({
-                  title: item.title,
-                  quantity: item.quantity,
-                  price:
-                    item.promotion?.discount_price &&
-                    item.promotion.promo_state !== "futura"
-                      ? item.promotion.discount_price
-                      : item.price,
-                  total: total.toFixed(2),
-                })),
-          })
-          .then(() => {
-            setSuccess(true);
-            if (slug) {
-              setCart(cart.filter((item) => item.slug !== slug));
-            } else {
-              clearCart();
-            }
-            navigate("/ordersummary", { state: { order_number: orderNumber } });
-          });
+    const createPricePromises = slug
+      ? filteredCart.map((item) => {
+          return axios
+            .post("http://127.0.0.1:3000/api/v1/payment/create-price", {
+              product_data: { name: item.title, metadata: { slug: item.slug } },
+              unit_amount: item.promotion ? item.promotion.discount_price * 100 : item.price * 100,
+              currency: "eur",
+            })
+            .then((response) => {
+              console.log(response.data);
+              return {
+                price: response.data.id,
+                quantity: item.quantity,
+              };
+            });
+        })
+      : cart.map((item) => {
+          return axios
+            .post("http://127.0.0.1:3000/api/v1/payment/create-price", {
+              product_data: { name: item.title, metadata: { slug: item.slug } },
+              unit_amount: item.promotion ? item.promotion.discount_price * 100 : item.price * 100,
+              currency: "eur",
+            })
+            .then((response) => {
+              console.log(response.data);
+              return {
+                price: response.data.id,
+                quantity: item.quantity,
+              };
+            });
+        });
+
+    // Aspetta che tutte le Promise vengano risolte
+    Promise.all(createPricePromises)
+      .then((price_list) => {
+        console.log(price_list);
+
+        // Ora fai la chiamata per creare la sessione di checkout
+        return axios.post("http://127.0.0.1:3000/api/v1/payment/create-checkout-session", price_list);
       })
-      .catch((err) => {
-        console.error("Errore API:", err.response?.data || err.message);
-        setError(
-          "Si è verificato un errore durante il checkout. Riprova più tardi."
-        );
+      .then((response) => {
+        console.log("Checkout session created:", response.data);
+        window.location.href = response.data.url;
+        setSuccess(true);
+        setLoading(false);
       })
-      .finally(() => {
+      .catch((error) => {
+        console.error("Error during checkout:", error);
+        setError("Errore durante il processo di pagamento. Riprova.");
         setLoading(false);
       });
   }
@@ -135,73 +137,39 @@ export default function CheckOutPage() {
             <ul className="list-group mb-3">
               {slug
                 ? filteredCart.map((item) => (
-                    <li
-                      className="list-group-item d-flex justify-content-between"
-                      key={item.id}
-                    >
+                    <li className="list-group-item d-flex justify-content-between" key={item.id}>
                       <span>
                         {item.brand} {item.title} {item.model} x{item.quantity}
                       </span>
                       <span>
                         {" "}
-                        {item.promotion?.discount_price &&
-                        item.promotion.promo_state !== "futura" ? (
+                        {item.promotion?.discount_price && item.promotion.promo_state !== "futura" ? (
                           <>
-                            <strong style={{ color: "#be0909" }}>
-                              €
-                              {(
-                                parseFloat(item.promotion.discount_price) *
-                                item.quantity
-                              ).toFixed(2)}
-                            </strong>
+                            <strong style={{ color: "#be0909" }}>€{(parseFloat(item.promotion.discount_price) * item.quantity).toFixed(2)}</strong>
                             <br />
-                            <small className="text-decoration-line-through text-muted">
-                              €
-                              {parseFloat(item.price * item.quantity).toFixed(
-                                2
-                              )}
-                            </small>
+                            <small className="text-decoration-line-through text-muted">€{parseFloat(item.price * item.quantity).toFixed(2)}</small>
                           </>
                         ) : (
-                          <strong>
-                            €{parseFloat(item.price * item.quantity).toFixed(2)}
-                          </strong>
+                          <strong>€{parseFloat(item.price * item.quantity).toFixed(2)}</strong>
                         )}
                       </span>
                     </li>
                   ))
                 : cart.map((item) => (
-                    <li
-                      className="list-group-item d-flex justify-content-between"
-                      key={item.id}
-                    >
+                    <li className="list-group-item d-flex justify-content-between" key={item.id}>
                       <span>
                         {item.brand} {item.title} {item.model} x{item.quantity}
                       </span>
                       <span>
                         {" "}
-                        {item.promotion?.discount_price &&
-                        item.promotion.promo_state !== "futura" ? (
+                        {item.promotion?.discount_price && item.promotion.promo_state !== "futura" ? (
                           <>
-                            <strong style={{ color: "#be0909" }}>
-                              €
-                              {(
-                                parseFloat(item.promotion.discount_price) *
-                                item.quantity
-                              ).toFixed(2)}
-                            </strong>
+                            <strong style={{ color: "#be0909" }}>€{(parseFloat(item.promotion.discount_price) * item.quantity).toFixed(2)}</strong>
                             <br />
-                            <small className="text-decoration-line-through text-muted">
-                              €
-                              {parseFloat(item.price * item.quantity).toFixed(
-                                2
-                              )}
-                            </small>
+                            <small className="text-decoration-line-through text-muted">€{parseFloat(item.price * item.quantity).toFixed(2)}</small>
                           </>
                         ) : (
-                          <strong>
-                            €{parseFloat(item.price * item.quantity).toFixed(2)}
-                          </strong>
+                          <strong>€{parseFloat(item.price * item.quantity).toFixed(2)}</strong>
                         )}
                       </span>
                     </li>
@@ -218,100 +186,43 @@ export default function CheckOutPage() {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">Nome</label>
-                <input
-                  name="Nome"
-                  type="text"
-                  onChange={handleChange}
-                  value={billing.Nome}
-                  className="form-control"
-                  required
-                ></input>
+                <input name="Nome" type="text" onChange={handleChange} value={billing.Nome} className="form-control" required></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Cognome</label>
-                <input
-                  name="Cognome"
-                  type="text"
-                  onChange={handleChange}
-                  value={billing.Cognome}
-                  className="form-control"
-                  required
-                ></input>
+                <input name="Cognome" type="text" onChange={handleChange} value={billing.Cognome} className="form-control" required></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Email</label>
-                <input
-                  name="Email"
-                  type="email"
-                  onChange={handleChange}
-                  value={billing.Email}
-                  className="form-control"
-                  required
-                ></input>
+                <input name="Email" type="email" onChange={handleChange} value={billing.Email} className="form-control" required></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Città</label>
-                <input
-                  name="Città"
-                  type="text"
-                  onChange={handleChange}
-                  value={billing.Città}
-                  className="form-control"
-                  required
-                ></input>
+                <input name="Città" type="text" onChange={handleChange} value={billing.Città} className="form-control" required></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Nazione</label>
-                <input
-                  name="Nazione"
-                  type="text"
-                  onChange={handleChange}
-                  value={billing.Nazione}
-                  className="form-control"
-                  required
-                ></input>
+                <input name="Nazione" type="text" onChange={handleChange} value={billing.Nazione} className="form-control" required></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Indirizzo</label>
-                <input
-                  name="Indirizzo"
-                  type="text"
-                  onChange={handleChange}
-                  value={billing.Indirizzo}
-                  className="form-control"
-                  required
-                ></input>
+                <input name="Indirizzo" type="text" onChange={handleChange} value={billing.Indirizzo} className="form-control" required></input>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">CAP</label>
-                <input
-                  name="CAP"
-                  type="text"
-                  onChange={handleChange}
-                  value={billing.CAP}
-                  className="form-control"
-                  required
-                ></input>
+                <input name="CAP" type="text" onChange={handleChange} value={billing.CAP} className="form-control" required></input>
               </div>
 
-              <button
-                type="submit"
-                className="btn btn-orange"
-                disabled={loading}
-              >
+              <button type="submit" className="btn btn-orange" disabled={loading}>
                 {loading ? "Invio in corso..." : "Procedi al pagamento"}
               </button>
-              {success && (
-                <div className="alert alert-success mt-3">
-                  Ordine effettuato con successo!
-                </div>
-              )}
+              {/* {success && <div className="alert alert-success mt-3">Ordine effettuato con successo!</div>} */}
               {error && <div className="alert alert-danger mt-3">{error}</div>}
             </form>
           </div>
