@@ -171,6 +171,7 @@ export default function DetailsProductPage() {
                             className="btn btn-outline-secondary"
                             onClick={() => {
                               removeFromCart(product.id);
+                              showToast("Prodotto rimosso dal carrello");
                             }}
                             style={{ minWidth: "36px" }}
                           >
@@ -202,9 +203,10 @@ export default function DetailsProductPage() {
                       </div>
                     )}
                     <button
-                      className="btn m-1 p-2" style={{
-                        color:"white",
-                        background:"#ff6543"
+                      className="btn m-1 p-2"
+                      style={{
+                        color: "white",
+                        background: "#ff6543",
                       }}
                       onClick={() => {
                         if (isBuy || isInCart) {
@@ -217,7 +219,6 @@ export default function DetailsProductPage() {
                           setIsBuy(true);
                         }
                       }}
-                     
                     >
                       {isBuy ? "Conferma" : "Acquista"}
                     </button>
@@ -236,7 +237,6 @@ export default function DetailsProductPage() {
                         );
                         setIsAddCart(true);
                       }}
-                     
                     >
                       Aggiungi a carrello
                     </button>
