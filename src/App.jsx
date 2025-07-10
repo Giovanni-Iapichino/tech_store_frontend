@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoaderProvider } from "./context/LoaderContex";
 import DefaultLayout from "./layouts/DefaultLayout";
+import NotFound from "./components/NotFound";
 
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
@@ -60,6 +61,7 @@ export default function app() {
                             path="/ordersummary"
                             element={<OrderSummaryPage />}
                           ></Route>
+                          <Route path="*" element={<NotFound />} />
                         </Route>
                       </Routes>
                     </BrowserRouter>
