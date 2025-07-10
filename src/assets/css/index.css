@@ -758,13 +758,6 @@ table thead.custom-thead th {
   cursor: pointer;
 }
 
-.btn.disabled,
-.btn:disabled,
-fieldset:disabled .btn {
-  border-color: none;
-}
-.btn.disabled,
-.btn:disabled,
-fieldset:disabled .btn {
-  border-color: none;
+.btn:disabled {
+  border-color: transparent;
 }
