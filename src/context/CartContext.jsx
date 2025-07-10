@@ -46,7 +46,16 @@ export const CartProvider = ({ children }) => {
     setCart([]);
   };
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const total = cart.reduce((acc, item) => {
+    const hasActivePromo =
+      item.promotion &&
+      item.promotion.discount_price &&
+      item.promotion.promo_state !== "futura";
+    const price = hasActivePromo
+      ? parseFloat(item.promotion.discount_price)
+      : parseFloat(item.price);
+    return acc + price * item.quantity;
+  }, 0);
 
   return (
     <CartContext.Provider
@@ -56,6 +65,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
+        setCart,
         total,
       }}
     >

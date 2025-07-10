@@ -1,45 +1,83 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faClipboardList, faShieldHalved, faTrophy, faChevronLeft, faChevronRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProductCardLigth from "../components/ProductCardLight";
+import BestSellerCard from "../components/BestSellerCard";
 import { useProducts } from "../context/GetProductsContext";
 
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import PopUpNewsletter from "../components/PopUpNewsletter";
+import { useNewsletter } from "../context/newsletterContext";
 
 export default function HomePage() {
-  const { bestSeller, promotions } = useProducts();
+  const { bestSeller, promotions, promotionsInComing, promotionsOnGoing } = useProducts();
+  const { newsletter, randomClick, setOpen, open, updateRandomClick } = useNewsletter();
+
+  useEffect(() => {
+    if (randomClick === 0) {
+      setOpen(true);
+    }
+  }, [randomClick]);
+
+  useEffect(() => {
+    if (newsletter === "false") {
+      const currentValue = randomClick;
+      updateRandomClick(currentValue - 1);
+    }
+  }, []);
 
   return (
     <>
-      <div id="carouselExampleIndicators" className="carousel slide h-30" data-bs-ride="carousel">
-        {/* Immagini */}
+      {open && newsletter === "false" && <PopUpNewsletter />}
+      <div id="carouselExampleControlsNoTouching" className="carousel slide" data-bs-touch="false" data-bs-ride="carousel">
         <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src="/hero-placeholder.png" className="d-block w-100" alt="Slide 1" />
+          <div className="carousel-item active" style={{ height: "300px", width: "100%" }}>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center py-2">
+              <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row my-auto">
+                <div className="title-carusel">
+                  <h4>Iphone 16 Pro Max</h4>
+                  <p>L’iPhone 16 Pro Max è lo smartphone più potente mai realizzato da Apple. Con il nuovo chip A18 Pro, un display ancora più grande e brillante, fotocamere professionali di nuova generazione e funzioni AI all’avanguardia, porta l’esperienza mobile a un livello superiore. </p>
+                </div>
+                <div className="img-carusel">
+                  <img className="d-block w-100" src="/smartphone/16pro.png" alt="..." />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="carousel-item">
-            <img src="/hero-placeholder.png" className="d-block w-100" alt="Slide 2" />
+          <div className="carousel-item" style={{ height: "300px", width: "100%" }}>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center py-2">
+              <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
+                <div className="title-carusel">
+                  <h4>Xiaomi 14</h4>
+                  <p>Lo Xiaomi 14 unisce prestazioni di alto livello e design compatto. Dotato del potente processore Snapdragon 8 Gen 3, un display AMOLED ultra nitido e un sistema fotografico Leica di nuova generazione, offre un’esperienza premium in un formato maneggevole.</p>
+                </div>
+                <div className="img-carusel">
+                  <img className="d-block w-100" src="/smartphone/xiaomi.png" alt="..." />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="carousel-item">
-            <img src="/hero-placeholder.png" className="d-block w-100" alt="Slide 3" />
+          <div className="carousel-item" style={{ height: "300px", width: "100%" }}>
+            <div className="bg-body-secondary w-100 h-100 d-flex justify-content-center align-items-center py-2">
+              <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
+                <div className="title-carusel">
+                  <h4>Samsung S24</h4>
+                  <p>Il Samsung Galaxy S24 porta l’AI al cuore dello smartphone. Con il nuovo Galaxy AI, un display Dynamic AMOLED brillante, prestazioni fluide grazie al chip Exynos 2400 (o Snapdragon 8 Gen 3, a seconda del mercato) e un comparto fotografico migliorato, offre un’esperienza completa, potente e intelligente.</p>
+                </div>
+                <div className="img-carusel">
+                  <img className="d-block w-100" src="/smartphone/samsungs24.webp" alt="..." />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Indicatori */}
-        <div className="carousel-indicators">
-          <button className="btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
-          <button className="btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button className="btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-
-        {/* Controlli */}
-        <button className="carousel-control-prev btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Precedente</span>
+          <span className="visually-hidden">Previous</span>
         </button>
-        <button className="carousel-control-next btn btn-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Successiva</span>
+          <span className="visually-hidden">Next</span>
         </button>
       </div>
       <main className="container">
@@ -94,44 +132,69 @@ export default function HomePage() {
         <div className="brands my-5">
           <div className="row align-items-center gap-3 justify-content-center">
             <Link to="/shop?brand=apple" className="card-brand border">
-              <img className="w-100" src="/apple.jpg" alt="Brand 1" />
+              <img className="w-100" src="/brand/apple.jpg" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=samsung" className="card-brand border">
-              <img className="w-100" src="/samsung.jpg" alt="Brand 1" />
+              <img className="w-100" src="/brand/samsung.jpg" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=lg" className="card-brand border">
-              <img className="w-100" src="/lg.png" alt="Brand 1" />
+              <img className="w-100" src="/brand/lg.png" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=huawei" className="card-brand border">
-              <img className="w-100" src="/huawei.png" alt="Brand 1" />
+              <img className="w-100" src="/brand/huawei.png" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=xiaomi" className="card-brand border">
-              <img className="w-100" src="/xiaomi.png" alt="Brand 1" />
+              <img className="w-100" src="/brand/xiaomi.png" alt="Brand 1" />
             </Link>
             <Link to="/shop?brand=motorola" className="card-brand border">
-              <img className="w-100" src="/motorola.svg" alt="Brand 1" />
+              <img className="w-100" src="/brand/motorola.svg" alt="Brand 1" />
             </Link>
           </div>
         </div>
-        <h5 className="my-5">Promotions</h5>
-        <div className="promotions my-5 d-flex gap-4 justify-content-between align-items-center">
-          <div className="banner">
+        <div className="d-flex flex-column flex-lg-row">
+          <div className="d-flex flex-column gap-4 col-12 col-lg-6">
+            <h5 className="">Promozioni in corso</h5>
+            <div className="promotions d-flex gap-4 justify-content-between align-items-center">
+              {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
-          </div>
-          <div className="row gap-3">{promotions && promotions.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
-          <div className="banner-arrow">
+          </div> */}
+              <div className="row gap-3 flex-nowrap overflow-y-auto p-3 hide-scrollbar">
+                {promotionsOnGoing && promotionsOnGoing.map((product) => <ProductCardLigth key={product.id} product={product} />)}
+              </div>
+              {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
+          </div> */}
+            </div>
+          </div>
+          <div className="d-flex flex-column gap-4 col-12 col-lg-6 ms-lg-5">
+            <h5 className="">Promozioni in arrivo</h5>
+            <div className="promotions d-flex gap-4 justify-content-between align-items-center">
+              {/* <div className="banner">
+            <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
+          </div> */}
+              <div
+                className="row gap-4 overflow-y-auto flex-nowrap
+               hide-scrollbar justify-content-between col-12 p-3"
+              >
+                {promotionsInComing && promotionsInComing.map((product) => <ProductCardLigth key={product.id} product={product} />)}
+              </div>
+              {/* <div className="banner-arrow">
+            <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
+          </div> */}
+            </div>
           </div>
         </div>
-        <h5 className="my-5">Best Selling Items</h5>
-        <div className="promotions my-5 d-flex gap-3 justify-content-between align-items-center">
-          <div className="banner">
+        <h5 className="my-5">I più venduti</h5>
+        <div className="promotions my-5 d-flex gap-3  align-items-center">
+          {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
+          </div> */}
+          <div className="row gap-4 overflow-y-auto flex-nowrap p-2 hide-scrollbar justify-content-between col-12">
+            {bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}
           </div>
-          <div className="row gap-4">{bestSeller && bestSeller.map((product) => <ProductCardLigth key={product.id} product={product} />)}</div>
-          <div className="banner-arrow">
+          {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
-          </div>
+          </div> */}
         </div>
       </main>
     </>
