@@ -36,7 +36,7 @@ export default function HomePage() {
               <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row my-auto">
                 <div className="title-carusel">
                   <h4>Iphone 16 Pro Max</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                  <p> Potenza, innovazione e design al massimo livello. Con un display più grande, il nuovo chip A18 Pro, fotocamere ancora più evolute e funzionalità AI avanzate, è l’iPhone più professionale di sempre.</p>
                 </div>
                 <div className="img-carusel">
                   <img className="d-block w-100" src="/smartphone/16pro.png" alt="..." />
@@ -49,7 +49,7 @@ export default function HomePage() {
               <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
                 <div className="title-carusel">
                   <h4>Xiaomi 14</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                  <p> Xiaomi 14 è il flagship compatto della serie, ideale per chi cerca potenza, fotografia di qualità e praticità d’uso in un formato relativamente piccolo.</p>
                 </div>
                 <div className="img-carusel">
                   <img className="d-block w-100" src="/smartphone/xiaomi.png" alt="..." />
@@ -62,7 +62,7 @@ export default function HomePage() {
               <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
                 <div className="title-carusel">
                   <h4>Samsung S24</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                  <p>Galaxy S24 è il top di gamma “compatto” con display eccezionalmente luminoso, ottime prestazioni, AI avanzata e un design maneggevole. Un concentrato di tecnologia in formato ridotto!</p>
                 </div>
                 <div className="img-carusel">
                   <img className="d-block w-100" src="/smartphone/samsungs24.webp" alt="..." />
