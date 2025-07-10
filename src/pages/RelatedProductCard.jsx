@@ -37,15 +37,15 @@ const RelatedProducts = () => {
       }
     };
     fetchRelatedProducts();
-  }, [setRelated,slug]);
+  }, [setRelated, slug]);
   return (
     <div className="related-products">
-      <div className="row">
+      <div className="row flex-nowrap overflow-y-auto hide-scrollbar">
         {related.map((product) => (
-          <div key={product.id} className="col-2 mb-2">
+          <div key={product.id} className="col-2 mb-2" style={{ minWidth: 100, maxWidth: 160, width: "100%" }}>
             <div className="card">
               <img src={product.thumbnail} className="card-img-top" />
-              <div className="card-body">
+              <div className="card-body d-flex flex-column justify-content-between">
                 <h6 className="card-title ">
                   <Link className="w-100" to={`/shop/${product.slug}`} key={product.id}>
                     {product.brand} {product.title} {product.model}
@@ -72,28 +72,30 @@ const RelatedProducts = () => {
                     <FontAwesomeIcon icon={faEuroSign} /> {product.price}
                   </p>
                 )}
-                <button className="btn px-0" onClick={() => addToCart(product)}>
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="text-black fs-5"
-                    style={{
-                      background: "#ff6543",
-                      padding: "8px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </button>
-                <button className="btn px-1" onClick={() => addToWishlist(product)}>
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    className="text-black fs-5"
-                    style={{
-                      background: "#ff6543",
-                      padding: "8px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </button>
+                <div className="d-flex gap-2 mt-auto">
+                  <button className="btn px-0" onClick={() => addToCart(product)}>
+                    <FontAwesomeIcon
+                      icon={faCartShopping}
+                      className="text-black fs-5"
+                      style={{
+                        background: "#ff6543",
+                        padding: "8px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </button>
+                  <button className="btn px-1" onClick={() => addToWishlist(product)}>
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className="text-black fs-5"
+                      style={{
+                        background: "#ff6543",
+                        padding: "8px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

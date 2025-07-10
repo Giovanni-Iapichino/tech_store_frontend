@@ -140,6 +140,8 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 /* --- Action Buttons (non usati in ShopPage ma lasciati per coerenza) --- */
