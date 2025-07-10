@@ -36,7 +36,7 @@ export default function HomePage() {
               <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row my-auto">
                 <div className="title-carusel">
                   <h4>Iphone 16 Pro Max</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                  <p>L’iPhone 16 Pro Max è lo smartphone più potente mai realizzato da Apple. Con il nuovo chip A18 Pro, un display ancora più grande e brillante, fotocamere professionali di nuova generazione e funzioni AI all’avanguardia, porta l’esperienza mobile a un livello superiore. </p>
                 </div>
                 <div className="img-carusel">
                   <img className="d-block w-100" src="/smartphone/16pro.png" alt="..." />
@@ -49,7 +49,7 @@ export default function HomePage() {
               <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
                 <div className="title-carusel">
                   <h4>Xiaomi 14</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                  <p>Lo Xiaomi 14 unisce prestazioni di alto livello e design compatto. Dotato del potente processore Snapdragon 8 Gen 3, un display AMOLED ultra nitido e un sistema fotografico Leica di nuova generazione, offre un’esperienza premium in un formato maneggevole.</p>
                 </div>
                 <div className="img-carusel">
                   <img className="d-block w-100" src="/smartphone/xiaomi.png" alt="..." />
@@ -62,7 +62,7 @@ export default function HomePage() {
               <div className="container h-100 d-flex justify-content-center align-items-center flex-column flex-sm-row">
                 <div className="title-carusel">
                   <h4>Samsung S24</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+                  <p>Il Samsung Galaxy S24 porta l’AI al cuore dello smartphone. Con il nuovo Galaxy AI, un display Dynamic AMOLED brillante, prestazioni fluide grazie al chip Exynos 2400 (o Snapdragon 8 Gen 3, a seconda del mercato) e un comparto fotografico migliorato, offre un’esperienza completa, potente e intelligente.</p>
                 </div>
                 <div className="img-carusel">
                   <img className="d-block w-100" src="/smartphone/samsungs24.webp" alt="..." />

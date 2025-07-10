@@ -62,7 +62,7 @@ const RelatedProducts = () => {
                       </span>
                     </span>
                     <span>
-                      <p className="price" style={{ color: "#089408" }}>
+                      <p className="price" style={{ color: "#ff0000" }}>
                         <FontAwesomeIcon icon={faEuroSign} /> {(product.price - (product.price * product.discount) / 100).toFixed(2)}
                       </p>
                     </span>
