@@ -22,7 +22,7 @@ export default function BestSellerCard({ product }) {
   }, [wishlist, product.id]);
 
   return (
-    <div className="best-seller-showcase-card d-flex border rounded-4 shadow-sm bg-white px-3 py-2 position-relative gap-3 overflow-hidden" style={{ minHeight: 100, maxWidth: 250, width: "100%" }}>
+    <div className="best-seller-showcase-card d-flex border rounded-4 shadow-sm bg-white px-3 py-2 position-relative gap-3 overflow-hidden" style={{ minHeight: 100, maxWidth: 230, width: "100%" }}>
       {/* Immagine piccola a sinistra */}
       <Link to={`/shop/${product.slug}`} className="d-flex align-items-center justify-content-center bg-light rounded-3" style={{ width: 100, height: 100, flexShrink: 0 }}>
         <img src={product.thumbnail || "/smartphone_placeholder.jpeg"} alt={product.title} className="img-fluid" style={{ maxWidth: "100%", objectFit: "contain" }} />

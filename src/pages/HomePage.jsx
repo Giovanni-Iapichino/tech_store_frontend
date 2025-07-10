@@ -180,11 +180,13 @@ export default function HomePage() {
           </div>
         </div>
         <h5 className="my-5">Best Selling Items</h5>
-        <div className="promotions my-5 d-flex gap-3 justify-content-between align-items-center">
+        <div className="promotions my-5 d-flex gap-3  align-items-center">
           {/* <div className="banner">
             <FontAwesomeIcon className="fs-3 cursor-pointer" icon={faChevronLeft} />
           </div> */}
-          <div className="row gap-4 overflow-y-auto flex-nowrap p-2 hide-scrollbar">{bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}</div>
+          <div className="row gap-4 overflow-y-auto flex-nowrap p-2 hide-scrollbar justify-content-between col-12">
+            {bestSeller && bestSeller.map((product) => <BestSellerCard key={product.id} product={product} />)}
+          </div>
           {/* <div className="banner-arrow">
             <FontAwesomeIcon className="fs-3" icon={faChevronRight} />
           </div> */}
