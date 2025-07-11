@@ -443,7 +443,7 @@ export default function ProductCardLigth({ product, isInCompare, addToCompare, r
             ) : (
               <FontAwesomeIcon style={{ height: "20px", width: "20px" }} icon={faCircleCheckRegular} />
             )}
-            <span style={{ fontSize: "10px" }}>Compare</span>
+            <span style={{ fontSize: "10px" }}>Confronta</span>
           </div>
         )}
 
