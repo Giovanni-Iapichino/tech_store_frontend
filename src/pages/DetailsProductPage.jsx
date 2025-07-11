@@ -224,7 +224,7 @@ export default function DetailsProductPage() {
                   </div>
                   <div className="bottom-text">
                     <p>
-                      <strong>Category:</strong>
+                      <strong>Categoria:</strong>
                       <br />
                       Smartphone, {product.brand}
                     </p>
